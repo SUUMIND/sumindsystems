@@ -75,6 +75,19 @@
     transition: color .25s ease;
   }
   .back-link:hover{ color: var(--gold-soft); }
+  .back-link .home-icon{ display:none; width: 20px; height:20px; flex-shrink:0; }
+  .back-link .back-text{ display:inline; }
+
+  @media (max-width: 600px){
+    .back-link{
+      width: 38px; height: 38px;
+      justify-content:center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+    .back-link .home-icon{ display:block; }
+    .back-link .back-text{ display:none; }
+  }
 
   /* ---------- Article hero ---------- */
   .article-hero{
@@ -288,7 +301,10 @@
         <span class="sm"><span class="bold-part">SU.MIND</span>SYSTEMS</span>
       </span>
     </a>
-    <a href="index.html" class="back-link">← Zurück zur Startseite</a>
+    <a href="index.html" class="back-link">
+      <svg class="home-icon" viewBox="0 0 24 24" fill="none" stroke="#e3cd97" stroke-width="1.6"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>
+      <span class="back-text">← Zurück zur Startseite</span>
+    </a>
   </nav>
 </header>
 
