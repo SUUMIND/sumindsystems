@@ -133,21 +133,48 @@
     border-left: 3px solid var(--gold);
   }
   .approach-card{
-    margin: 30px 0;
-    padding: 28px 30px;
+    margin: 14px 0;
     border-radius: 4px;
     background: #fdfbf6;
     border: 1px solid rgba(28,25,20,0.1);
     border-left: 3px solid rgba(28,25,20,0.18);
+    overflow: hidden;
+    transition: border-left-color .25s ease;
   }
+  .approach-card.open{ border-left-color: var(--gold); }
   .approach-card h2{
-    margin: 0 0 12px;
+    margin: 0;
+    padding: 22px 30px;
     font-family: 'Jost', sans-serif;
     font-weight: 500;
     font-size: 0.82rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #6f6852;
+    cursor: pointer;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: color .25s ease;
+  }
+  .approach-card.open h2{ color: var(--ink); }
+  .approach-card h2 .toggle-icon{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    flex-shrink:0;
+    transition: transform .3s ease;
+  }
+  .approach-card.open h2 .toggle-icon{ transform: rotate(45deg); }
+  .approach-card .card-body{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease, padding .4s ease;
+  }
+  .approach-card.open .card-body{
+    max-height: 400px;
+    padding: 0 30px 26px;
   }
   .approach-card p{ margin-bottom: 0; color: #443c28; }
   .step-list{ margin: 30px 0; }
@@ -278,51 +305,59 @@
   <p>Damit Du verstehst, weshalb diese Programme <em>nicht funktionieren konnten</em>, findest Du hier einen kleinen Überblick der häufigsten Ansätze. <strong>Für ein Stück mehr Selbstvergebung - mit dem Wissen, dass es nicht an Dir lag.</strong></p>
 
   <div class="approach-card">
-  <h2>Positives Denken &amp; Affirmationen</h2>
-
+  <h2>Positives Denken &amp; Affirmationen <span class="toggle-icon">+</span></h2>
+  <div class="card-body">
   <p>„Ich bin genug", zehnmal täglich vor dem Spiegel wiederholt – während ein Teil in Dir innerlich laut widerspricht. Affirmationen, die gegen ein noch ungesehenes Schmerzgefühl gesprochen werden, wirken nicht integrierend, sondern wie ein weiterer Beweis dafür, dass Du Dich verstellen musst, um akzeptabel zu sein. Der verletzte Teil hört die Affirmation nicht als Trost, sondern als: „Du darfst so, wie Du gerade bist, nicht da sein."</p>
   </div>
+  </div>
 
   <div class="approach-card">
-  <h2>Vergebung</h2>
-
+  <h2>Vergebung <span class="toggle-icon">+</span></h2>
+  <div class="card-body">
   <p>Einer der meistgehörten Ratschläge überhaupt: „Vergib, dann bist Du frei." Als Werkzeug oft eingesetzt, um Eltern zu vergeben oder Menschen, die uns Leid angetan haben. Aber wie soll Vergebung funktionieren, wenn Du selbst noch mitten im Schmerz steckst? Die Wahrscheinlichkeit ist hier sehr hoch, dass Du Dir dabei nur noch mehr Schuldgefühle und Scham machst – weil es nicht klappt, weil Du „doch noch nicht so weit bist". Und genau das spaltet den verletzten Teil in Dir, der bis heute nicht wirklich gesehen wurde, noch weiter ab von dem Teil, der schon vergeben haben soll. Statt Integration entsteht mehr innere Distanz.</p>
   </div>
+  </div>
 
   <div class="approach-card">
-  <h2>Manifestation</h2>
-
+  <h2>Manifestation <span class="toggle-icon">+</span></h2>
+  <div class="card-body">
   <p>Der Fokus liegt komplett auf dem Ergebnis – dem Leben, das Du Dir wünschst –, während die eigentliche Frage unbeantwortet bleibt: welcher innere Mechanismus Dich bisher genau davon abgehalten hat. Ohne diese Antwort bleibt Manifestation reiner Zufall: ob es klappt oder nicht, hängt dann scheinbar davon ab, wie fest Du daran glaubst – aber in Dir kann ein Teil sehr fest daran glauben, während ein anderer sich dabei hintergangen fühlt. Und dieser Teil wird von noch mehr Glauben nicht mitgenommen, sondern nur noch lauter übertönt. Wenn es dann nicht klappt, wird daraus schnell ein weiterer Beweis für die alte Geschichte: „Ich bekomme es einfach nicht hin."</p>
   </div>
+  </div>
 
   <div class="approach-card">
-  <h2>Grenzen setzen lernen</h2>
-
+  <h2>Grenzen setzen lernen <span class="toggle-icon">+</span></h2>
+  <div class="card-body">
   <p>Sätze wie „Nein" oder „Das geht nicht" lassen sich technisch üben – aber wenn der Teil in Dir, der einmal gelernt hat, dass Grenzen gefährlich sind, nicht gesehen und mitgenommen wird, kollabiert die neue Grenze beim ersten echten Konflikt wieder in altes Verhalten. Das fühlt sich dann nicht wie eine Fähigkeit an, die Du gelernt hast, sondern wie ein weiterer Beleg dafür, dass Du es „einfach nicht kannst".</p>
   </div>
+  </div>
 
   <div class="approach-card">
-  <h2>Selbstakzeptanz</h2>
-
+  <h2>Selbstakzeptanz <span class="toggle-icon">+</span></h2>
+  <div class="card-body">
   <p>„Liebe Dich einfach, wie Du bist" klingt nach der Lösung schlechthin, aber sich das nur einzureden, funktioniert im Kern genauso wenig wie eine Affirmation. Ein bekanntes Beispiel dafür ist Body Positivity: sie wird in der Praxis oft zu einem reinen Kompensationsmechanismus. Man redet sich Akzeptanz ein, ohne dass darunter je ein echtes Verständnis dafür aufgebaut wurde, warum die Ablehnung überhaupt da war. Es bleibt oberflächlich, ein Satz, der wiederholt wird, statt ein Prozess, der zeigt, wie echte Akzeptanz tatsächlich entsteht. Der Teil in Dir, der sich ablehnt, hört auch hier keine Antwort, sondern nur eine neue Behauptung, der er nicht traut.</p>
   </div>
+  </div>
 
   <div class="approach-card">
-  <h2>Fokus nur auf das Jetzt</h2>
-
+  <h2>Fokus nur auf das Jetzt <span class="toggle-icon">+</span></h2>
+  <div class="card-body">
   <p>Manche Coaches gehen noch weiter: die Vergangenheit sei nur eine Illusion. Du musst nicht verstehen, warum Du bist, wie Du bist. Du musst nicht zurückgehen. Schau einfach, was Du jetzt tun kannst. Der Ansatz ist bottom-up gedacht: neue Handlungen sollen alte Prägungen irgendwann automatisch überschreiben, einfach durch Wiederholung. Das kann tatsächlich funktionieren, vor allem bei Menschen, die eher handlungsorientiert sind und wenig grübeln. Aber es funktioniert kaum bei Menschen, die sehr bewusst sind, zu Overthinking neigen und wirklich verstehen wollen, warum sie handeln, wie sie handeln. Für sie wird das Ausblenden der Vergangenheit nicht zu Ruhe, sondern zu noch mehr unbeantworteten Fragen im Hintergrund, die die neue Handlung im Zweifel sofort wieder untergraben. Leicht kann dabei auch etwas anderes passieren: dass man vor dem Schmerz flüchtet, statt ihn einfach stehen zu lassen. Dabei ist es eine Art Würdigung, die eigene Vergangenheit anzuerkennen und zu respektieren, egal wie schmerzvoll sie war.</p>
   </div>
-
-  <div class="approach-card">
-  <h2>Willenskraft &amp; Disziplin</h2>
-
-  <p>„Durchziehen, auch wenn es sich schlecht anfühlt" – Willenskraft gilt fast überall als die eigentliche Lösung. Aber Willenskraft funktioniert nur, indem sie Emotion aktiv unterdrückt: das Gefühl, das gerade eigentlich etwas mitteilen will, wird einfach überstimmt. Das Problem dabei: die Teile in Dir, die genau deshalb dagegenarbeiten, verschwinden dadurch nicht. Sie werden nur lauter, ziehen sich zurück oder sabotieren an anderer Stelle – bis Disziplin sich nicht mehr wie Stärke anfühlt, sondern wie ein Kampf gegen Dich selbst, den Du auf Dauer nicht gewinnen kannst.</p>
   </div>
 
   <div class="approach-card">
-  <h2>Kampf gegen das Ego</h2>
+  <h2>Willenskraft &amp; Disziplin <span class="toggle-icon">+</span></h2>
+  <div class="card-body">
+  <p>„Durchziehen, auch wenn es sich schlecht anfühlt" – Willenskraft gilt fast überall als die eigentliche Lösung. Aber Willenskraft funktioniert nur, indem sie Emotion aktiv unterdrückt: das Gefühl, das gerade eigentlich etwas mitteilen will, wird einfach überstimmt. Das Problem dabei: die Teile in Dir, die genau deshalb dagegenarbeiten, verschwinden dadurch nicht. Sie werden nur lauter, ziehen sich zurück oder sabotieren an anderer Stelle – bis Disziplin sich nicht mehr wie Stärke anfühlt, sondern wie ein Kampf gegen Dich selbst, den Du auf Dauer nicht gewinnen kannst.</p>
+  </div>
+  </div>
 
+  <div class="approach-card">
+  <h2>Kampf gegen das Ego <span class="toggle-icon">+</span></h2>
+  <div class="card-body">
   <p>Wo es bei Willenskraft und Disziplin darum ging, Gefühle zu unterdrücken, geht es in spirituell geprägten Kreisen oft genau andersherum: man denkt, man sei schon weiter, und macht sich daran, den Verstand auszuschalten. „Das ist nur Dein Ego." „Du musst mehr fühlen, statt zu denken." „Dein Kopf steht Dir im Weg." Was wie spirituelle Weisheit klingt, ist in Wahrheit dieselbe Spaltung wie bei Willenskraft, nur umgekehrt: statt das Gefühl zu unterdrücken, wird jetzt der Verstand unterdrückt, bekämpft, zum Schweigen gebracht. Aber ein Teil, der ständig als Gegner behandelt wird, wird nicht kooperativer, nur weil man ihm sagt, er solle verschwinden. Er meldet sich zurück, gerade dann, wenn Du ihn am wenigsten erwartest.</p>
+  </div>
   </div>
 
   <p><strong>Was diese Ansätze vereinen:</strong> Sie versuchen, ein neues Verhalten oder eine neue Denkweise über einen Teil in Dir zu legen, der noch gar nicht gefragt wurde, ob er bereit dafür ist. Genau hier liegt der Denkfehler, der sich durch fast jede Retreat-Erfahrung, jedes Buch und jede Technik zieht: Verstand und Gefühl werden als Gegner behandelt, statt als Team. Also arbeitest Du an dem einen und übergehst das andere. Es ist also kein Wunder, dass sich nach dem kurzen High wieder dieselben Muster zeigen.</p>
@@ -401,6 +436,13 @@
         if(s !== step) s.classList.remove('active');
       });
       step.classList.toggle('active');
+    });
+  });
+
+  document.querySelectorAll('.approach-card h2').forEach(function(header){
+    header.addEventListener('click', function(){
+      var card = header.closest('.approach-card');
+      card.classList.toggle('open');
     });
   });
 </script>
