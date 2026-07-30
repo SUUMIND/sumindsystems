@@ -235,17 +235,18 @@
   .hero-cta{
     margin-top: 36px;
     display:inline-block;
-    background: var(--gold);
-    color: var(--black);
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    color: #201a0d;
     font-size: 0.78rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+    font-weight: 600;
     padding: 15px 34px;
     border-radius: 4px;
-    transition: transform .3s ease, background .3s ease;
+    transition: transform .3s ease, filter .3s ease;
     opacity:0; animation: rise .9s ease .36s forwards;
   }
-  .hero-cta:hover{ background: var(--gold-soft); transform: translateY(-2px); }
+  .hero-cta:hover{ filter: brightness(1.15); transform: translateY(-2px); }
 
   @keyframes rise{
     from{ opacity:0; transform: translateY(16px); }
@@ -596,7 +597,7 @@
   <div class="hero-inner">
     <span class="eyebrow">Su.mindsystems</span>
     <h1>Kein höheres Selbst.<br>Sondern ein <em>Ganzes</em>.</h1>
-    <p>Das höhere Selbst ist ein Ideal, dem du ewig hinterherläufst — gemessen an dem, was du nach außen repräsentierst. Das integrierte Selbst ist unsichtbar und gleichzeitig nicht zu übersehen. Es bringt Dich voran, weil es aus Deiner wahren, inneren Stärke kommt, nicht aus einem äußeren Maßstab.</p>
+    <p>Das höhere Selbst ist ein Ideal, dem du ewig hinterherläufst — gemessen an dem, was du nach außen repräsentierst. Das integrierte Selbst ist unsichtbar und dennoch nicht zu übersehen. Es bringt Dich voran, weil es aus Deiner wahren, inneren Stärke kommt, nicht aus einem äußeren Maßstab.</p>
     <a href="#focus" class="hero-cta">Jetzt starten</a>
   </div>
 </section>
