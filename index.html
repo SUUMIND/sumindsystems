@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SU.MINDSYSTEMS — Coaching für dein Selbstbild</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --black: #0b0a08;
@@ -274,35 +274,36 @@
     gap: 26px;
   }
   .focus-card{
-    background: var(--black);
-    color: var(--cream);
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    color: var(--ink);
     padding: 42px 30px 36px;
     text-align:left;
-    border: 1px solid #1e1b16;
-    transition: transform .35s ease, border-color .35s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    transition: transform .35s ease, box-shadow .35s ease;
+    box-shadow: 0 6px 20px rgba(90,68,30,0.18);
   }
   .focus-card:hover{
     transform: translateY(-6px);
-    border-color: var(--gold);
+    box-shadow: 0 12px 28px rgba(90,68,30,0.26);
   }
   .focus-icon{
-    width: 44px; height:44px;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
+    width: 48px; height:48px;
     display:flex; align-items:center; justify-content:center;
     margin-bottom: 22px;
   }
-  .focus-icon svg{ width: 20px; height:20px; stroke: var(--gold); }
+  .focus-icon svg{ width: 30px; height:30px; stroke: #16140f; }
   .focus-card h3{
-    font-size: 1.35rem;
-    color: var(--gold-soft);
+    font-size: 1.4rem;
+    color: #201a0d;
     margin-bottom: 12px;
-    font-weight: 500;
+    font-weight: 700;
   }
   .focus-card p{
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     line-height: 1.7;
-    color: #a79c82;
+    color: #2e2412;
+    font-weight: 400;
   }
 
   /* ---------- Approach section ---------- */
@@ -395,6 +396,75 @@
     margin-bottom: 34px;
   }
 
+  /* ---------- FAQ ---------- */
+  .faq-section{
+    background: var(--cream);
+    padding: 100px 32px 110px;
+    text-align:center;
+  }
+  .faq-section .eyebrow{ display:block; margin-bottom: 16px; }
+  .faq-section h2{
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    color: var(--ink);
+  }
+  .faq-section .faq-sub{
+    max-width: 620px;
+    margin: 18px auto 0;
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: #6f6852;
+    font-weight: 300;
+  }
+  .faq-grid{
+    max-width: 1080px;
+    margin: 54px auto 0;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    text-align:left;
+  }
+  .faq-card{
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(28,25,20,0.05);
+    overflow:hidden;
+  }
+  .faq-card .faq-q{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    padding: 26px 28px;
+    cursor:pointer;
+    font-weight: 500;
+    font-size: 0.98rem;
+    color: var(--ink);
+  }
+  .faq-card .chevron{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    flex-shrink:0;
+    transition: transform .3s ease;
+  }
+  .faq-card.open .chevron{ transform: rotate(90deg); }
+  .faq-card .faq-a{
+    display:grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .35s ease;
+  }
+  .faq-card.open .faq-a{ grid-template-rows: 1fr; }
+  .faq-card .faq-a-inner{ overflow:hidden; min-height:0; }
+  .faq-card.open .faq-a-inner{ padding: 0 28px 26px; }
+  .faq-card .faq-a p{
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: #55503f;
+    font-weight: 300;
+  }
+  @media (max-width: 760px){
+    .faq-grid{ grid-template-columns: 1fr; }
+  }
+
   /* ---------- Footer ---------- */
   footer{
     background: var(--black);
@@ -455,6 +525,13 @@
     letter-spacing: 0.04em;
     color: #6f6852;
   }
+  .footer-legal-links{
+    display:flex;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .footer-legal-links a{ color: #6f6852; transition: color .2s ease; }
+  .footer-legal-links a:hover{ color: var(--gold-soft); }
 
   /* ---------- Responsive ---------- */
   @media (max-width: 900px){
@@ -531,24 +608,24 @@
   <div class="focus-grid">
     <div class="focus-card">
       <div class="focus-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><polygon points="15,9 11,11 9,15 13,13"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15,9 11,11 9,15 13,13" fill="#0b0a08" stroke="#0b0a08"/><circle cx="12" cy="12" r="1" fill="#0b0a08" stroke="none"/></svg>
       </div>
       <h3>Selbstbild</h3>
-      <p>Der innere Mechanismus, der deinen Preis, deine Ansprüche und deine Grenzen bestimmt — reflektiert, neu strukturiert und zu einem Kompass gebaut, dem du vertrauen kannst.</p>
+      <p>Dein Selbstbild ist nicht eindimensional. Es hängt davon ab, mit wem Du Dich vergleichst und in welchem Kontext Du Dich gerade befindest — zusammengesetzt aus vielen Anteilen, reflektiert und neu strukturiert, statt einfach hingenommen.</p>
     </div>
     <div class="focus-card">
       <div class="focus-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="8" cy="12" r="3.6"/><circle cx="16" cy="12" r="3.6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5c-4-2.4-8-5.6-8-9.8a4.3 4.3 0 0 1 8-2.1 4.3 4.3 0 0 1 8 2.1c0 4.2-4 7.4-8 9.8Z"/></svg>
       </div>
       <h3>Beziehungen</h3>
-      <p>Dort, wo dein Selbstbild für andere sichtbar wird — wie du begegnet wirst, wie du dich halten lässt, und wie Verbindung auf Augenhöhe entsteht.</p>
+      <p>Egal ob die Beziehung zu Dir selbst, zu Deinem Partner, zu Freunden, zur Chefin oder vom Führungspersonal zu den Mitarbeitern: In allem stecken dieselben Muster, nur mit unterschiedlichen Hürden je nach Kontext.</p>
     </div>
     <div class="focus-card">
       <div class="focus-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 3v3M12 18v3M4 12h3M17 12h3M6.5 6.5l2 2M15.5 15.5l2 2M6.5 17.5l2-2M15.5 8.5l2-2"/><circle cx="12" cy="12" r="4"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v7"/><path d="M12 10c-3 0-5 2-5 5v6M12 10c3 0 5 2 5 5v6"/><path d="M12 3c-1.5 1-2.5 2.6-2.5 4.5S10.5 11 12 12c1.5-1 2.5-2.6 2.5-4.5S13.5 4 12 3Z" fill="#0b0a08" stroke="#0b0a08"/></svg>
       </div>
       <h3>Identität</h3>
-      <p>Keine feste Rolle, die verteidigt werden muss, sondern ein lebendiges System — die Anteile, Muster und Intelligenz, aus denen du gerade wirst, wer du bist.</p>
+      <p>Identität lässt sich formen — aber nicht mit Gewalt, sondern im Alignment mit dem eigenen inneren Kern. Erst wenn Schattenarbeit geleistet wurde, kann sie im vollen Licht strahlen, statt nur die Anteile zu zeigen, die erwünscht oder angepasst sind.</p>
     </div>
   </div>
 </section>
@@ -592,6 +669,56 @@
   </div>
 </section>
 
+<section class="faq-section">
+  <span class="eyebrow">Fragen &amp; Antworten</span>
+  <h2>Häufig gestellte Fragen</h2>
+  <p class="faq-sub">Antworten auf Fragen, die sich viele stellen, bevor sie den ersten Schritt gehen.</p>
+
+  <div class="faq-grid">
+    <div class="faq-card">
+      <div class="faq-q"><span class="chevron">›</span> Wie unterscheidet sich SU.MINDSYSTEMS von klassischem Coaching?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Klassisches Coaching arbeitet oft rein verhaltensorientiert: neue Gewohnheiten, neue Strategien, neue Ziele. SU.MINDSYSTEMS setzt eine Ebene tiefer an, an der Wurzel des Selbstbildes, das den Wert, Beziehungen, Körper und Sichtbarkeit gleichermaßen steuert. Verstand und Gefühl arbeiten dabei als Team, nicht als Gegner.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q"><span class="chevron">›</span> Muss ich schon Erfahrung mit Persönlichkeitsentwicklung haben?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Nein. Manche Klientinnen kommen mit jahrelanger Coaching- und Therapieerfahrung, andere zum ersten Mal überhaupt in Kontakt mit dieser Art von Arbeit. Beides hat seine Vorteile.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q"><span class="chevron">›</span> Wie lange dauert ein Coaching-Paket?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Integration ist kein einmaliger Aha-Moment, sondern ein Prozess. Die Pakete begleiten Dich deshalb über mehrere Monate hinweg, nicht über eine einzelne Session. Welches Paket am stimmigsten für Dich ist, klären wir im Erstgespräch gemeinsam.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q"><span class="chevron">›</span> Ersetzt das Coaching eine Psychotherapie?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Nein. Coaching ist keine Psychotherapie und ersetzt keine ärztliche oder psychotherapeutische Behandlung. Bei akuten psychischen Erkrankungen wende Dich bitte an eine entsprechende Fachperson.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q"><span class="chevron">›</span> Finden die Sessions online oder vor Ort statt?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Die Sessions finden online statt, sodass Du ortsunabhängig teilnehmen kannst. Details zu Ablauf und Technik besprechen wir vorab.</p>
+      </div></div>
+    </div>
+
+    <div class="faq-card">
+      <div class="faq-q"><span class="chevron">›</span> Wie kann ich starten?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <p>Über den Button „Zur Auswahl" findest Du die verfügbaren Coaching-Pakete. Nach Deiner Auswahl melde ich mich für ein kurzes Erstgespräch, um zu klären, ob und wie wir zusammenarbeiten.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
 <footer id="footer">
   <div class="footer-inner">
     <div>
@@ -626,14 +753,27 @@
       <h4>Kontakt</h4>
       <a href="#footer">Kontakt aufnehmen</a>
       <a href="#footer">Zur Auswahl</a>
+      <a href="faq.html">Häufig gestellte Fragen</a>
     </div>
   </div>
 
   <div class="footer-bottom">
     <span>© 2026 su.mindsystems</span>
-    <span>Verstand &amp; Gefühl vereint</span>
+    <div class="footer-legal-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+      <a href="cookies.html">Cookies</a>
+    </div>
   </div>
 </footer>
+
+<script>
+  document.querySelectorAll('.faq-card .faq-q').forEach(function(q){
+    q.addEventListener('click', function(){
+      q.closest('.faq-card').classList.toggle('open');
+    });
+  });
+</script>
 
 </body>
 </html>
