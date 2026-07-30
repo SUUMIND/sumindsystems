@@ -3,676 +3,580 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SU.MINDSYSTEMS</title>
+<title>SU.MINDSYSTEMS — Coaching für dein Selbstbild</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Cormorant:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #f3ead9;
-    --bg-panel: #ece0c8;
-    --gold: #8a6a34;
-    --gold-soft: #a8895099;
-    --gold-dim: #b39760;
-    --ink: #2b2419;
-    --muted: #7a6c56;
-    --line: #ddccaa;
+    --black: #0b0a08;
+    --black-2: #131110;
+    --gold: #c6a45c;
+    --gold-soft: #e3cd97;
+    --cream: #f3ede1;
+    --cream-2: #eae1cd;
+    --ink: #1c1914;
+    --line: rgba(198,164,92,0.25);
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
   body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    font-weight:300;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
-  .serif{ font-family:'Cormorant Garamond', serif; }
-
-  ::selection{ background:var(--gold); color:#f3ead9; }
-
-  a{ color:inherit; text-decoration:none; }
-
-  /* subtle grain / vignette */
-  body::before{
-    content:"";
-    position:fixed; inset:0;
-    pointer-events:none;
-    background: radial-gradient(ellipse at 50% 0%, rgba(138,106,52,0.06), transparent 55%);
-    z-index:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .wrap{ max-width:1080px; margin:0 auto; padding:0 32px; position:relative; z-index:1; }
-
-  /* NAV */
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:28px 48px;
-    mix-blend-mode:normal;
-    background:linear-gradient(to bottom, rgba(243,234,217,0.92), transparent);
+  h1,h2,h3,.display{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
   }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .eyebrow{
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  img{ max-width:100%; display:block; }
+
+  /* ---------- Logo mark ---------- */
   .logo{
-    font-family:'Cormorant Garamond', serif;
-    font-size:19px;
-    letter-spacing:0.32em;
-    color:var(--ink);
-    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap: 12px;
   }
-  .logo span{ color:var(--gold); }
-  nav .links{ display:flex; gap:40px; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
-  nav .links a{ transition:color .35s ease; }
-  nav .links a:hover{ color:var(--gold); }
-  @media (max-width:720px){ nav .links{ display:none; } nav{ padding:22px 24px; } }
+  .logo-mark{
+    width: 38px;
+    height: 38px;
+    flex-shrink:0;
+  }
+  .logo-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+  }
+  .logo-text .sm{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    letter-spacing:0.03em;
+    color: var(--gold-soft);
+    font-weight: 500;
+  }
+  .logo-text .sm .bold-part{
+    font-weight: 700;
+  }
+  .logo.dark .sm{ color: var(--ink); }
+  .logo.dark .sm .bold-part{ color: var(--ink); }
 
-  /* HERO */
-  .hero{
-    min-height:100svh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center;
+  /* ---------- Nav ---------- */
+  header{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    background: rgba(11,10,8,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav{
+    max-width: 1240px;
+    margin: 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 18px 32px;
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap: 40px;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #cfc4a6;
+  }
+  .nav-links a{
     position:relative;
-    padding:120px 24px 80px;
+    padding-bottom: 4px;
+    transition: color .25s ease;
   }
-  .hero .eyebrow{
-    font-size:12px; letter-spacing:0.34em; text-transform:uppercase;
-    color:var(--gold-dim);
-    margin-bottom:34px;
-    opacity:0; animation: fadeUp 1.1s ease forwards;
-    animation-delay:.2s;
+  .nav-links a:hover{ color: var(--gold-soft); }
+  .nav-links a.active{ color: var(--gold-soft); }
+  .nav-links a.active::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-2px;
+    height:1px;
+    background: var(--gold);
   }
+  .btn-book{
+    border: 1px solid var(--gold);
+    color: var(--gold-soft);
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 11px 22px;
+    transition: all .25s ease;
+    white-space: nowrap;
+  }
+  .btn-book:hover{
+    background: var(--gold);
+    color: var(--black);
+  }
+  .nav-toggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position: relative;
+    background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%);
+    color: var(--cream);
+    text-align:center;
+    padding: 130px 32px 0;
+    overflow: hidden;
+  }
+  .hero .stars{
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 25%, rgba(230,215,170,0.55), transparent),
+      radial-gradient(1px 1px at 75% 15%, rgba(230,215,170,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 60% 35%, rgba(230,215,170,0.5), transparent),
+      radial-gradient(1px 1px at 88% 45%, rgba(230,215,170,0.35), transparent),
+      radial-gradient(1px 1px at 12% 55%, rgba(230,215,170,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 40% 10%, rgba(230,215,170,0.45), transparent);
+    opacity: .8;
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; max-width: 760px; margin: 0 auto; }
+  .hero .eyebrow{ display:block; margin-bottom: 22px; opacity:0; animation: rise .8s ease forwards; }
   .hero h1{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:300;
-    font-size:clamp(38px, 6.4vw, 84px);
-    line-height:1.08;
-    letter-spacing:-0.01em;
-    max-width:920px;
-    opacity:0; animation: fadeUp 1.2s ease forwards;
-    animation-delay:.4s;
+    font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+    line-height: 1.15;
+    color: var(--cream);
+    opacity:0; animation: rise .9s ease .12s forwards;
   }
   .hero h1 em{
-    font-style:italic;
-    color:var(--gold);
+    font-style: italic;
+    color: var(--gold-soft);
   }
   .hero p{
-    margin-top:30px;
-    max-width:520px;
-    font-size:16px;
-    line-height:1.75;
-    color:var(--muted);
-    font-weight:300;
-    opacity:0; animation: fadeUp 1.2s ease forwards;
-    animation-delay:.65s;
+    max-width: 540px;
+    margin: 26px auto 0;
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: #b9ae94;
+    font-weight: 300;
+    opacity:0; animation: rise .9s ease .24s forwards;
+  }
+  .hero-cta{
+    margin-top: 36px;
+    display:inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 15px 34px;
+    transition: transform .3s ease, background .3s ease;
+    opacity:0; animation: rise .9s ease .36s forwards;
+  }
+  .hero-cta:hover{ background: var(--gold-soft); transform: translateY(-2px); }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(16px); }
+    to{ opacity:1; transform: translateY(0); }
   }
 
-  @keyframes fadeUp{
-    from{ opacity:0; transform:translateY(18px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
-
-  /* infinity signature mark */
-  .mark{
-    width:120px; height:60px;
-    margin-top:56px;
-    opacity:0; animation: fadeUp 1.4s ease forwards;
-    animation-delay:.9s;
-  }
-  .mark svg{ width:100%; height:100%; overflow:visible; }
-  .mark path{
-    fill:none;
-    stroke:var(--gold);
-    stroke-width:1;
-    stroke-dasharray: 400;
-    stroke-dashoffset: 400;
-    animation: draw 2.6s ease forwards 1.3s;
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
-
-  .scroll-hint{
-    position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
-    font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted);
-    display:flex; flex-direction:column; align-items:center; gap:10px;
-    opacity:0; animation:fadeUp 1s ease forwards; animation-delay:1.8s;
-  }
-  .scroll-hint .stem{ width:1px; height:34px; background:linear-gradient(var(--gold-dim), transparent); }
-
-  /* SECTION shared */
-  section{ padding:150px 0; position:relative; }
-  .section-label{
-    font-size:12px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold-dim);
-    margin-bottom:22px; display:block;
-  }
-  .section-title{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:300;
-    font-size:clamp(28px, 3.6vw, 46px);
-    line-height:1.2;
-    max-width:640px;
-    margin-bottom:8px;
-  }
-  .section-title em{ font-style:italic; color:var(--gold); }
-
-  .reveal{ opacity:0; transform:translateY(28px); transition:opacity 1s ease, transform 1s ease; }
-  .reveal.in{ opacity:1; transform:translateY(0); }
-
-  /* MECHANISM SECTION */
-  .mechanism{ border-top:1px solid var(--line); }
-  .mech-grid{
-    margin-top:64px;
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-  }
-  @media (max-width:800px){ .mech-grid{ grid-template-columns:1fr; } }
-  .mech-item{
-    background:var(--bg);
-    padding:44px 38px;
-    transition:background .5s ease;
-  }
-  .mech-item:hover{ background:var(--bg-panel); }
-  .mech-item .num{
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:15px;
-    color:var(--gold-dim);
-    margin-bottom:22px;
+  .peaks{
+    margin-top: 74px;
+    width: 100%;
+    height: 150px;
     display:block;
   }
-  .mech-item h3{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:400;
-    font-size:23px;
-    margin-bottom:14px;
-    color:var(--ink);
-  }
-  .mech-item p{ font-size:14px; line-height:1.75; color:var(--muted); font-weight:300; }
 
-  /* QUOTE / THESIS BAND */
-  .thesis{
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
+  /* ---------- Focus section ---------- */
+  .focus{
+    background: var(--cream);
+    padding: 84px 32px 96px;
     text-align:center;
-    padding:130px 24px;
   }
-  .thesis blockquote{
+  .focus h2{
+    font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-family:'Jost', sans-serif;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .focus h2 .amp{ color: var(--gold); font-family:'Cormorant Garamond', serif; font-style: italic; }
+
+  .focus-grid{
+    max-width: 1080px;
+    margin: 54px auto 0;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+  }
+  .focus-card{
+    background: var(--black);
+    color: var(--cream);
+    padding: 42px 30px 36px;
+    text-align:left;
+    border: 1px solid #1e1b16;
+    transition: transform .35s ease, border-color .35s ease;
+  }
+  .focus-card:hover{
+    transform: translateY(-6px);
+    border-color: var(--gold);
+  }
+  .focus-icon{
+    width: 44px; height:44px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 22px;
+  }
+  .focus-icon svg{ width: 20px; height:20px; stroke: var(--gold); }
+  .focus-card h3{
+    font-size: 1.35rem;
+    color: var(--gold-soft);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .focus-card p{
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #a79c82;
+  }
+
+  /* ---------- Approach section ---------- */
+  .approach{
+    background: #fff;
+    padding: 110px 32px;
+  }
+  .approach-inner{
+    max-width: 1140px;
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 90px;
+    align-items:center;
+  }
+  .approach .eyebrow{ margin-bottom: 14px; display:block; color:#a8863f; }
+  .approach h2{
+    font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+    margin-bottom: 26px;
+    color: var(--ink);
+  }
+  .approach p{
+    font-size: 0.96rem;
+    line-height: 1.85;
+    color: #55503f;
+    margin-bottom: 18px;
+    font-weight: 300;
+  }
+  .approach-quote{
+    margin-top: 26px;
+    padding-left: 18px;
+    border-left: 2px solid var(--gold);
     font-family:'Cormorant Garamond', serif;
-    font-weight:300;
-    font-style:italic;
-    font-size:clamp(24px, 3.4vw, 40px);
-    line-height:1.5;
-    max-width:780px;
-    margin:0 auto;
-    color:var(--ink);
-  }
-  .thesis blockquote span{ color:var(--gold); font-style:normal; }
-  .thesis cite{ display:block; margin-top:30px; font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--muted); font-style:normal; }
-
-  /* APPROACH */
-  .approach-wrap{ display:grid; grid-template-columns: 1fr 1fr; gap:80px; align-items:start; margin-top:64px; }
-  @media (max-width:800px){ .approach-wrap{ grid-template-columns:1fr; gap:48px; } }
-  .approach-col p{ font-size:15px; line-height:1.9; color:var(--muted); font-weight:300; margin-bottom:18px; }
-  .approach-col h4{
-    font-family:'Cormorant Garamond', serif; font-weight:400; font-style:italic;
-    font-size:20px; color:var(--gold); margin-bottom:16px;
-  }
-  .compass-center{ max-width:520px; margin:64px auto 0; padding:0 16px; }
-  .compass-center svg{ width:100%; height:auto; display:block; overflow:visible; }
-  .compass-arrow path{
-    stroke-dasharray:200;
-    stroke-dashoffset:200;
-    animation: drawArrow 1.4s ease forwards;
-    animation-delay: var(--d);
-  }
-  .reveal.in .compass-arrow path{ animation-play-state:running; }
-  @keyframes drawArrow{ to{ stroke-dashoffset:0; } }
-
-  .pole{ cursor:pointer; }
-  .pole text{ transition: fill .3s ease; }
-  .pole:hover text, .pole:focus text{ fill:#ece7dd; }
-  .pole:focus{ outline:none; }
-  .pole.active text{ fill:#ece7dd; font-weight:600; }
-
-  .compass-detail{
-    max-width:560px; margin:36px auto 80px;
-    padding:32px 36px;
-    border:1px solid var(--line);
-    background:var(--bg-panel);
-    min-height:64px;
-    transition: min-height .3s ease;
-  }
-  .compass-detail .detail-hint{
-    font-size:14px; color:var(--muted); font-style:italic; text-align:center; margin:0;
-  }
-  .compass-detail.active .detail-hint{ display:none; }
-  .compass-detail .detail-title{
-    display:none;
-    font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:500;
-    color:var(--gold); font-size:22px; margin-bottom:12px;
-  }
-  .compass-detail.active .detail-title{ display:block; }
-  .compass-detail .detail-desc{
-    font-size:14px; line-height:1.75; color:var(--ink); font-weight:300; margin-bottom:16px;
-  }
-  .compass-detail .detail-examples{
-    list-style:none; padding:0; margin:0;
-  }
-  .compass-detail .detail-examples li{
-    font-size:13px; color:var(--muted); line-height:1.7;
-    padding-left:18px; position:relative; margin-bottom:8px;
-  }
-  .compass-detail .detail-examples li::before{
-    content:"—"; position:absolute; left:0; color:var(--gold-dim);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--ink);
   }
 
-  /* CTA */
-  .cta{ text-align:center; padding:160px 24px 180px; }
-  .cta .section-title{ margin:0 auto 28px; }
-  .cta p{ color:var(--muted); font-size:15px; max-width:440px; margin:0 auto 46px; line-height:1.8; }
-  .btn{
-    display:inline-block;
-    padding:18px 46px;
-    border:1px solid var(--gold-dim);
-    color:var(--gold);
-    font-size:12px;
-    letter-spacing:0.24em;
-    text-transform:uppercase;
+  .approach-media{
+    position: relative;
+    height: 460px;
+  }
+  .approach-media .img-back{
+    position:absolute;
+    left:0; top:30px;
+    width: 78%; height: 78%;
+    background: linear-gradient(160deg, #4a5a52, #232e29 70%);
+    overflow:hidden;
+  }
+  .approach-media .img-back svg{ width:100%; height:100%; }
+  .approach-media .img-front{
+    position:absolute;
+    right:0; bottom:0;
+    width: 64%; height: 68%;
+    background: var(--gold);
+    padding: 10px;
+  }
+  .approach-media .img-front .portrait{
+    width:100%; height:100%;
+    background: linear-gradient(150deg, #ded4bb, #b9a880);
+    display:flex; align-items:flex-end; justify-content:center;
+    overflow:hidden;
+  }
+  .approach-media .img-front svg{ width: 78%; }
+
+  /* ---------- CTA banner ---------- */
+  .cta-band{
+    background: var(--black);
+    color: var(--cream);
+    text-align:center;
+    padding: 90px 32px;
     position:relative;
     overflow:hidden;
-    transition: color .5s ease, border-color .5s ease;
   }
-  .btn::before{
+  .cta-band::before{
     content:"";
     position:absolute; inset:0;
-    background:var(--gold);
-    transform:scaleX(0);
-    transform-origin:left;
-    transition:transform .5s cubic-bezier(.7,0,.2,1);
-    z-index:-1;
+    background: radial-gradient(circle at 50% 120%, rgba(198,164,92,0.18), transparent 60%);
   }
-  .btn:hover{ color:#f3ead9; border-color:var(--gold); }
-  .btn:hover::before{ transform:scaleX(1); }
+  .cta-band-inner{ position:relative; max-width:640px; margin:0 auto; }
+  .cta-band h2{
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    color: var(--cream);
+    margin-bottom: 18px;
+  }
+  .cta-band p{
+    color: #a79c82;
+    font-size: 0.94rem;
+    line-height: 1.7;
+    margin-bottom: 34px;
+  }
 
+  /* ---------- Footer ---------- */
   footer{
-    border-top:1px solid var(--line);
-    padding:44px 24px;
-    display:flex; align-items:center; justify-content:space-between;
-    font-size:11px; letter-spacing:0.12em; color:var(--muted);
+    background: var(--black);
+    color: #8c8268;
+    padding: 60px 32px 30px;
+    border-top: 1px solid var(--line);
   }
-  footer .logo{ font-size:14px; }
-  @media (max-width:600px){ footer{ flex-direction:column; gap:14px; text-align:center; } }
+  .footer-inner{
+    max-width: 1140px;
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+  .footer-inner p{
+    font-size: 0.85rem;
+    line-height:1.7;
+    margin-top: 16px;
+    max-width: 280px;
+  }
+  .footer-col h4{
+    font-family:'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .footer-col a{
+    display:block;
+    font-size: 0.86rem;
+    color: #b9ae94;
+    margin-bottom: 12px;
+    transition: color .2s ease;
+  }
+  .footer-col a:hover{ color: var(--gold-soft); }
+  .socials{ display:flex; gap: 14px; margin-top: 4px; }
+  .socials a{
+    width: 34px; height:34px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .socials a:hover{ border-color: var(--gold); }
+  .socials svg{ width: 15px; height:15px; stroke: var(--gold-soft); }
+
+  .footer-bottom{
+    max-width: 1140px;
+    margin: 0 auto;
+    border-top: 1px solid var(--line);
+    padding-top: 26px;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    color: #6f6852;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .approach-inner{ grid-template-columns: 1fr; gap: 50px; }
+    .approach-media{ height: 380px; order: -1; }
+    .focus-grid{ grid-template-columns: 1fr; }
+    .footer-inner{ grid-template-columns: 1fr; gap: 34px; }
+  }
+  @media (max-width: 760px){
+    .nav-links{ display:none; }
+    nav{ padding: 16px 20px; }
+    .hero{ padding-top: 100px; }
+    .focus, .approach, .cta-band{ padding-left: 20px; padding-right: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">SU<span>.</span>MINDSYSTEMS</div>
-  <div class="links">
-    <a href="#mechanismus">Mechanismus</a>
-    <a href="#ansatz">Ansatz</a>
-    <a href="#start">Beginnen</a>
-  </div>
-</nav>
+<header>
+  <nav>
+    <a href="#" class="logo" aria-label="SU.MINDSYSTEMS Startseite">
+      <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
+        <path d="M30 30 Q10 30 10 42 Q10 52 30 54 Q50 56 50 66 Q50 78 28 78 Q10 78 8 64" stroke="#c6a45c" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M58 78 L58 26 L74 54 L90 26 L90 78" stroke="#c6a45c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-text">
+        <span class="sm"><span class="bold-part">SU.MIND</span>SYSTEMS</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#" class="active">Home</a>
+      <a href="#approach">Über mich</a>
+      <a href="#focus">Programme</a>
+      <a href="#">Journal</a>
+      <a href="#footer">Kontakt</a>
+    </div>
+    <a href="#footer" class="btn-book">Jetzt starten</a>
+  </nav>
+</header>
 
 <section class="hero">
-  <div class="eyebrow">Selbstbild als Mechanismus</div>
-  <h1 class="serif"><em>Klarer</em> sehen, was steuert.</h1>
-  <p>Dein Selbstbild entscheidet mehr über deinen Erfolg als Talent, Leistung und Image.</p>
-  <div class="mark">
-    <svg viewBox="0 0 200 100">
-      <path d="M 100 50 C 100 20, 60 20, 40 50 C 20 80, 5 65, 5 50 C 5 35, 20 20, 40 50 C 60 80, 100 80, 100 50 C 100 20, 140 20, 160 50 C 180 80, 195 65, 195 50 C 195 35, 180 20, 160 50 C 140 80, 100 80, 100 50 Z"/>
-    </svg>
+  <div class="stars"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">Su.mindsystems</span>
+    <h1>Das integrierte Selbst ist<br>besser als das <em>höhere</em> Selbst.</h1>
+    <p>Echte Veränderung entsteht, wenn Verstand und Gefühl zusammenarbeiten — nicht gegeneinander. Dein Verstand ist nicht der Feind, sondern dein wichtigster Verbündeter im selben Team.</p>
+    <a href="#focus" class="hero-cta">Jetzt starten</a>
   </div>
-  <div class="scroll-hint"><span>Weiter</span><span class="stem"></span></div>
+
+  <svg class="peaks" viewBox="0 0 1440 200" preserveAspectRatio="none">
+    <polygon points="0,200 0,140 140,60 260,120 340,40 420,110 520,20 620,100 720,50 820,115 920,45 1020,105 1120,55 1220,120 1320,70 1440,130 1440,200" fill="#171410"/>
+    <polygon points="0,200 0,165 180,105 300,150 420,90 560,145 680,100 800,155 940,95 1080,150 1200,110 1320,155 1440,120 1440,200" fill="#0e0c09"/>
+  </svg>
 </section>
 
-<section class="mechanism" id="mechanismus">
-  <div class="wrap">
-    <span class="section-label reveal">Das Prinzip</span>
-    <h2 class="section-title serif reveal">Ein System, <em>kein</em> Zufall.</h2>
-    <div class="mech-grid reveal">
-      <div class="mech-item">
-        <span class="num">I.</span>
-        <h3 class="serif">Identität</h3>
-        <p>Nicht fest, sondern formbar. Die positive Psychologie zeigt es unter dem Begriff „Best Possible Self": Veränderung ist nicht nur möglich, sondern nachweisbar — wenn sie in eine gesunde Richtung geht, nicht in Richtung Ego-Ziele. Wahre Fülle entsteht durch Stimmigkeit, nicht durch Selbstoptimierung.</p>
+<section class="focus" id="focus">
+  <h2>Kernthemen <span class="amp">·</span> Identität. Beziehungen. Selbstbild.</h2>
+
+  <div class="focus-grid">
+    <div class="focus-card">
+      <div class="focus-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><polygon points="15,9 11,11 9,15 13,13"/></svg>
       </div>
-      <div class="mech-item">
-        <span class="num">II.</span>
-        <h3 class="serif">Beziehung</h3>
-        <p>Wie viel Nähe, wie viel Wahrheit du zulässt, ist der Spiegel deiner Identität — sichtbar gemacht im Kontakt mit einem anderen Menschen. Meistens können wir anderen nicht wirklich begegnen, weil wir uns selbst nur bis zu einem gewissen Grad sehen wollen. Manchmal ist es die Angst, den eigentlichen Wunschpartner zu wählen — aus Sorge, dann zu bemerken, wie fehlerhaft wir selbst sind.</p>
+      <h3>Selbstbild</h3>
+      <p>Der innere Mechanismus, der deinen Preis, deine Ansprüche und deine Grenzen bestimmt — reflektiert, neu strukturiert und zu einem Kompass gebaut, dem du vertrauen kannst.</p>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="8" cy="12" r="3.6"/><circle cx="16" cy="12" r="3.6"/></svg>
       </div>
-      <div class="mech-item">
-        <span class="num">III.</span>
-        <h3 class="serif">Pattern</h3>
-        <p>Was sich wiederholt, ist kein Zufall. Es bringt wenig, einzelne Situationen zu lösen und einzelne Handlungen zu optimieren — die Haltung und das Muster dahinter sind das, was bleibt und steuert, egal wie die Situation gerade aussieht.</p>
+      <h3>Beziehungen</h3>
+      <p>Dort, wo dein Selbstbild für andere sichtbar wird — wie du begegnet wirst, wie du dich halten lässt, und wie Verbindung auf Augenhöhe entsteht.</p>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 3v3M12 18v3M4 12h3M17 12h3M6.5 6.5l2 2M15.5 15.5l2 2M6.5 17.5l2-2M15.5 8.5l2-2"/><circle cx="12" cy="12" r="4"/></svg>
       </div>
+      <h3>Identität</h3>
+      <p>Keine feste Rolle, die verteidigt werden muss, sondern ein lebendiges System — die Anteile, Muster und Intelligenz, aus denen du gerade wirst, wer du bist.</p>
     </div>
   </div>
 </section>
 
-<section class="thesis">
-  <div class="wrap">
-    <blockquote class="reveal">Verstand ist nicht der Feind. <span>Er wurde nur falsch programmiert.</span> Intelligenz und Gefühl gehören ins selbe Team.</blockquote>
-    <cite class="reveal">— Susi, SU.MINDSYSTEMS</cite>
-  </div>
-</section>
-
-<section id="integriert">
-  <div class="wrap">
-    <span class="section-label reveal">Die Unterscheidung</span>
-    <h2 class="section-title serif reveal">Nicht Higher Self. <em>Integriertes</em> Selbst.</h2>
-    <div class="approach-wrap reveal">
-      <div class="approach-col">
-        <h4>Higher Self</h4>
-        <p>Die Vorstellung von einer „besseren", „erleuchteteren", „reineren" Version von sich selbst. Nur die guten Gefühle sind erwünscht — ebenso wie hohe Leistungsfähigkeit, High Energy. Das Ziel: immer möglichst auf der oberen Stufe der Gefühlsskala zu bleiben.</p>
-      </div>
-      <div class="approach-col">
-        <h4>Integriertes Selbst</h4>
-        <p>Jeder Aspekt, jede Seite, jede Phase darf gewürdigt werden — individuell, nicht nach ein und demselben Prinzip für alles. Wut braucht eine andere Würdigung als Trauer. Ein Hoch braucht eine andere Würdigung als ein Tief. Wer alles über einen Kamm schert — immer „positiv denken", immer „loslassen", immer „annehmen" — braucht sich nicht zu wundern, warum er sich am Ende trotzdem „kaputt" fühlt. Die Einheitslösung passt eben nicht auf jeden Zustand und führt oft zu mehr Verzerrung als zu Einheit in sich selbst.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="ansatz">
-  <div class="wrap">
-    <span class="section-label reveal" style="text-align:center; display:block;">Der Mechanismus</span>
-    <h2 class="section-title serif reveal" style="margin-left:auto; margin-right:auto; text-align:center; max-width:700px;">Egal, welches Problem — <em>oft dieselbe</em> Wurzel.</h2>
-
-    <div class="compass-center reveal">
-      <svg viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
-        <circle cx="230" cy="190" r="150" fill="none" stroke="#d8c69f" stroke-width="1"/>
-        <circle cx="230" cy="190" r="92" fill="none" stroke="#d8c69f" stroke-width="1"/>
-        <circle cx="230" cy="190" r="5" fill="#8a6a34"/>
-
-        <line x1="230" y1="190" x2="230" y2="46" stroke="#c2a878" stroke-width="1"/>
-        <line x1="230" y1="190" x2="374" y2="190" stroke="#c2a878" stroke-width="1"/>
-        <line x1="230" y1="190" x2="230" y2="334" stroke="#c2a878" stroke-width="1"/>
-        <line x1="230" y1="190" x2="86" y2="190" stroke="#c2a878" stroke-width="1"/>
-
-        <g class="compass-arrow" style="--d:0.1s">
-          <path d="M230 190 L230 66" fill="none" stroke="#c8a45c" stroke-width="1.4" marker-end="url(#arrow2)"/>
-        </g>
-        <g class="compass-arrow" style="--d:0.4s">
-          <path d="M230 190 L354 190" fill="none" stroke="#c8a45c" stroke-width="1.4" marker-end="url(#arrow2)"/>
-        </g>
-        <g class="compass-arrow" style="--d:0.7s">
-          <path d="M230 190 L230 314" fill="none" stroke="#c8a45c" stroke-width="1.4" marker-end="url(#arrow2)"/>
-        </g>
-        <g class="compass-arrow" style="--d:1.0s">
-          <path d="M230 190 L106 190" fill="none" stroke="#c8a45c" stroke-width="1.4" marker-end="url(#arrow2)"/>
-        </g>
-
-        <defs>
-          <marker id="arrow2" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
-            <path d="M0,0 L9,4.5 L0,9 Z" fill="#8a6a34"/>
-          </marker>
-        </defs>
-
-        <g class="pole" data-pole="shame-selbstangriff" tabindex="0" role="button" aria-label="Selbstangriff – mehr erfahren">
-          <rect x="170" y="8" width="120" height="34" fill="transparent"/>
-          <text x="230" y="30" text-anchor="middle" fill="#8a6a34" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="2">SELBSTANGRIFF</text>
-        </g>
-        <g class="pole" data-pole="shame-angriff" tabindex="0" role="button" aria-label="Angriff nach außen – mehr erfahren">
-          <rect x="380" y="172" width="180" height="34" fill="transparent"/>
-          <text x="386" y="194" text-anchor="start" fill="#8a6a34" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="1.5">ANGRIFF NACH AUSSEN</text>
-        </g>
-        <g class="pole" data-pole="shame-rueckzug" tabindex="0" role="button" aria-label="Rückzug – mehr erfahren">
-          <rect x="170" y="338" width="120" height="34" fill="transparent"/>
-          <text x="230" y="360" text-anchor="middle" fill="#8a6a34" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="2">RÜCKZUG</text>
-        </g>
-        <g class="pole" data-pole="shame-ablenkung" tabindex="0" role="button" aria-label="Ablenkung – mehr erfahren">
-          <rect x="-40" y="172" width="120" height="34" fill="transparent"/>
-          <text x="74" y="194" text-anchor="end" fill="#8a6a34" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="2">ABLENKUNG</text>
-        </g>
-
-        <text x="230" y="182" text-anchor="middle" fill="#2b2419" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="23">Scham</text>
-        <text x="230" y="204" text-anchor="middle" fill="#7a6c56" font-family="Arial, Helvetica, sans-serif" font-size="10" letter-spacing="1.2">ANGST, „FALSCH" ZU SEIN</text>
-      </svg>
+<section class="approach" id="approach">
+  <div class="approach-inner">
+    <div>
+      <span class="eyebrow">Mein Ansatz</span>
+      <h2>Wo Verstand und Gefühl<br>als Team arbeiten</h2>
+      <p>su.mindsystems gibt es, weil echte Veränderung nicht entsteht, wenn der Verstand als Gegner des Gefühls behandelt wird. Sie entsteht, wenn beide endlich zusammenarbeiten.</p>
+      <p>Wir arbeiten an der Wurzel deines Selbstbildes — dem Mechanismus, der still bestimmt, was du verlangst, was du tolerierst und was du dir zu wollen erlaubst. Jede Session bewegt sich zwischen Struktur und Empfindung, Analyse und Körperarbeit, bis beide Seiten von dir wieder im selben Auftrag arbeiten.</p>
+      <div class="approach-quote">„Dein Verstand war nie der Feind. Er wurde nur mit den falschen Anweisungen programmiert."</div>
     </div>
 
-    <div class="compass-detail" id="shame-detail">
-      <p class="detail-hint">Tippe auf einen der vier Pole im Kompass, um zu sehen, wie er sich im Alltag zeigt.</p>
-      <h5 class="detail-title"></h5>
-      <p class="detail-desc"></p>
-      <ul class="detail-examples"></ul>
-    </div>
-
-    <div class="approach-wrap reveal">
-      <div class="approach-col">
-        <h4>Immer dieselbe Wurzel</h4>
-        <p>Es spielt kaum eine Rolle, wie das Problem heißt. Dahinter liegt selten Angst allein — meistens Scham: die Angst, im Kern „falsch" zu sein. Ein Gefühl, das uns oft unbekannt ist — nicht weil es selten wäre, sondern weil es ein Tabu ist. Wir sprechen kaum darüber, erkennen es kaum bei uns selbst. Und genau deshalb steuert es uns, ohne dass wir es merken.</p>
+    <div class="approach-media">
+      <div class="img-back">
+        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+          <polygon points="0,400 0,260 60,190 130,250 190,140 260,230 320,160 400,240 400,400" fill="#324139"/>
+          <polygon points="0,400 0,310 90,250 170,300 240,220 320,290 400,250 400,400" fill="#1c2620"/>
+        </svg>
       </div>
-      <div class="approach-col">
-        <h4>Vier Wege, mit Scham umzugehen</h4>
-        <p>Scham zeigt sich selten offen als Scham. Der Scham-Kompass beschreibt vier typische Reaktionen: sich selbst angreifen, sich zurückziehen, sich ablenken — oder andere angreifen, um die eigene Verletzlichkeit gar nicht erst spüren zu müssen. Welcher Weg gewählt wird, ist selbst schon ein Muster.</p>
-        <p style="font-size:12px; color:var(--muted); margin-top:14px; letter-spacing:0.02em;">Nach dem „Compass of Shame" von Donald Nathanson, aufbauend auf der Affekttheorie von Silvan Tomkins.</p>
+      <div class="img-front">
+        <div class="portrait">
+          <svg viewBox="0 0 200 220">
+            <ellipse cx="100" cy="86" rx="46" ry="52" fill="#3a2f22"/>
+            <path d="M40 220 Q100 150 160 220 Z" fill="#f4efe4"/>
+          </svg>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="grundaengste">
-  <div class="wrap">
-    <span class="section-label reveal" style="text-align:center; display:block;">Die zweite Ebene</span>
-    <h2 class="section-title serif reveal" style="margin-left:auto; margin-right:auto; text-align:center; max-width:700px;">Vier <em>Grundängste</em>, die uns lebenslang begleiten.</h2>
-
-    <div class="compass-center reveal">
-      <svg viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
-        <circle cx="230" cy="190" r="150" fill="none" stroke="#d8c69f" stroke-width="1"/>
-        <circle cx="230" cy="190" r="92" fill="none" stroke="#d8c69f" stroke-width="1"/>
-        <circle cx="230" cy="190" r="5" fill="#8a6a34"/>
-
-        <line x1="230" y1="190" x2="230" y2="46" stroke="#c2a878" stroke-width="1"/>
-        <line x1="230" y1="190" x2="374" y2="190" stroke="#c2a878" stroke-width="1"/>
-        <line x1="230" y1="190" x2="230" y2="334" stroke="#c2a878" stroke-width="1"/>
-        <line x1="230" y1="190" x2="86" y2="190" stroke="#c2a878" stroke-width="1"/>
-
-        <g class="compass-arrow" style="--d:0.1s">
-          <path d="M230 190 L230 66" fill="none" stroke="#c8a45c" stroke-width="1.4" marker-end="url(#arrow3)"/>
-        </g>
-        <g class="compass-arrow" style="--d:0.4s">
-          <path d="M230 190 L354 190" fill="none" stroke="#c8a45c" stroke-width="1.4" marker-end="url(#arrow3)"/>
-        </g>
-        <g class="compass-arrow" style="--d:0.7s">
-          <path d="M230 190 L230 314" fill="none" stroke="#c8a45c" stroke-width="1.4" marker-end="url(#arrow3)"/>
-        </g>
-        <g class="compass-arrow" style="--d:1.0s">
-          <path d="M230 190 L106 190" fill="none" stroke="#c8a45c" stroke-width="1.4" marker-end="url(#arrow3)"/>
-        </g>
-
-        <defs>
-          <marker id="arrow3" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
-            <path d="M0,0 L9,4.5 L0,9 Z" fill="#8a6a34"/>
-          </marker>
-        </defs>
-
-        <g class="pole" data-pole="riemann-selbsthingabe" tabindex="0" role="button" aria-label="Angst vor Selbsthingabe – mehr erfahren">
-          <rect x="170" y="8" width="120" height="34" fill="transparent"/>
-          <text x="230" y="30" text-anchor="middle" fill="#8a6a34" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="2">SELBSTHINGABE</text>
-        </g>
-        <g class="pole" data-pole="riemann-wandlung" tabindex="0" role="button" aria-label="Angst vor Wandlung – mehr erfahren">
-          <rect x="380" y="166" width="140" height="34" fill="transparent"/>
-          <text x="386" y="188" text-anchor="start" fill="#8a6a34" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="1.5">WANDLUNG</text>
-        </g>
-        <g class="pole" data-pole="riemann-endgueltigkeit" tabindex="0" role="button" aria-label="Angst vor Endgültigkeit – mehr erfahren">
-          <rect x="150" y="338" width="160" height="34" fill="transparent"/>
-          <text x="230" y="360" text-anchor="middle" fill="#8a6a34" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="2">ENDGÜLTIGKEIT</text>
-        </g>
-        <g class="pole" data-pole="riemann-selbstwerdung" tabindex="0" role="button" aria-label="Angst vor Selbstwerdung – mehr erfahren">
-          <rect x="-60" y="166" width="140" height="34" fill="transparent"/>
-          <text x="74" y="188" text-anchor="end" fill="#8a6a34" font-family="Georgia, 'Times New Roman', serif" font-size="13" letter-spacing="1.5">SELBSTWERDUNG</text>
-        </g>
-
-        <text x="230" y="182" text-anchor="middle" fill="#2b2419" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="21">Grundangst</text>
-        <text x="230" y="204" text-anchor="middle" fill="#7a6c56" font-family="Arial, Helvetica, sans-serif" font-size="10" letter-spacing="1.2">NÄHE · DISTANZ · DAUER · WECHSEL</text>
-      </svg>
-    </div>
-
-    <div class="compass-detail" id="riemann-detail">
-      <p class="detail-hint">Tippe auf einen der vier Pole im Kompass, um zu sehen, wie er sich im Alltag zeigt.</p>
-      <h5 class="detail-title"></h5>
-      <p class="detail-desc"></p>
-      <ul class="detail-examples"></ul>
-    </div>
-
-    <div class="approach-wrap reveal">
-      <div class="approach-col">
-        <h4>Angst vor Selbsthingabe & Selbstwerdung</h4>
-        <p>Die Angst, sich zu verlieren, wenn man sich einem anderen Menschen ganz hingibt — und die Angst, allein und ungebunden dazustehen, wenn man ganz zu sich selbst steht. Zwei entgegengesetzte Pole derselben Achse: Nähe und Distanz.</p>
-      </div>
-      <div class="approach-col">
-        <h4>Angst vor Wandlung & Endgültigkeit</h4>
-        <p>Die Angst, sich zu verändern und dabei Halt zu verlieren — und die Angst, sich festzulegen und dabei Möglichkeiten zu verlieren. Zwei entgegengesetzte Pole derselben Achse: Dauer und Wechsel.</p>
-        <p style="font-size:12px; color:var(--muted); margin-top:14px; letter-spacing:0.02em;">Nach Fritz Riemann, „Grundformen der Angst" (1961), weiterentwickelt im Riemann-Thomann-Modell.</p>
-      </div>
-    </div>
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <span class="eyebrow">Beginnen</span>
+    <h2 style="margin-top:16px;">Bereit, deinem integrierten Selbst zu begegnen?</h2>
+    <p>Echte Veränderung braucht keinen einzelnen Termin, sondern einen Prozess. Meine Coaching-Pakete begleiten dich über mehrere Sessions hinweg — dort, wo Verstand und Gefühl wieder lernen, als Team zu arbeiten.</p>
+    <a href="#footer" class="hero-cta">Pakete entdecken</a>
   </div>
 </section>
 
-<section class="cta" id="start">
-  <div class="wrap">
-    <span class="section-label reveal">Der erste Schritt</span>
-    <h2 class="section-title serif reveal">Beginn dort, wo <em>du</em> bist.</h2>
-    <p class="reveal">Ein erstes Gespräch, ohne Erwartung an ein bestimmtes Ergebnis. Nur der Raum, um zu sehen, was wirklich steuert.</p>
-    <a href="#" class="btn reveal">Gespräch anfragen</a>
-  </div>
-</section>
+<footer id="footer">
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="logo dark" style="filter:none;">
+        <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
+          <path d="M30 30 Q10 30 10 42 Q10 52 30 54 Q50 56 50 66 Q50 78 28 78 Q10 78 8 64" stroke="#c6a45c" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M58 78 L58 26 L74 54 L90 26 L90 78" stroke="#c6a45c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+        </svg>
+        <span class="logo-text">
+          <span class="sm" style="color:#e3cd97;"><span class="bold-part" style="color:#e3cd97;">SU.MIND</span>SYSTEMS</span>
+        </span>
+      </a>
+      <p>Coaching für Identität, Beziehungen und Selbstbild — die Arbeit, die Verstand und Gefühl nur gemeinsam leisten können.</p>
+      <div class="socials" style="margin-top:22px;">
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M14 4v10.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 4c.5 2.5 2 4 4.5 4.3"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="#e3cd97"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="2.5" y="6" width="19" height="12" rx="3.5"/><polygon points="10.5,9.5 10.5,14.5 15,12" fill="#e3cd97" stroke="none"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="7" r="0.6" fill="#e3cd97" stroke="none"/><path d="M11.5 17v-4.5a2 2 0 0 1 4 0V17"/><line x1="11.5" y1="10" x2="11.5" y2="17"/></svg></a>
+      </div>
+    </div>
 
-<footer>
-  <div class="logo serif">SU<span style="color:var(--gold)">.</span>MINDSYSTEMS</div>
-  <div>© 2026 · Selbstbild als Mechanismus</div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="#">Home</a>
+      <a href="#approach">Über mich</a>
+      <a href="#focus">Programme</a>
+      <a href="#">Journal</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <a href="#footer">Kontakt aufnehmen</a>
+      <a href="#footer">Pakete entdecken</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 su.mindsystems</span>
+    <span>Verstand &amp; Gefühl vereint</span>
+  </div>
 </footer>
-
-<script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold:0.15 });
-  revealEls.forEach(el=>io.observe(el));
-
-  const poleData = {
-    'shame-selbstangriff': {
-      panel: '#shame-detail',
-      title: 'Selbstangriff',
-      desc: 'Die Scham richtet sich nach innen. Statt sie zu spüren, wird sofort geurteilt — über sich selbst, hart und schnell.',
-      examples: [
-        'Nach einem Fehler minutenlang im Kopf wiederholen, wie dumm/unfähig man war',
-        'Sich für Dinge entschuldigen, die niemand als Problem empfunden hat',
-        'Komplimente sofort entkräften ("das war doch nichts")',
-        'Ein strenger innerer Kommentator, der lauter ist als jede Kritik von außen'
-      ]
-    },
-    'shame-angriff': {
-      panel: '#shame-detail',
-      title: 'Angriff nach außen',
-      desc: 'Die Scham wird nicht gespürt, sondern sofort nach außen umgeleitet — bevor sie überhaupt bewusst ankommt.',
-      examples: [
-        'Bei Kritik reflexhaft zurückschießen, statt sie erst zu prüfen',
-        'Anderen die Schuld geben, kaum dass etwas schiefläuft',
-        'Gereiztheit oder Zynismus in Momenten, die eigentlich verletzlich machen',
-        'Andere klein machen, kurz bevor man sich selbst klein fühlen würde'
-      ]
-    },
-    'shame-rueckzug': {
-      panel: '#shame-detail',
-      title: 'Rückzug',
-      desc: 'Die Scham wird durch Verschwinden reguliert — sich unsichtbar machen, bevor jemand genauer hinschaut.',
-      examples: [
-        'Nachrichten nicht beantworten, wenn man sich unsicher fühlt',
-        'Räume oder Gespräche verlassen, sobald es persönlich wird',
-        'Sich tagelang zurückziehen, ohne genau sagen zu können, wovor',
-        'Lieber schweigen, als eine unfertige Meinung zu riskieren'
-      ]
-    },
-    'shame-ablenkung': {
-      panel: '#shame-detail',
-      title: 'Ablenkung',
-      desc: 'Die Scham wird überdeckt — durch Beschäftigung, Perfektion, Humor oder ständige Bewegung, damit sie gar nicht erst spürbar wird.',
-      examples: [
-        'Sich in Arbeit stürzen, sobald ein unangenehmes Gefühl aufkommt',
-        'Alles ins Lächerliche ziehen, bevor es ernst werden kann',
-        'Perfektionismus als Absicherung, um Kritik erst gar nicht zuzulassen',
-        'Ständige Ablenkung durch Serien, Scrollen, Termine — nie Stille'
-      ]
-    },
-    'riemann-selbsthingabe': {
-      panel: '#riemann-detail',
-      title: 'Angst vor Selbsthingabe',
-      desc: 'Die Angst, sich in Nähe zu verlieren — die eigene Autonomie könnte verschwinden, sobald man sich ganz auf jemanden einlässt.',
-      examples: [
-        'Bei zu viel Nähe unbewusst auf Distanz gehen',
-        'Beziehungen, in denen ein Teil von einem selbst immer zurückgehalten wird',
-        'Unabhängigkeit wichtiger nehmen als Verbindlichkeit, auch wenn es einsam macht',
-        'Schwierigkeiten, sich wirklich auf jemanden einzulassen, ohne einen Fluchtweg offenzuhalten'
-      ]
-    },
-    'riemann-selbstwerdung': {
-      panel: '#riemann-detail',
-      title: 'Angst vor Selbstwerdung',
-      desc: 'Die Angst, allein und für sich zu stehen — Trennung oder Eigenständigkeit fühlt sich wie drohender Verlust der Bindung an.',
-      examples: [
-        'Schwierigkeiten, allein Entscheidungen zu treffen, ohne Rückversicherung',
-        'Starkes Unbehagen bei Konflikten, aus Angst, die Beziehung zu verlieren',
-        'Eigene Meinung zurückstellen, um Nähe nicht zu gefährden',
-        'Alleinsein wird schnell als Ablehnung statt als Freiraum erlebt'
-      ]
-    },
-    'riemann-wandlung': {
-      panel: '#riemann-detail',
-      title: 'Angst vor Wandlung',
-      desc: 'Die Angst vor Veränderung — Ordnung und Struktur geben Halt, während Unvorhersehbarkeit als Bedrohung erlebt wird.',
-      examples: [
-        'Neue Situationen lieber meiden als sich spontan darauf einzulassen',
-        'Starkes Bedürfnis nach Plan, Kontrolle, festen Abläufen',
-        'Veränderungen im Umfeld lösen Unruhe aus, auch wenn sie objektiv positiv sind',
-        'An Gewohntem festhalten, selbst wenn es längst nicht mehr passt'
-      ]
-    },
-    'riemann-endgueltigkeit': {
-      panel: '#riemann-detail',
-      title: 'Angst vor Endgültigkeit',
-      desc: 'Die Angst, sich festzulegen — jede Entscheidung fühlt sich wie der Verlust aller anderen Möglichkeiten an.',
-      examples: [
-        'Entscheidungen ewig hinauszögern, aus Angst, die „falsche" zu treffen',
-        'Schwierigkeiten, sich langfristig zu binden — beruflich wie privat',
-        'Ständig mehrere Optionen offenhalten, statt eine wirklich zu wählen',
-        'Unruhe oder Fluchtimpulse, sobald etwas sich dauerhaft anfühlt'
-      ]
-    }
-  };
-
-  document.querySelectorAll('.pole').forEach(el=>{
-    const activate = ()=>{
-      const key = el.dataset.pole;
-      const data = poleData[key];
-      if(!data) return;
-      const panel = document.querySelector(data.panel);
-      panel.querySelector('.detail-title').textContent = data.title;
-      panel.querySelector('.detail-desc').textContent = data.desc;
-      const list = panel.querySelector('.detail-examples');
-      list.innerHTML = '';
-      data.examples.forEach(ex=>{
-        const li = document.createElement('li');
-        li.textContent = ex;
-        list.appendChild(li);
-      });
-      panel.classList.add('active');
-      panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
-
-      const svg = el.closest('svg');
-      svg.querySelectorAll('.pole').forEach(p=>p.classList.remove('active'));
-      el.classList.add('active');
-    };
-    el.addEventListener('click', activate);
-    el.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(); }
-    });
-  });
-</script>
 
 </body>
 </html>
