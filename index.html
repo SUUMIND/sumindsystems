@@ -184,11 +184,19 @@
   /* ---------- Hero ---------- */
   .hero{
     position: relative;
-    background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%);
+    background: url('https://raw.githubusercontent.com/SUUMIND/sumindsystems/refs/heads/main/BGG.jpeg') center bottom / cover no-repeat;
     color: var(--cream);
     text-align:center;
-    padding: 130px 32px 0;
+    padding: 130px 32px 100px;
     overflow: hidden;
+    max-height: 820px;
+  }
+  .hero::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11,10,8,0.5) 0%, rgba(11,10,8,0.32) 45%, rgba(11,10,8,0.62) 100%);
+    z-index: 0;
   }
   .hero .stars{
     position:absolute; inset:0;
@@ -201,8 +209,9 @@
       radial-gradient(1.5px 1.5px at 40% 10%, rgba(230,215,170,0.45), transparent);
     opacity: .8;
     pointer-events:none;
+    z-index: 1;
   }
-  .hero-inner{ position:relative; max-width: 760px; margin: 0 auto; }
+  .hero-inner{ position:relative; max-width: 760px; margin: 0 auto; z-index: 2; }
   .hero .eyebrow{ display:block; margin-bottom: 22px; opacity:0; animation: rise .8s ease forwards; }
   .hero h1{
     font-size: clamp(2.1rem, 4.6vw, 3.4rem);
@@ -583,11 +592,6 @@
     <p>Das höhere Selbst ist ein Ideal, dem du ewig hinterherläufst — gemessen an dem, was du noch nicht bist. Das integrierte Selbst misst sich an nichts. Es macht dich stark, weil es aus dir selbst kommt, nicht aus einem äußeren Maßstab.</p>
     <a href="#focus" class="hero-cta">Jetzt starten</a>
   </div>
-
-  <svg class="peaks" viewBox="0 0 1440 200" preserveAspectRatio="none">
-    <polygon points="0,200 0,140 140,60 260,120 340,40 420,110 520,20 620,100 720,50 820,115 920,45 1020,105 1120,55 1220,120 1320,70 1440,130 1440,200" fill="#171410"/>
-    <polygon points="0,200 0,165 180,105 300,150 420,90 560,145 680,100 800,155 940,95 1080,150 1200,110 1320,155 1440,120 1440,200" fill="#0e0c09"/>
-  </svg>
 </section>
 
 <section class="focus" id="focus">
