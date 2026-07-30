@@ -117,6 +117,53 @@
     height:1px;
     background: var(--gold);
   }
+  .has-dropdown{
+    position: relative;
+  }
+  .has-dropdown > a{
+    display:flex;
+    align-items:center;
+    gap: 6px;
+  }
+  .has-dropdown .caret{
+    width: 8px; height:8px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -3px;
+    transition: transform .25s ease;
+  }
+  .has-dropdown:hover .caret{ transform: rotate(225deg); margin-top: 3px; }
+  .dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: var(--black-2);
+    border: 1px solid var(--line);
+    min-width: 200px;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+    z-index: 60;
+  }
+  .has-dropdown:hover .dropdown-menu,
+  .has-dropdown:focus-within .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(2px);
+  }
+  .dropdown-menu a{
+    display:block;
+    padding: 10px 22px;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    color: #cfc4a6;
+    white-space: nowrap;
+  }
+  .dropdown-menu a:hover{ color: var(--gold-soft); background: rgba(198,164,92,0.08); }
   .btn-book{
     border: 1px solid var(--gold);
     color: var(--gold-soft);
@@ -448,7 +495,13 @@
     </a>
     <div class="nav-links">
       <a href="#" class="active">Home</a>
-      <a href="#approach">Über mich</a>
+      <div class="has-dropdown">
+        <a href="#approach">Über mich <span class="caret"></span></a>
+        <div class="dropdown-menu">
+          <a href="ansatz.html">Mein Ansatz</a>
+          <a href="#approach">Meine Geschichte</a>
+        </div>
+      </div>
       <a href="#focus">Programme</a>
       <a href="#">Journal</a>
       <a href="#footer">Kontakt</a>
@@ -503,7 +556,7 @@
 <section class="approach" id="approach">
   <div class="approach-inner">
     <div>
-      <span class="eyebrow">Das System</span>
+      <span class="eyebrow">Mein Ansatz</span>
       <h2>Wo Verstand und Gefühl<br>als Team arbeiten</h2>
       <p>Higher-Self, Manifestation, inneres Kind – das alles kennst Du wahrscheinlich schon, wenn Du Dich mit Persönlichkeitsentwicklung beschäftigst. Vielleicht hast Du etliche Ratgeber gelesen. Vielleicht warst Du aber auch auf teuren Auslands-Retreats (inkl. Ayahuasca). Und dennoch: angekommen bist Du trotzdem nicht.</p>
       <p>Die gute Nachricht: es ist ganz easy zu erklären, weshalb bisherige Ansätze nicht zum Ergebnis geführt haben und der Frust stattdessen größer wurde.</p>
@@ -563,6 +616,7 @@
       <h4>Navigation</h4>
       <a href="#">Home</a>
       <a href="#approach">Über mich</a>
+      <a href="ansatz.html">Mein Ansatz</a>
       <a href="#focus">Programme</a>
       <a href="#">Journal</a>
     </div>
