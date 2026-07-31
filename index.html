@@ -762,5 +762,40 @@
   });
 </script>
 
+
+<div id="cookie-banner" style="position:fixed; left:0; right:0; bottom:0; z-index:9999; background:#0b0a08; border-top:1px solid rgba(198,164,92,0.35); padding:22px 32px; display:none; box-shadow:0 -8px 30px rgba(0,0,0,0.35);">
+  <div style="max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+    <p style="margin:0; font-family:'Jost', sans-serif; font-weight:300; font-size:0.86rem; line-height:1.6; color:#cfc4a6; max-width:640px;">
+      Diese Website verwendet Cookies, um Dir die beste Nutzung zu ermöglichen. Mehr dazu in unserer <a href="cookies.html" style="color:#e3cd97; text-decoration:underline;">Cookie-Richtlinie</a>.
+    </p>
+    <div style="display:flex; gap:12px; flex-shrink:0; flex-wrap:wrap;">
+      <button id="cookie-essential-btn" style="padding:11px 20px; border-radius:6px; border:1px solid #c6a45c; background:transparent; color:#e3cd97; font-family:'Jost', sans-serif; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:background .25s ease, color .25s ease;">Nur notwendige</button>
+      <button id="cookie-accept-btn" style="padding:11px 20px; border-radius:6px; border:none; background:linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%); color:#201a0d; font-family:'Jost', sans-serif; font-weight:600; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    var consent = localStorage.getItem('sumindsystems_cookie_consent');
+    var banner = document.getElementById('cookie-banner');
+    if (!consent){
+      banner.style.display = 'block';
+    }
+    var essentialBtn = document.getElementById('cookie-essential-btn');
+    var acceptBtn = document.getElementById('cookie-accept-btn');
+    essentialBtn.addEventListener('mouseenter', function(){ essentialBtn.style.background = '#c6a45c'; essentialBtn.style.color = '#0b0a08'; });
+    essentialBtn.addEventListener('mouseleave', function(){ essentialBtn.style.background = 'transparent'; essentialBtn.style.color = '#e3cd97'; });
+    essentialBtn.addEventListener('click', function(){
+      localStorage.setItem('sumindsystems_cookie_consent', 'essential');
+      banner.style.display = 'none';
+    });
+    acceptBtn.addEventListener('click', function(){
+      localStorage.setItem('sumindsystems_cookie_consent', 'accepted');
+      banner.style.display = 'none';
+      // Nicht-notwendige Skripte (z. B. Analytics) erst HIER laden, nach Zustimmung.
+    });
+  })();
+</script>
+
 </body>
 </html>
