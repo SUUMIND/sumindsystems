@@ -352,6 +352,83 @@
   }
 
   /* ---------- Focus section ---------- */
+  /* ---------- Find out ---------- */
+  .findout{
+    background: var(--cream);
+    padding: 20px 32px 90px;
+    text-align:center;
+  }
+  .findout-card{
+    max-width: 680px;
+    margin: 0 auto;
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    border-radius: 16px;
+    padding: 54px 40px;
+    box-shadow: 0 12px 32px rgba(90,68,30,0.2);
+  }
+  .findout-card .eyebrow{ color: #4a3a1c; }
+  .findout-card h2{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: #201a0d;
+    margin: 14px 0 16px;
+  }
+  .findout-card p{
+    font-size: 0.96rem;
+    line-height: 1.75;
+    color: #3d2f18;
+    max-width: 480px;
+    margin: 0 auto 28px;
+  }
+  .findout-card .hero-cta{
+    background: var(--black);
+    color: var(--gold-soft);
+  }
+  .findout-card .hero-cta:hover{ filter: brightness(1.3); }
+
+  /* ---------- Erkennst du dich wieder ---------- */
+  .relate{
+    background: var(--cream);
+    padding: 90px 32px 80px;
+    text-align:center;
+  }
+  .relate h2{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    color: var(--ink);
+    margin-bottom: 50px;
+  }
+  .relate-grid{
+    max-width: 900px;
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    text-align:left;
+  }
+  .relate-card{
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px 28px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    border-left: 3px solid var(--gold);
+  }
+  .relate-card h3{
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .relate-card p{
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #55503f;
+  }
+  @media (max-width: 760px){
+    .relate-grid{ grid-template-columns: 1fr; }
+  }
+
   .focus{
     background: var(--cream);
     padding: 84px 32px 96px;
@@ -723,8 +800,30 @@
   </div>
 </section>
 
+<section class="relate">
+  <h2>Erkennst Du Dich wieder?</h2>
+  <div class="relate-grid">
+    <div class="relate-card">
+      <h3>Du weißt es &amp; tust es trotzdem nicht.</h3>
+      <p>Du weißt genau, was zu tun wäre und tust es trotzdem nicht. Weil da ein leiser aber starker Widerstand ist, den Du selbst nicht erklären kannst. Du würdest ihn am liebsten einfach loswerden. Und das bitte so schnell wie möglich.</p>
+    </div>
+    <div class="relate-card">
+      <h3>Erfolg im Außen &amp; trotzdem innere Leere.</h3>
+      <p>Du bist erfolgreich – vielleicht durch Deine positive Art, Deine Empathie oder eine angesehene Position. Von außen wird Dir ständig gespiegelt, wie gut Dein Leben läuft. Nur innerlich kannst Du irgendwie nicht zustimmen. Stattdessen überkommt Dich eine Welle von Wut/Traurigkeit, ohne dass Du wüsstest, was Du sonst noch ändern kannst.</p>
+    </div>
+    <div class="relate-card">
+      <h3>Trigger bleiben trotz Meditation hartnäckig.</h3>
+      <p>Du hast meditiert, wirkst ruhig, hast vieles verstanden. Trotzdem kannst Du bei bestimmten Triggern innerhalb von Sekunden von 0 auf 100 gehen. Du merkst: Verständnis allein verändert nichts. Es kostet Dich Kraft und macht es schwierig, tiefe langfristige Beziehungen zu führen.</p>
+    </div>
+    <div class="relate-card">
+      <h3>Du bist „süchtig" nach Optimierung.</h3>
+      <p>Du hast vielleicht gar nicht das Gefühl, dass etwas nicht in Ordnung ist. Trotzdem glaubst Du fest daran, dass alles besser ist, wenn Du nur noch dies oder jenes optimierst. Dabei geht es meist nicht darum, wie es Dir wirklich geht, sondern wie das Ergebnis ist. Bei fehlendem Erfolg fühlst Du Dich wie ein Versager.</p>
+    </div>
+  </div>
+</section>
+
 <section class="focus" id="focus">
-  <h2>Kernthemen <span class="amp">·</span> Identität. Beziehungen. Selbstbild.</h2>
+  <h2>Wo Teile wieder zueinanderfinden</h2>
 
   <div class="focus-grid">
     <div class="focus-card">
@@ -757,8 +856,8 @@
       <span class="eyebrow">Mein Ansatz</span>
       <h2><em style="font-style:italic; color:#a8863f;">Klarer</em> sehen, was steuert</h2>
       <p style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:#a8863f; margin-bottom:22px;">Wo Verstand und Gefühl als Team arbeiten.</p>
-      <p>Higher-Self, Manifestation, inneres Kind – das alles kennst Du wahrscheinlich schon, wenn Du Dich mit Persönlichkeitsentwicklung beschäftigt hast. Vielleicht hast Du etliche Ratgeber gelesen oder warst sogar auf teuren (Auslands-)Retreats. Und dennoch: angekommen bist Du trotzdem nicht.</p>
-      <p>Die gute Nachricht: Es liegt nicht an Dir.</p>
+      <p>Higher-Self, Manifestation, inneres Kind – das alles kennst Du wahrscheinlich schon, wenn Du Dich mit Persönlichkeitsentwicklung beschäftigt hast. Vielleicht hast Du etliche Ratgeber gelesen oder warst auf teuren (Auslands-)Retreats. Wie auch immer Dein Weg aussah: Angekommen fühlst Du Dich immer noch nicht.</p>
+      <p>Die gute Nachricht: Es lag nicht an Dir.</p>
       <p><a href="ansatz.html" style="color:var(--gold); border-bottom:1px solid var(--gold); padding-bottom:2px; font-weight:500;">Hier weiterlesen →</a></p>
     </div>
 
