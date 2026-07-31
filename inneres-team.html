@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dein Inneres Team — SU.MINDSYSTEMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08;
+    --gold: #c6a45c;
+    --gold-soft: #e3cd97;
+    --cream: #f3ede1;
+    --ink: #1c1914;
+    --line: rgba(198,164,92,0.25);
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{ font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+  a{ color: inherit; text-decoration: none; }
+
+  .eyebrow{ font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
+
+  .logo{ display:flex; align-items:center; gap: 12px; }
+  .logo-mark{ width: 34px; height: 34px; flex-shrink:0; }
+  .logo-text .sm{ font-family:'Cormorant Garamond', serif; font-size: 1.02rem; letter-spacing:0.03em; color: var(--gold-soft); font-weight: 500; }
+  .logo-text .sm .bold-part{ font-weight: 700; }
+
+  header{ background: var(--black); border-bottom: 1px solid var(--line); }
+  nav{ max-width: 1240px; margin: 0 auto; display:flex; align-items:center; justify-content: space-between; padding: 18px 32px; }
+  .back-link{ font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #cfc4a6; display:flex; align-items:center; gap: 8px; transition: color .25s ease; }
+  .back-link:hover{ color: var(--gold-soft); }
+  .back-link .home-icon{ display:none; width: 20px; height:20px; flex-shrink:0; }
+  @media (max-width: 600px){
+    .back-link{ width: 38px; height: 38px; justify-content:center; border: 1px solid var(--line); border-radius: 50%; }
+    .back-link .home-icon{ display:block; }
+    .back-link .back-text{ display:none; }
+  }
+
+  .page-hero{
+    background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%);
+    color: var(--cream);
+    text-align:center;
+    padding: 90px 32px 70px;
+  }
+  .page-hero-inner{ max-width: 620px; margin:0 auto; }
+  .page-hero h1{ font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--cream); margin-top: 16px; }
+  .page-hero p{ margin-top: 18px; font-size: 0.96rem; line-height: 1.75; color: #b9ae94; }
+
+  /* ---------- Quiz shell ---------- */
+  .quiz-wrap{ max-width: 620px; margin: 0 auto; padding: 50px 32px 110px; }
+
+  .progress-track{
+    width: 100%;
+    height: 4px;
+    background: rgba(28,25,20,0.12);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 34px;
+  }
+  .progress-fill{
+    height: 100%;
+    background: linear-gradient(90deg, #bd9c6c, #8f7145);
+    width: 0%;
+    transition: width .4s ease;
+  }
+
+  .quiz-card{
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    padding: 40px 34px;
+  }
+  .q-count{
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .q-text{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin-bottom: 28px;
+    line-height: 1.4;
+  }
+  .options{ display:flex; flex-direction:column; gap: 12px; }
+  .option-btn{
+    text-align:left;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(28,25,20,0.15);
+    background: #fdfbf6;
+    color: var(--ink);
+    font-family:'Jost', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: border-color .2s ease, background .2s ease, transform .15s ease;
+  }
+  .option-btn:hover{ border-color: var(--gold); background: #fff; }
+  .option-btn.selected{
+    border-color: var(--gold);
+    background: linear-gradient(150deg, #efe6d0, #e2d2ac);
+    transform: translateX(2px);
+  }
+
+  .start-screen, .results-screen{ display:none; }
+  .start-screen.visible, .results-screen.visible{ display:block; }
+  .quiz-screen{ display:none; }
+  .quiz-screen.visible{ display:block; }
+
+  .start-card{
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    padding: 44px 36px;
+    text-align:center;
+  }
+  .start-card p{ font-size: 0.94rem; line-height: 1.75; color: #55503f; margin: 16px 0 28px; }
+  .start-btn, .restart-btn{
+    display:inline-block;
+    padding: 15px 36px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    color: #201a0d;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter .25s ease, transform .25s ease;
+  }
+  .start-btn:hover, .restart-btn:hover{ filter: brightness(1.1); transform: translateY(-1px); }
+
+  /* ---------- Results ---------- */
+  .result-hero{
+    text-align:center;
+    margin-bottom: 30px;
+  }
+  .result-hero .eyebrow2{
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display:block;
+  }
+  .result-hero h2{
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    color: var(--ink);
+  }
+
+  .result-block{
+    background: #fdfbf6;
+    border: 1px solid rgba(28,25,20,0.1);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 30px 32px;
+    margin-bottom: 22px;
+  }
+  .result-block .rb-label{
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .result-block h3{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .result-block p{ font-size: 0.92rem; line-height: 1.75; color: #443c28; margin-bottom: 10px; }
+  .result-block p.shadow-line{ color: #6f6852; font-style: italic; }
+
+  .exile-note{
+    background: var(--black);
+    color: var(--gold-soft);
+    border-radius: 10px;
+    padding: 30px 32px;
+    margin: 30px 0;
+  }
+  .exile-note .rb-label{ color: var(--gold); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
+  .exile-note p{ font-size: 0.94rem; line-height: 1.8; color: #cfc4a6; }
+
+  .results-cta{ text-align:center; margin-top: 40px; }
+  .results-cta p{ font-size: 0.92rem; color: #55503f; margin-bottom: 22px; }
+
+  footer{ background: var(--black); color: #6f6852; text-align:center; padding: 40px 32px 30px; border-top: 1px solid var(--line); font-size: 0.76rem; }
+  footer a{ color: #6f6852; transition: color .2s ease; }
+  footer a:hover{ color: var(--gold-soft); }
+
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  /* ---------- Print / PDF export ---------- */
+  .pdf-btn{
+    display:inline-block;
+    margin-top: 14px;
+    padding: 13px 28px;
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+  .pdf-btn:hover{ background: var(--gold); color: var(--black); }
+
+  /* ---------- Percentage breakdown ---------- */
+  .percent-section{ margin: 34px 0; }
+  .percent-section h3{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .percent-row{
+    display:flex;
+    align-items:center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  .percent-row .pr-name{
+    width: 200px;
+    flex-shrink:0;
+    font-size: 0.86rem;
+    color: var(--ink);
+  }
+  .percent-row.top .pr-name{ font-weight: 600; }
+  .percent-row .pr-track{
+    flex:1;
+    height: 8px;
+    background: rgba(28,25,20,0.08);
+    border-radius: 6px;
+    overflow:hidden;
+  }
+  .percent-row .pr-fill{
+    height: 100%;
+    background: linear-gradient(90deg, #bd9c6c, #8f7145);
+    border-radius: 6px;
+  }
+  .percent-row.rest .pr-fill{ background: rgba(28,25,20,0.25); }
+  .percent-row .pr-value{
+    width: 44px;
+    text-align:right;
+    font-size: 0.84rem;
+    color: #6f6852;
+    flex-shrink:0;
+  }
+  .percent-divider{
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #a8a08a;
+    margin: 18px 0 12px;
+  }
+
+  .ebook-cta-btn{
+    display:inline-block;
+    margin-top: 14px;
+    padding: 13px 28px;
+    border-radius: 6px;
+    background: var(--black);
+    color: var(--gold-soft);
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: background .25s ease;
+  }
+  .ebook-cta-btn:hover{ background: #201d18; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo" aria-label="SU.MINDSYSTEMS Startseite">
+      <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
+        <path d="M30 30 Q10 30 10 42 Q10 52 30 54 Q50 56 50 66 Q50 78 28 78 Q10 78 8 64" stroke="#c6a45c" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M58 78 L58 26 L74 54 L90 26 L90 78" stroke="#c6a45c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-text"><span class="sm"><span class="bold-part">SU.MIND</span>SYSTEMS</span></span>
+    </a>
+    <a href="index.html" class="back-link">
+      <svg class="home-icon" viewBox="0 0 24 24" fill="none" stroke="#e3cd97" stroke-width="1.6"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>
+      <span class="back-text">← Zurück zur Startseite</span>
+    </a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="eyebrow">Für Dich</span>
+    <h1>Dein Inneres Team</h1>
+    <p>16 kurze Situationen. Keine richtigen oder falschen Antworten — nur die, die sich für Dich gerade am ehesten stimmig anfühlt. Am Ende siehst Du, welcher Anteil in Dir aktuell am lautesten spricht.</p>
+  </div>
+</section>
+
+<div class="quiz-wrap">
+
+  <div class="start-screen visible" id="start-screen">
+    <div class="start-card">
+      <h2 style="font-size:1.5rem; margin-bottom:6px;">Bereit?</h2>
+      <p>Antworte spontan, aus dem Bauch heraus. Es gibt kein richtig oder falsch. Falls etwas gar nicht zutrifft oder mehrere Sachen zutreffen, wähl einfach das aus, was am meisten zutrifft.</p>
+      <button class="start-btn" id="start-btn">Test starten</button>
+    </div>
+  </div>
+
+  <div class="quiz-screen" id="quiz-screen">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="quiz-card">
+      <div class="q-count" id="q-count">Frage 1 von 16</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+    </div>
+  </div>
+
+  <div class="results-screen" id="results-screen"></div>
+
+</div>
+
+<footer>
+  <div style="margin-bottom:10px;">© 2026 su.mindsystems</div>
+  <div style="display:flex; justify-content:center; gap:22px; flex-wrap:wrap;">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutzerklärung</a>
+    <a href="cookies.html">Cookies</a>
+  </div>
+</footer>
+
+<script>
+  // ---------- Data ----------
+  var parts = {
+    perfektionist: {
+      name: 'Der Perfektionist',
+      desc: 'Verhindert Fehler durch übermäßige Kontrolle, bevor Scham überhaupt entstehen kann.',
+      shadow: 'Wird es zu viel, ist nichts mehr gut genug — auch Du selbst nicht.'
+    },
+    kritiker: {
+      name: 'Der Kritiker',
+      desc: 'Wertet Dich selbst ab, bevor es jemand anderes tut — dann tut es wenigstens nicht so weh, wenn es von außen kommt.',
+      shadow: 'Wird es zu viel, wird die innere Stimme lauter als jede von außen.'
+    },
+    peoplepleaser: {
+      name: 'Der People-Pleaser',
+      desc: 'Passt sich an, vermeidet Konflikt, stellt eigene Bedürfnisse zurück, um Bindung zu sichern.',
+      shadow: 'Wird es zu viel, weißt Du irgendwann selbst nicht mehr, was Du eigentlich willst.'
+    },
+    stressige: {
+      name: 'Die Stressige',
+      desc: 'Leistung und Tun als Schutz vor dem Gefühl, nicht genug zu sein.',
+      shadow: 'Wird es zu viel, fühlt sich Pause plötzlich wie Versagen an.'
+    },
+    rebell: {
+      name: 'Der Rebell / Die Trotzige',
+      desc: 'Bricht aus, sabotiert, zieht sich abrupt zurück, wenn es zu eng wird.',
+      shadow: 'Wird es zu viel, wird Freiheit zur Flucht, bevor etwas wirklich tief gehen kann.'
+    },
+    goodvibe: {
+      name: 'Der Good-Vibe-Guy / Die Good-Vibe-Göttin',
+      desc: 'Schiebt alles Problematische ins Unbewusste, um sich nicht mit den unangenehmen Dingen des Lebens herumschlagen zu müssen.',
+      shadow: 'Wird es zu viel, wird Positivität zur Maske, hinter der nichts mehr echt sein darf.'
+    }
+  };
+
+  var questions = [
+    {
+      text: 'Was nervt Dich am meisten an anderen Menschen?',
+      options: [
+        { key: 'perfektionist', label: 'Wenn andere schludrig arbeiten und es niemanden zu stören scheint.' },
+        { key: 'kritiker', label: 'Wenn andere sich selbst ständig loben.' },
+        { key: 'peoplepleaser', label: 'Wenn andere ohne Erklärung einfach „Nein" sagen.' },
+        { key: 'stressige', label: 'Wenn andere stundenlang „nichts tun" — und das auch noch genießen.' },
+        { key: 'rebell', label: 'Wenn andere sich zu sehr an Regeln und Erwartungen halten.' },
+        { key: 'goodvibe', label: 'Wenn andere ständig über Probleme reden, ohne nach einer Lösung zu suchen.' }
+      ]
+    },
+    {
+      text: 'Dein Handy klingelt mitten in einem wichtigen Moment mit jemandem, der Dir wichtig ist. Was macht Dein Körper zuerst — bevor Du überhaupt nachdenkst?',
+      options: [
+        { key: 'perfektionist', label: 'Du greifst automatisch danach, um es sofort lautlos zu stellen.' },
+        { key: 'kritiker', label: 'Du spannst innerlich an, genervt von Dir selbst.' },
+        { key: 'peoplepleaser', label: 'Du schaust erstmal zur anderen Person, wie sie reagiert.' },
+        { key: 'stressige', label: 'Dein Blick geht sofort aufs Display, ob es wichtig sein könnte.' },
+        { key: 'rebell', label: 'Du lässt es klingeln, ohne hinzusehen.' },
+        { key: 'goodvibe', label: 'Du lachst kurz auf und machst einfach weiter.' }
+      ]
+    },
+    {
+      text: 'Du bekommst ein leeres Blatt Papier ohne Anleitung — einfach „mach was draus". Was passiert zuerst?',
+      options: [
+        { key: 'perfektionist', label: 'Du überlegst lange, bevor der erste Strich fällt.' },
+        { key: 'kritiker', label: 'Du denkst: Andere könnten das sicher besser.' },
+        { key: 'peoplepleaser', label: 'Du fragst Dich, was wohl von Dir erwartet wird.' },
+        { key: 'stressige', label: 'Du füllst die Fläche zügig, ohne großes Nachdenken.' },
+        { key: 'rebell', label: 'Du kritzelst bewusst chaotisch, ohne Plan.' },
+        { key: 'goodvibe', label: 'Du malst schnell etwas Fröhliches — Hauptsache bunt.' }
+      ]
+    },
+    {
+      text: 'Denk an eine Situation als Kind, in der Du Ärger bekommen hast. Was war Deine typischste Reaktion danach?',
+      options: [
+        { key: 'perfektionist', label: 'Du hast Dir geschworen, es nächstes Mal perfekt zu machen.' },
+        { key: 'kritiker', label: 'Du hast Dir innerlich selbst die Standpauke gehalten, bevor es jemand anderes tat.' },
+        { key: 'peoplepleaser', label: 'Du hast Dich sofort entschuldigt, auch wenn Du kaum Schuld hattest.' },
+        { key: 'stressige', label: 'Du hast Dich sofort in eine neue Aufgabe gestürzt, um es wiedergutzumachen.' },
+        { key: 'rebell', label: 'Du hast innerlich getrotzt, auch wenn Du nach außen ruhig geblieben bist.' },
+        { key: 'goodvibe', label: 'Du hast es schnell vergessen und weitergemacht, als wäre nichts gewesen.' }
+      ]
+    },
+    {
+      text: 'Welchen Satz würdest Du am liebsten öfter von anderen hören?',
+      options: [
+        { key: 'perfektionist', label: '„Das war schon perfekt, so wie es ist."' },
+        { key: 'kritiker', label: '„Du bist wirklich gut, so wie Du bist."' },
+        { key: 'peoplepleaser', label: '„Du darfst auch mal an Dich denken."' },
+        { key: 'stressige', label: '„Du musst nicht ständig etwas leisten, um wertvoll zu sein."' },
+        { key: 'rebell', label: '„Du darfst Dich auch mal binden, ohne etwas zu verlieren."' },
+        { key: 'goodvibe', label: '„Es ist okay, wenn nicht alles gut ist."' }
+      ]
+    },
+    {
+      text: 'Stell Dir einen freien Samstagabend ganz ohne Plan vor. Was passiert am ehesten?',
+      options: [
+        { key: 'perfektionist', label: 'Du nutzt die Zeit, um etwas in Ruhe noch mal zu überarbeiten.' },
+        { key: 'kritiker', label: 'Du grübelst über Dinge, die diese Woche nicht gut gelaufen sind.' },
+        { key: 'peoplepleaser', label: 'Du checkst, ob jemand aus Deinem Umfeld gerade Gesellschaft braucht.' },
+        { key: 'stressige', label: 'Du füllst den Abend spontan mit einer Aufgabe oder einem Projekt.' },
+        { key: 'rebell', label: 'Du machst genau das, wonach Dir spontan ist — ohne Rücksicht auf Erwartungen.' },
+        { key: 'goodvibe', label: 'Du suchst Dir etwas Schönes, Leichtes, das gute Laune macht.' }
+      ]
+    },
+    {
+      text: 'Welche Eigenschaft an anderen bewunderst Du am meisten, obwohl sie Dir selbst schwerfällt?',
+      options: [
+        { key: 'perfektionist', label: 'Lockerheit — Dinge einfach laufen lassen können.' },
+        { key: 'kritiker', label: 'Selbstsicherheit — sich selbst einfach mögen können.' },
+        { key: 'peoplepleaser', label: 'Klare Grenzen setzen, ohne schlechtes Gewissen.' },
+        { key: 'stressige', label: 'Wirklich abschalten können, ohne innere Unruhe.' },
+        { key: 'rebell', label: 'Sich wirklich binden können, ohne Angst vor Verlust der Freiheit.' },
+        { key: 'goodvibe', label: 'Schwierige Gefühle offen zeigen können, ohne sie zu überspielen.' }
+      ]
+    },
+    {
+      text: 'Welcher Gedanke schleicht sich am ehesten mal heimlich ein — auch wenn Du ihn sofort wieder wegschiebst?',
+      options: [
+        { key: 'perfektionist', label: '„Wenn ich nicht perfekt bin, bin ich nichts wert."' },
+        { key: 'kritiker', label: '„Ich bin im Grunde nicht liebenswert."' },
+        { key: 'peoplepleaser', label: '„Wenn ich Nein sage, verlassen mich die Leute."' },
+        { key: 'stressige', label: '„Wenn ich nichts leiste, bin ich niemand."' },
+        { key: 'rebell', label: '„Wenn ich mich wirklich binde, verliere ich mich selbst."' },
+        { key: 'goodvibe', label: '„Wenn ich mich mit dem Schmerz beschäftige, gehe ich daran unter."' }
+      ]
+    },
+    {
+      text: 'Du ziehst in eine neue Wohnung. Was ist Dir zuerst wichtig?',
+      options: [
+        { key: 'perfektionist', label: 'Dass von Anfang an alles durchdacht und ordentlich eingerichtet ist.' },
+        { key: 'kritiker', label: 'Du zweifelst innerlich, ob die Wahl überhaupt richtig war.' },
+        { key: 'peoplepleaser', label: 'Du fragst Freunde oder Familie um Rat, bevor Du entscheidest.' },
+        { key: 'stressige', label: 'Du planst sofort die nächsten Projekte für die neue Wohnung.' },
+        { key: 'rebell', label: 'Du richtest spontan ein, ohne großen Plan.' },
+        { key: 'goodvibe', label: 'Hauptsache, es fühlt sich gemütlich und positiv an.' }
+      ]
+    },
+    {
+      text: 'Was fällt Dir in engen Beziehungen am schwersten?',
+      options: [
+        { key: 'perfektionist', label: 'Fehler beim anderen zu akzeptieren, ohne sie ansprechen zu wollen.' },
+        { key: 'kritiker', label: 'Wirklich zu glauben, dass Du geliebt wirst, so wie Du bist.' },
+        { key: 'peoplepleaser', label: 'Eigene Bedürfnisse überhaupt erst zu äußern.' },
+        { key: 'stressige', label: 'Einfach nur da zu sein, ohne etwas leisten zu müssen.' },
+        { key: 'rebell', label: 'Dich wirklich auf Nähe einzulassen, ohne innerlich einen Fluchtweg offen zu halten.' },
+        { key: 'goodvibe', label: 'Ehrlich über das zu sprechen, was gerade schwierig ist.' }
+      ]
+    },
+    {
+      text: 'Wenn Du einen Tag lang komplett unsichtbar wärst — niemand könnte Dich sehen oder bewerten — was würdest Du zuerst tun?',
+      options: [
+        { key: 'perfektionist', label: 'Endlich etwas ganz ohne Druck ausprobieren.' },
+        { key: 'kritiker', label: 'Dinge tun, die Du Dich sonst aus Angst vor Urteilen nicht traust.' },
+        { key: 'peoplepleaser', label: 'Einfach mal nur an Dich denken, ohne Rücksicht.' },
+        { key: 'stressige', label: 'Einfach mal nichts tun, ohne Dich dafür rechtfertigen zu müssen.' },
+        { key: 'rebell', label: 'Genau das tun, was Du sonst aus Rücksicht auf andere unterlässt.' },
+        { key: 'goodvibe', label: 'Dinge fühlen, die Du sonst eher wegschiebst.' }
+      ]
+    },
+    {
+      text: 'Auf einer Familienfeier oder in einer großen Gruppe — welche Rolle nimmst Du am ehesten automatisch ein?',
+      options: [
+        { key: 'perfektionist', label: 'Du achtest darauf, dass alles gut organisiert läuft.' },
+        { key: 'kritiker', label: 'Du beobachtest eher kritisch von der Seite.' },
+        { key: 'peoplepleaser', label: 'Du sorgst dafür, dass sich alle wohlfühlen.' },
+        { key: 'stressige', label: 'Du übernimmst Aufgaben, bevor jemand danach fragt.' },
+        { key: 'rebell', label: 'Du ziehst Dich zurück oder machst Dein eigenes Ding.' },
+        { key: 'goodvibe', label: 'Du sorgst für gute Stimmung und Witze.' }
+      ]
+    },
+    {
+      text: 'Wo im Körper spürst Du Stress am ehesten?',
+      options: [
+        { key: 'perfektionist', label: 'Kiefer und Zähne — angespannt, zusammengebissen.' },
+        { key: 'kritiker', label: 'Magen — ein flaues Gefühl, Selbstzweifel.' },
+        { key: 'peoplepleaser', label: 'Schultern und Nacken — angespannt, um für andere da zu sein.' },
+        { key: 'stressige', label: 'Brustkorb — als würde alles unter Strom stehen.' },
+        { key: 'rebell', label: 'Beine und Füße — ein Fluchtimpuls, ständige Unruhe.' },
+        { key: 'goodvibe', label: 'Du merkst Stress oft erst, wenn er sich plötzlich als Erschöpfung zeigt.' }
+      ]
+    },
+    {
+      text: 'Welches Wort trifft am ehesten, wonach Du Dich insgeheim am meisten sehnst?',
+      options: [
+        { key: 'perfektionist', label: 'Anerkennung.' },
+        { key: 'kritiker', label: 'Akzeptanz.' },
+        { key: 'peoplepleaser', label: 'Zugehörigkeit.' },
+        { key: 'stressige', label: 'Wert.' },
+        { key: 'rebell', label: 'Freiheit.' },
+        { key: 'goodvibe', label: 'Leichtigkeit.' }
+      ]
+    },
+    {
+      text: 'Wenn Du ein ehrliches Kompliment bekommst, was passiert zuerst in Dir?',
+      options: [
+        { key: 'perfektionist', label: 'Du denkst: Das war noch nicht mal mein bestes Ergebnis.' },
+        { key: 'kritiker', label: 'Du glaubst es nicht wirklich, auch wenn Du Danke sagst.' },
+        { key: 'peoplepleaser', label: 'Du gibst das Kompliment sofort zurück.' },
+        { key: 'stressige', label: 'Du denkst schon an die nächste Sache, die noch besser werden könnte.' },
+        { key: 'rebell', label: 'Du fühlst Dich unwohl und tust es als „nicht so wichtig" ab.' },
+        { key: 'goodvibe', label: 'Du strahlst nach außen, auch wenn es Dich innerlich nicht ganz erreicht.' }
+      ]
+    },
+    {
+      text: 'Stell Dir vor, Dein zukünftiges Ich — das schon alles integriert hat — könnte Dir jetzt einen einzigen Satz sagen. Welcher würde Dir am meisten helfen?',
+      options: [
+        { key: 'perfektionist', label: '„Fertig ist besser als perfekt."' },
+        { key: 'kritiker', label: '„Du darfst auch ohne Beweis wertvoll sein."' },
+        { key: 'peoplepleaser', label: '„Deine Bedürfnisse zählen genauso."' },
+        { key: 'stressige', label: '„Ruhe ist auch eine Leistung."' },
+        { key: 'rebell', label: '„Bindung nimmt Dir nichts weg."' },
+        { key: 'goodvibe', label: '„Auch das Schwere darf gefühlt werden."' }
+      ]
+    }
+  ];
+
+  // ---------- Hidden scoring mechanism ----------
+  var scores = { perfektionist: 0, kritiker: 0, peoplepleaser: 0, stressige: 0, rebell: 0, goodvibe: 0 };
+  var currentQuestion = 0;
+
+  var startScreen = document.getElementById('start-screen');
+  var quizScreen = document.getElementById('quiz-screen');
+  var resultsScreen = document.getElementById('results-screen');
+  var qCount = document.getElementById('q-count');
+  var qText = document.getElementById('q-text');
+  var optionsEl = document.getElementById('options');
+  var progressFill = document.getElementById('progress-fill');
+
+  document.getElementById('start-btn').addEventListener('click', function(){
+    startScreen.classList.remove('visible');
+    quizScreen.classList.add('visible');
+    renderQuestion();
+  });
+
+  function renderQuestion(){
+    var q = questions[currentQuestion];
+    qCount.textContent = 'Frage ' + (currentQuestion + 1) + ' von ' + questions.length;
+    qText.textContent = q.text;
+    progressFill.style.width = ((currentQuestion) / questions.length * 100) + '%';
+
+    optionsEl.innerHTML = '';
+    q.options.forEach(function(opt){
+      var btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.textContent = opt.label;
+      btn.addEventListener('click', function(){
+        // hidden tally — increments the matched part's score, invisible to the user
+        scores[opt.key] = scores[opt.key] + 1;
+        btn.classList.add('selected');
+        Array.prototype.forEach.call(optionsEl.children, function(b){ b.disabled = true; });
+        setTimeout(nextQuestion, 350);
+      });
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function nextQuestion(){
+    currentQuestion++;
+    if (currentQuestion < questions.length){
+      renderQuestion();
+    } else {
+      progressFill.style.width = '100%';
+      setTimeout(showResults, 300);
+    }
+  }
+
+  function showResults(){
+    quizScreen.classList.remove('visible');
+
+    // Determine ranking from the hidden score tally
+    var ranked = Object.keys(scores).sort(function(a,b){ return scores[b] - scores[a]; });
+    var top = ranked[0];
+    var second = ranked[1];
+    var showSecond = scores[second] > 0 && (scores[top] - scores[second]) <= 1;
+
+    var html = '';
+    html += '<div class="result-hero"><span class="eyebrow2">Dein Ergebnis</span><h2>' + parts[top].name + '</h2></div>';
+
+    html += '<div class="result-block">';
+    html += '<div class="rb-label">Dein stärkster Anteil gerade</div>';
+    html += '<h3>' + parts[top].name + '</h3>';
+    html += '<p>' + parts[top].desc + '</p>';
+    html += '<p class="shadow-line">' + parts[top].shadow + '</p>';
+    html += '<a href="ebooks.html#' + top + '" class="ebook-cta-btn">eBook zu „' + parts[top].name + '" entdecken</a>';
+    html += '</div>';
+
+    if (showSecond){
+      html += '<div class="result-block">';
+      html += '<div class="rb-label">Dicht dahinter</div>';
+      html += '<h3>' + parts[second].name + '</h3>';
+      html += '<p>' + parts[second].desc + '</p>';
+      html += '<p class="shadow-line">' + parts[second].shadow + '</p>';
+      html += '</div>';
+    }
+
+    html += '<div class="exile-note">';
+    html += '<div class="rb-label">Das verletzte Kind</div>';
+    html += '<p>Unter all diesen Anteilen liegt oft ein jüngerer, verletzter Teil, der eigentlich gesehen werden will. ' + parts[top].name + (showSecond ? ' und ' + parts[second].name : '') + ' sind seine Beschützer — jeder auf seine eigene Art. Sie sind nicht das Problem. Sie zeigen nur, wo noch etwas auf Integration wartet.</p>';
+    html += '</div>';
+
+    // ---------- Percentage breakdown ----------
+    var totalAnswered = questions.length;
+    var percentages = {};
+    ranked.forEach(function(key){
+      percentages[key] = Math.round((scores[key] / totalAnswered) * 100);
+    });
+    var top3 = ranked.slice(0, 3);
+    var rest = ranked.slice(3);
+
+    html += '<div class="percent-section">';
+    html += '<h3>Deine Anteile im Überblick</h3>';
+    html += '<div class="percent-divider">Deine drei stärksten Anteile</div>';
+    top3.forEach(function(key){
+      html += '<div class="percent-row top">';
+      html += '<div class="pr-name">' + parts[key].name + '</div>';
+      html += '<div class="pr-track"><div class="pr-fill" style="width:' + percentages[key] + '%;"></div></div>';
+      html += '<div class="pr-value">' + percentages[key] + '%</div>';
+      html += '</div>';
+    });
+    if (rest.length){
+      html += '<div class="percent-divider">Die übrigen Anteile</div>';
+      rest.forEach(function(key){
+        html += '<div class="percent-row rest">';
+        html += '<div class="pr-name">' + parts[key].name + '</div>';
+        html += '<div class="pr-track"><div class="pr-fill" style="width:' + percentages[key] + '%;"></div></div>';
+        html += '<div class="pr-value">' + percentages[key] + '%</div>';
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+
+    html += '<div class="results-cta">';
+    html += '<p>Wenn Du verstehen willst, was hinter diesem Anteil steckt und wie Integration konkret aussehen kann:</p>';
+    html += '<a href="index.html#footer" class="start-btn">Zu den Coaching-Paketen</a>';
+    html += '<div style="margin-top:14px;"><button class="pdf-btn" id="pdf-btn">Ergebnis als PDF herunterladen</button></div>';
+    html += '<div style="margin-top:18px;"><button class="restart-btn" id="restart-btn" style="background:transparent; border:1px solid var(--gold); color:var(--ink);">Test wiederholen</button></div>';
+    html += '</div>';
+
+    resultsScreen.innerHTML = html;
+    resultsScreen.classList.add('visible');
+    resultsScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    document.getElementById('pdf-btn').addEventListener('click', function(){
+      generatePdf(top, second, showSecond, ranked, percentages);
+    });
+
+    document.getElementById('restart-btn').addEventListener('click', function(){
+      scores = { perfektionist: 0, kritiker: 0, peoplepleaser: 0, stressige: 0, rebell: 0, goodvibe: 0 };
+      currentQuestion = 0;
+      resultsScreen.classList.remove('visible');
+      resultsScreen.innerHTML = '';
+      quizScreen.classList.add('visible');
+      renderQuestion();
+      quizScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  function generatePdf(top, second, showSecond, ranked, percentages){
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    var pageWidth = 210;
+    var marginX = 20;
+    var y = 0;
+
+    // Header band
+    doc.setFillColor(11, 10, 8);
+    doc.rect(0, 0, pageWidth, 38, 'F');
+    doc.setTextColor(227, 205, 151);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.text('SU.MINDSYSTEMS', marginX, 18);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(207, 196, 166);
+    doc.text('Dein Inneres Team — Ergebnis', marginX, 28);
+
+    y = 52;
+    doc.setTextColor(28, 25, 20);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.text(parts[top].name, marginX, y);
+    y += 10;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(85, 80, 63);
+    var descLines = doc.splitTextToSize(parts[top].desc, pageWidth - marginX * 2);
+    doc.text(descLines, marginX, y);
+    y += descLines.length * 5.5 + 3;
+
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(111, 104, 82);
+    var shadowLines = doc.splitTextToSize(parts[top].shadow, pageWidth - marginX * 2);
+    doc.text(shadowLines, marginX, y);
+    y += shadowLines.length * 5.5 + 12;
+
+    if (showSecond){
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(28, 25, 20);
+      doc.text('Dicht dahinter: ' + parts[second].name, marginX, y);
+      y += 7;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.setTextColor(85, 80, 63);
+      var descLines2 = doc.splitTextToSize(parts[second].desc, pageWidth - marginX * 2);
+      doc.text(descLines2, marginX, y);
+      y += descLines2.length * 5.5 + 12;
+    }
+
+    // Percentage breakdown
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(28, 25, 20);
+    doc.text('Deine Anteile im Überblick', marginX, y);
+    y += 9;
+
+    var barMaxWidth = 90;
+    ranked.forEach(function(key, idx){
+      if (y > 265){ doc.addPage(); y = 25; }
+      doc.setFont('helvetica', idx < 3 ? 'bold' : 'normal');
+      doc.setFontSize(10.5);
+      doc.setTextColor(28, 25, 20);
+      doc.text(parts[key].name, marginX, y);
+
+      var trackX = marginX + 70;
+      doc.setFillColor(230, 224, 208);
+      doc.rect(trackX, y - 3.2, barMaxWidth, 3.2, 'F');
+      var fillW = (percentages[key] / 100) * barMaxWidth;
+      if (idx < 3){ doc.setFillColor(189, 156, 108); } else { doc.setFillColor(180, 172, 150); }
+      doc.rect(trackX, y - 3.2, fillW, 3.2, 'F');
+
+      doc.setTextColor(111, 104, 82);
+      doc.text(percentages[key] + '%', trackX + barMaxWidth + 6, y);
+      y += 8;
+    });
+
+    y += 8;
+    if (y > 250){ doc.addPage(); y = 25; }
+
+    // Exile note block
+    doc.setFillColor(243, 237, 225);
+    var noteLines = doc.splitTextToSize(
+      'Das verletzte Kind: Unter all diesen Anteilen liegt oft ein jüngerer, verletzter Teil, der eigentlich gesehen werden will. ' +
+      parts[top].name + (showSecond ? ' und ' + parts[second].name : '') +
+      ' sind seine Beschützer — jeder auf seine eigene Art. Sie sind nicht das Problem. Sie zeigen nur, wo noch etwas auf Integration wartet.',
+      pageWidth - marginX * 2 - 12
+    );
+    var noteHeight = noteLines.length * 5.2 + 14;
+    doc.rect(marginX, y, pageWidth - marginX * 2, noteHeight, 'F');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10.5);
+    doc.setTextColor(60, 55, 42);
+    doc.text(noteLines, marginX + 6, y + 9);
+    y += noteHeight + 14;
+
+    if (y > 255){ doc.addPage(); y = 25; }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(143, 113, 69);
+    doc.text('Vertiefe Deinen Anteil: ebooks.html — sowie individuelle Coaching-Pakete auf sumindsystems.com', marginX, y);
+
+    doc.save('dein-inneres-team-' + top + '.pdf');
+  }
+</script>
+
+</body>
+</html>
