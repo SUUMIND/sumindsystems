@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookies — SU.MINDSYSTEMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08; --gold: #c6a45c; --gold-soft: #e3cd97;
+    --cream: #f3ede1; --ink: #1c1914; --line: rgba(198,164,92,0.25);
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  body{ background: var(--cream); color: var(--ink); font-family: 'Jost', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
+  h1,h2{ font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+  a{ color: inherit; text-decoration: none; }
+  .eyebrow{ font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
+
+  .logo{ display:flex; align-items:center; gap: 12px; }
+  .logo-mark{ width: 34px; height: 34px; flex-shrink:0; }
+  .logo-text .sm{ font-family:'Cormorant Garamond', serif; font-size: 1.02rem; letter-spacing:0.03em; color: var(--gold-soft); font-weight: 500; }
+  .logo-text .sm .bold-part{ font-weight: 700; }
+
+  header{ background: var(--black); border-bottom: 1px solid var(--line); }
+  nav{ max-width: 1240px; margin: 0 auto; display:flex; align-items:center; justify-content: space-between; padding: 18px 32px; }
+  .back-link{ font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #cfc4a6; display:flex; align-items:center; gap: 8px; transition: color .25s ease; }
+  .back-link:hover{ color: var(--gold-soft); }
+  .back-link .home-icon{ display:none; width: 20px; height:20px; flex-shrink:0; }
+  @media (max-width: 600px){
+    .back-link{ width: 38px; height: 38px; justify-content:center; border: 1px solid var(--line); border-radius: 50%; }
+    .back-link .home-icon{ display:block; }
+    .back-link .back-text{ display:none; }
+  }
+
+  .page-hero{ background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%); color: var(--cream); text-align:center; padding: 80px 32px 64px; }
+  .page-hero h1{ font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--cream); margin-top: 14px; }
+
+  .legal-wrap{ max-width: 720px; margin: 0 auto; padding: 80px 32px 110px; }
+  .legal-wrap h2{ font-size: 1.35rem; margin: 40px 0 14px; color: var(--ink); }
+  .legal-wrap h2:first-child{ margin-top:0; }
+  .legal-wrap p{ font-size: 0.96rem; line-height: 1.85; color: #443c28; margin-bottom: 14px; }
+  .placeholder-note{
+    background: #fdfbf6; border: 1px solid rgba(28,25,20,0.1); border-left: 3px solid var(--gold);
+    padding: 18px 22px; font-size: 0.86rem; color: #6f6852; margin-bottom: 40px;
+  }
+
+  table{ width:100%; border-collapse: collapse; margin: 18px 0 30px; font-size: 0.88rem; }
+  th, td{ text-align:left; padding: 10px 12px; border-bottom: 1px solid rgba(28,25,20,0.1); color:#443c28; }
+  th{ color: #6f6852; font-weight: 500; letter-spacing:0.04em; text-transform: uppercase; font-size: 0.72rem; }
+
+  footer{ background: var(--black); color: #6f6852; text-align:center; padding: 40px 32px 30px; border-top: 1px solid var(--line); font-size: 0.76rem; }
+  footer a{ color: #6f6852; transition: color .2s ease; }
+  footer a:hover{ color: var(--gold-soft); }
+
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  @media (max-width: 560px){
+    table, thead, tbody, th, td, tr{ display:block; }
+    thead{ display:none; }
+    tr{ border-bottom: 1px solid rgba(28,25,20,0.15); padding: 10px 0; }
+    td{ border:none; padding: 4px 0; }
+    td::before{ content: attr(data-label); display:block; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:#6f6852; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo" aria-label="SU.MINDSYSTEMS Startseite">
+      <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
+        <path d="M30 30 Q10 30 10 42 Q10 52 30 54 Q50 56 50 66 Q50 78 28 78 Q10 78 8 64" stroke="#c6a45c" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M58 78 L58 26 L74 54 L90 26 L90 78" stroke="#c6a45c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-text"><span class="sm"><span class="bold-part">SU.MIND</span>SYSTEMS</span></span>
+    </a>
+    <a href="index.html" class="back-link">
+      <svg class="home-icon" viewBox="0 0 24 24" fill="none" stroke="#e3cd97" stroke-width="1.6"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>
+      <span class="back-text">← Zurück zur Startseite</span>
+    </a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <span class="eyebrow">Rechtliches</span>
+  <h1>Cookies</h1>
+</section>
+
+<div class="legal-wrap">
+
+  <div class="placeholder-note">Platzhaltertext — bitte an die tatsächlich eingesetzten Cookies/Tools anpassen und mit einem rechtskonformen Cookie-Consent-Tool (Opt-in gemäß TTDSG/DSGVO) kombinieren.</div>
+
+  <h2>Was sind Cookies?</h2>
+  <p>Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden, wenn Sie unsere Website besuchen. Sie helfen unter anderem dabei, die Website funktionsfähig zu halten, Ihre Präferenzen zu speichern und die Nutzung der Website zu analysieren.</p>
+
+  <h2>Welche Arten von Cookies verwenden wir?</h2>
+  <table>
+    <thead>
+      <tr><th>Kategorie</th><th>Zweck</th><th>Speicherdauer</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Kategorie">Technisch notwendig</td>
+        <td data-label="Zweck">Grundfunktionen der Website, z. B. Navigation, Sicherheit</td>
+        <td data-label="Speicherdauer">Sitzung / bis zu 1 Jahr</td>
+      </tr>
+      <tr>
+        <td data-label="Kategorie">Funktional</td>
+        <td data-label="Zweck">Speichern von Einstellungen und Präferenzen</td>
+        <td data-label="Speicherdauer">Bis zu 1 Jahr</td>
+      </tr>
+      <tr>
+        <td data-label="Kategorie">Statistik / Analyse</td>
+        <td data-label="Zweck">Anonymisierte Auswertung der Websitenutzung</td>
+        <td data-label="Speicherdauer">Bis zu 2 Jahre</td>
+      </tr>
+      <tr>
+        <td data-label="Kategorie">Marketing</td>
+        <td data-label="Zweck">Reichweitenmessung, ggf. Personalisierung von Inhalten</td>
+        <td data-label="Speicherdauer">Bis zu 2 Jahre</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Einwilligung</h2>
+  <p>Nicht technisch notwendige Cookies setzen wir nur mit Ihrer ausdrücklichen Einwilligung ein, die Sie über unser Cookie-Banner erteilen oder jederzeit widerrufen können.</p>
+
+  <h2>Wie können Sie Cookies verwalten?</h2>
+  <p>Sie können die Speicherung von Cookies über Ihre Browsereinstellungen jederzeit verhindern oder bereits gespeicherte Cookies löschen. Bitte beachten Sie, dass dies die Funktionalität dieser Website einschränken kann.</p>
+
+</div>
+
+<footer>
+  <div style="margin-bottom:10px;">© 2026 su.mindsystems</div>
+  <div style="display:flex; justify-content:center; gap:22px; flex-wrap:wrap;">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutzerklärung</a>
+    <a href="cookies.html">Cookies</a>
+  </div>
+</footer>
+
+
+<div id="cookie-banner" style="position:fixed; left:0; right:0; bottom:0; z-index:9999; background:#0b0a08; border-top:1px solid rgba(198,164,92,0.35); padding:22px 32px; display:none; box-shadow:0 -8px 30px rgba(0,0,0,0.35);">
+  <div style="max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+    <p style="margin:0; font-family:'Jost', sans-serif; font-weight:300; font-size:0.86rem; line-height:1.6; color:#cfc4a6; max-width:640px;">
+      Diese Website verwendet Cookies, um Dir die beste Nutzung zu ermöglichen. Mehr dazu in unserer <a href="cookies.html" style="color:#e3cd97; text-decoration:underline;">Cookie-Richtlinie</a>.
+    </p>
+    <div style="display:flex; gap:12px; flex-shrink:0; flex-wrap:wrap;">
+      <button id="cookie-essential-btn" style="padding:11px 20px; border-radius:6px; border:1px solid #c6a45c; background:transparent; color:#e3cd97; font-family:'Jost', sans-serif; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:background .25s ease, color .25s ease;">Nur notwendige</button>
+      <button id="cookie-accept-btn" style="padding:11px 20px; border-radius:6px; border:none; background:linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%); color:#201a0d; font-family:'Jost', sans-serif; font-weight:600; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    var consent = localStorage.getItem('sumindsystems_cookie_consent');
+    var banner = document.getElementById('cookie-banner');
+    if (!consent){
+      banner.style.display = 'block';
+    }
+    var essentialBtn = document.getElementById('cookie-essential-btn');
+    var acceptBtn = document.getElementById('cookie-accept-btn');
+    essentialBtn.addEventListener('mouseenter', function(){ essentialBtn.style.background = '#c6a45c'; essentialBtn.style.color = '#0b0a08'; });
+    essentialBtn.addEventListener('mouseleave', function(){ essentialBtn.style.background = 'transparent'; essentialBtn.style.color = '#e3cd97'; });
+    essentialBtn.addEventListener('click', function(){
+      localStorage.setItem('sumindsystems_cookie_consent', 'essential');
+      banner.style.display = 'none';
+    });
+    acceptBtn.addEventListener('click', function(){
+      localStorage.setItem('sumindsystems_cookie_consent', 'accepted');
+      banner.style.display = 'none';
+      // Nicht-notwendige Skripte (z. B. Analytics) erst HIER laden, nach Zustimmung.
+    });
+  })();
+</script>
+
+</body>
+</html>
