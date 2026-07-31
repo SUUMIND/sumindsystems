@@ -541,20 +541,22 @@
   <div class="article-hero-inner">
     <span class="eyebrow">Der Grund</span>
     <h1>Warum bisherige Ansätze nicht zum <em>Ergebnis</em> geführt haben</h1>
-    <p style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.2rem; color:var(--gold-soft); margin:18px 0 0;">Klarer sehen, was steuert.</p>
     <p>Alles, was Du bisher versucht hast, war nicht umsonst, sondern die Vorbereitung für deine Integration.</p>
   </div>
 </section>
 
 <article class="article">
   <div class="article-inner">
-  <p>Die meisten Ansätze gehen davon aus, dass jede Person ein Ganzes darstellt. Die Wahrheit ist aber, dass wir aus vielen verschiedenen Teilen bestehen: Jeder dieser Teile trägt zu unserer Heilung und unseren Entscheidungen bei.</p>
+  <p style="font-style:normal; color:#8f7145; font-weight:600; text-transform:uppercase; font-size:0.72rem; letter-spacing:0.14em; margin-bottom:8px;">Kurzer Exkurs: Was ist Kohärenz?</p>
+  <p>Kohärenz bedeutet, dass Denken, Fühlen und Handeln miteinander übereinstimmen, statt sich zu widersprechen. Wenn Du das eine willst, aber das andere tust – oder fühlst, was Dein Verstand längst abgehakt hat – fehlt genau diese Übereinstimmung. Sie ist wichtig, weil sie der Unterschied ist zwischen einem Leben, das sich stimmig anfühlt, und einem, in dem Du ständig gegen Dich selbst arbeitest. Die meisten Ansätze setzen genau hier falsch an: Sie behandeln Dich, als wärst Du bereits kohärent. Dabei ist Kohärenz nicht der Ausgangspunkt, sondern das Ziel bzw. die Basis, auf der alles andere gesund „wachsen" kann.</p>
 
-  <div class="pull-quote">„Das Problem war also ein eindimensionaler Ansatz, der ein komplexes, mehrdimensionales System transformieren soll."</div>
+  <p>Die meisten Ansätze gehen davon aus, dass jede Person ein Ganzes darstellt und somit kohärent ist. Die Wahrheit ist aber, dass wir aus vielen verschiedenen Teilen bestehen. Und bei schmerzlichen Erfahrungen kann es passieren, dass sich Teile entwickeln, die nicht nur unterschiedliche Ziele haben, sondern auch unterschiedliche Entwicklungszustände.</p>
+
+  <div class="pull-quote">„Das Problem war also ein eindimensionaler Ansatz, der ein komplexes, mehrdimensionales System transformieren sollte."</div>
 
   <p>Wir Menschen sind hochkomplexe Wesen, die alle keine perfekte Kindheit hatten, egal, wie gut es unsere Eltern mit uns gemeint haben. Jeder von uns hat eigene Bewältigungsmechanismen entwickelt, die allein deshalb, weil sie aus der Kindheit mit begrenzten Ressourcen stammen, eher destruktiv für unser heutiges Leben sind. Diese einfach zu ignorieren, so zu tun, als könnte man den Ist-Zustand unbearbeitet einfach überschreiben, ist ein Glücksspiel mit Risikopotenzial. Viele verkaufen gerne schnelle Ergebnisse, und nicht selten nutzen Coaches leider ihre Position aus, um die Schuld am Misserfolg dann bei Dir zu suchen: „Du hast es nicht stark genug gewollt." „Du hast nicht genug Disziplin." Und so weiter.</p>
 
-  <p>Damit Du verstehst, weshalb diese Programme <em>nicht funktionieren konnten</em>, findest Du hier einen kleinen Überblick der häufigsten Ansätze. <strong>Für ein Stück mehr Selbstvergebung - mit dem Wissen, dass es nicht an Dir lag.</strong></p>
+  <p>Damit Du verstehst, weshalb diese Programme <em>nicht funktionieren konnten</em>, findest Du hier einen kleinen Überblick der häufigsten Ansätze. <strong>Für ein Stück mehr Selbstvergebung - mit dem Wissen, dass es nicht an Dir lag.</strong> <a href="#" id="expand-all-link" style="color:var(--gold); border-bottom:1px solid var(--gold); padding-bottom:2px; font-weight:500; white-space:nowrap;">+ Alles aufklappen</a></p>
 
   <div class="approach-card">
   <h2>Positives Denken &amp; Affirmationen <span class="toggle-icon">+</span></h2>
@@ -630,7 +632,7 @@
 
   <p><strong>Was diese Ansätze vereinen:</strong> Sie versuchen, ein neues Verhalten oder eine neue Denkweise über einen Teil in Dir zu legen, der noch gar nicht gefragt wurde, ob er bereit dafür ist. Genau hier liegt der Denkfehler, der sich durch fast jede Retreat-Erfahrung, jedes Buch und jede Technik zieht: Verstand und Gefühl werden als Gegner behandelt, statt als Team. Also arbeitest Du an dem einen und übergehst das andere. Es ist also kein Wunder, dass sich nach dem kurzen High wieder dieselben Muster zeigen.</p>
 
-  <div class="pull-quote">„Der Verstand ist weder schuld noch böse. Er wurde nur nie als Verbündeter gesehen und behandelt."</div>
+  <div class="pull-quote">„Der Verstand ist weder schuld noch böse. Er wurde nur nie als Verbündeter gesehen."</div>
 
   <h2>Was stattdessen wirklich passieren muss</h2>
 
@@ -717,6 +719,18 @@
       var card = header.closest('.approach-card');
       card.classList.toggle('open');
     });
+  });
+
+  var expandAllLink = document.getElementById('expand-all-link');
+  var isAllExpanded = false;
+  expandAllLink.addEventListener('click', function(e){
+    e.preventDefault();
+    isAllExpanded = !isAllExpanded;
+    document.querySelectorAll('.approach-card').forEach(function(card){
+      if (isAllExpanded){ card.classList.add('open'); }
+      else { card.classList.remove('open'); }
+    });
+    expandAllLink.textContent = isAllExpanded ? '− Alles zuklappen' : '+ Alles aufklappen';
   });
 </script>
 
