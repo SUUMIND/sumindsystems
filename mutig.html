@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutig? — SU.MINDSYSTEMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08;
+    --gold: #c6a45c;
+    --gold-soft: #e3cd97;
+    --cream: #f3ede1;
+    --ink: #1c1914;
+    --line: rgba(198,164,92,0.25);
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  a{ color: inherit; text-decoration: none; }
+  img{ max-width:100%; display:block; }
+
+  .eyebrow{
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ---------- Logo ---------- */
+  .logo{ display:flex; align-items:center; gap: 12px; }
+  .logo-mark{ width: 34px; height: 34px; flex-shrink:0; }
+  .logo-text .sm{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.02rem;
+    letter-spacing:0.03em;
+    color: var(--gold-soft);
+    font-weight: 500;
+  }
+  .logo-text .sm .bold-part{ font-weight: 700; }
+
+  /* ---------- Header ---------- */
+  header{
+    background: var(--black);
+    border-bottom: 1px solid var(--line);
+  }
+  nav{
+    max-width: 1240px;
+    margin: 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 18px 32px;
+  }
+  .back-link{
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #cfc4a6;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    transition: color .25s ease;
+  }
+  .back-link:hover{ color: var(--gold-soft); }
+  .back-link .home-icon{ display:none; width: 20px; height:20px; flex-shrink:0; }
+  .back-link .back-text{ display:inline; }
+
+  @media (max-width: 600px){
+    .back-link{
+      width: 38px; height: 38px;
+      justify-content:center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+    .back-link .home-icon{ display:block; }
+    .back-link .back-text{ display:none; }
+  }
+
+  /* ---------- Article hero ---------- */
+  .article-hero{
+    background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%);
+    color: var(--cream);
+    text-align:center;
+    padding: 90px 32px 100px;
+  }
+  .article-hero-inner{ max-width: 720px; margin:0 auto; }
+  .article-hero .eyebrow{ display:block; margin-bottom: 20px; }
+  .article-hero h1{
+    font-size: clamp(1.9rem, 4vw, 2.9rem);
+    line-height: 1.2;
+    color: var(--cream);
+  }
+  .article-hero h1 em{ font-style: italic; color: var(--gold-soft); }
+  .article-hero p{
+    max-width: 540px;
+    margin: 22px auto 0;
+    font-size: 0.96rem;
+    line-height: 1.75;
+    color: #b9ae94;
+  }
+
+  /* ---------- Article body ---------- */
+  .article{
+    background: var(--cream);
+    padding: 90px 32px 110px;
+  }
+  .article-inner{
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .article p{
+    font-size: 1.02rem;
+    line-height: 1.9;
+    color: #3a3527;
+    margin-bottom: 26px;
+    font-weight: 300;
+  }
+  .article h2{
+    font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+    margin: 52px 0 22px;
+    color: var(--ink);
+  }
+  .article strong{ font-weight: 600; color: var(--ink); }
+  .pull-quote{
+    margin: 46px 0;
+    padding: 30px 34px;
+    background: linear-gradient(120deg, #e9dcb8, #ddc99a);
+    color: #2a2416;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    border-left: 3px solid var(--gold);
+  }
+  .approach-card{
+    margin: 14px 0;
+    border-radius: 4px;
+    background: #fdfbf6;
+    border: 1px solid rgba(28,25,20,0.1);
+    border-left: 3px solid rgba(28,25,20,0.18);
+    overflow: hidden;
+    transition: border-left-color .25s ease;
+  }
+  .approach-card.open{ border-left-color: var(--gold); }
+  .approach-card h2{
+    margin: 0;
+    padding: 22px 30px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #6f6852;
+    cursor: pointer;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: color .25s ease;
+  }
+  .approach-card.open h2{ color: var(--ink); }
+  .approach-card h2 .toggle-icon{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    flex-shrink:0;
+    transition: transform .3s ease;
+  }
+  .approach-card.open h2 .toggle-icon{ transform: rotate(45deg); }
+  .approach-card .card-body{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .4s ease;
+  }
+  .approach-card.open .card-body{
+    grid-template-rows: 1fr;
+  }
+  .approach-card .card-body-inner{
+    overflow: hidden;
+    min-height: 0;
+  }
+  .approach-card.open .card-body-inner{
+    padding: 0 30px 26px;
+  }
+  .approach-card p{ margin-bottom: 0; color: #443c28; }
+  /* This page uses approach-card as a static (non-collapsible) content
+     block, not the accordion pattern from other pages — override padding
+     so text isn't flush against the card edges. */
+  .mutig-static-card h2{ cursor: default; }
+  .mutig-static-card p{ padding: 0 30px 26px; font-size: 0.94rem; line-height: 1.7; }
+  .step-list{ margin: 30px 0; }
+  .step{
+    display:flex;
+    gap: 22px;
+    padding: 22px 18px;
+    border-top: 1px solid rgba(28,25,20,0.12);
+    cursor: pointer;
+    transition: background .25s ease, padding-left .25s ease;
+  }
+  .step:last-child{ border-bottom: 1px solid rgba(28,25,20,0.12); }
+  .step:hover{
+    background: rgba(198,164,92,0.12);
+    padding-left: 26px;
+  }
+  .step.active{
+    background: rgba(198,164,92,0.2);
+    padding-left: 26px;
+  }
+  .step.active .step-num{ color: #a8863f; }
+  .step-num{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    flex-shrink:0;
+    width: 42px;
+    transition: color .25s ease;
+  }
+  .step-text h3{ font-size: 1.15rem; margin-bottom: 6px; color: var(--ink); }
+  .step-text p{ font-size: 0.92rem; color: #55503f; margin-bottom: 0; }
+
+  /* ---------- CTA ---------- */
+  .cta-band{
+    background: var(--black);
+    color: var(--cream);
+    text-align:center;
+    padding: 90px 32px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-band::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(circle at 50% 120%, rgba(198,164,92,0.18), transparent 60%);
+  }
+  .cta-band-inner{ position:relative; max-width:600px; margin:0 auto; }
+  .cta-band h2{ font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--cream); margin-bottom: 16px; }
+  .cta-band p{ color: #a79c82; font-size: 0.94rem; line-height: 1.7; margin-bottom: 30px; }
+  .hero-cta{
+    display:inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 15px 34px;
+    border-radius: 4px;
+    transition: transform .3s ease, background .3s ease;
+  }
+  .hero-cta:hover{ background: var(--gold-soft); transform: translateY(-2px); }
+
+  footer{
+    background: var(--black);
+    color: #6f6852;
+    text-align:center;
+    padding: 44px 32px 30px;
+    border-top: 1px solid var(--line);
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+  }
+  .socials{
+    display:flex;
+    justify-content:center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .socials a{
+    width: 34px; height:34px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .socials a:hover{ border-color: var(--gold); }
+  .socials svg{ width: 15px; height:15px; stroke: var(--gold-soft); }
+
+  @media (max-width: 600px){
+    .article-hero, .article, .cta-band{ padding-left: 20px; padding-right: 20px; }
+    .step{ flex-direction: column; gap: 8px; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+  /* ---------- Nav ---------- */
+  header{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    background: rgba(11,10,8,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav{
+    max-width: 1240px;
+    margin: 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 18px 32px;
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap: 40px;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #cfc4a6;
+  }
+  .nav-links a{
+    position:relative;
+    padding-bottom: 4px;
+    transition: color .25s ease;
+  }
+  .nav-links a:hover{ color: var(--gold-soft); }
+  .nav-links a.active{ color: var(--gold-soft); }
+  .nav-links a.active::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-2px;
+    height:1px;
+    background: var(--gold);
+  }
+  .has-dropdown{
+    position: relative;
+  }
+  .has-dropdown > a{
+    display:flex;
+    align-items:center;
+    gap: 6px;
+  }
+  .has-dropdown .caret{
+    width: 8px; height:8px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -3px;
+    transition: transform .25s ease;
+  }
+  .has-dropdown:hover .caret{ transform: rotate(225deg); margin-top: 3px; }
+  .dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: #131110;
+    border: 1px solid var(--line);
+    min-width: 200px;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+    z-index: 60;
+  }
+  .has-dropdown:hover .dropdown-menu,
+  .has-dropdown:focus-within .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(2px);
+  }
+  .dropdown-menu a{
+    display:block;
+    padding: 10px 22px;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    color: #cfc4a6;
+    white-space: nowrap;
+  }
+  .dropdown-menu a:hover{ color: var(--gold-soft); background: rgba(198,164,92,0.08); }
+  .btn-book{
+    border: 1px solid var(--gold);
+    color: var(--gold-soft);
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 11px 22px;
+    border-radius: 4px;
+    transition: all .25s ease;
+    white-space: nowrap;
+  }
+  .btn-book:hover{
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    border-color: transparent;
+    color: #201a0d;
+  }
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .nav-toggle span{
+    display:block;
+    width: 100%;
+    height: 2px;
+    background: var(--gold-soft);
+    border-radius: 2px;
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  .nav-toggle.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity: 0; }
+  .nav-toggle.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu{
+    display:none;
+    position: fixed;
+    top: 71px; left: 0; right: 0; bottom: 0;
+    background: var(--black);
+    z-index: 40;
+    padding: 24px 32px 40px;
+    overflow-y: auto;
+    border-top: 1px solid var(--line);
+  }
+  .mobile-menu.open{ display:block; }
+  .mobile-menu a{
+    display:block;
+    padding: 16px 0;
+    font-size: 1.1rem;
+    font-family:'Cormorant Garamond', serif;
+    color: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+  .mobile-menu .mm-parent{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 16px 0;
+    font-size: 1.1rem;
+    font-family:'Cormorant Garamond', serif;
+    color: var(--cream);
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .mobile-menu .mm-parent .caret{
+    width: 8px; height:8px;
+    border-right: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    transform: rotate(45deg);
+    transition: transform .25s ease;
+  }
+  .mobile-menu .mm-parent.open .caret{ transform: rotate(225deg); }
+  .mobile-menu .mm-sub{
+    max-height: 0;
+    overflow:hidden;
+    transition: max-height .3s ease;
+  }
+  .mobile-menu .mm-sub.open{ max-height: 300px; }
+  .mobile-menu .mm-sub a{
+    padding-left: 18px;
+    font-size: 0.95rem;
+    color: #cfc4a6;
+    border-bottom: none;
+  }
+  @media (max-width: 760px){
+    .nav-toggle{ display:flex; }
+    .btn-book{ display:none; }
+    .nav-links{ display:none; }
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo" aria-label="SU.MINDSYSTEMS Startseite">
+      <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
+        <path d="M30 30 Q10 30 10 42 Q10 52 30 54 Q50 56 50 66 Q50 78 28 78 Q10 78 8 64" stroke="#c6a45c" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M58 78 L58 26 L74 54 L90 26 L90 78" stroke="#c6a45c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-text">
+        <span class="sm"><span class="bold-part">SU.MIND</span>SYSTEMS</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="has-dropdown">
+        <a href="index.html#approach">Über mich <span class="caret"></span></a>
+        <div class="dropdown-menu">
+          <a href="index.html#approach">Mein Ansatz</a>
+          <a href="index.html#approach">Meine Geschichte</a>
+        </div>
+      </div>
+      <a href="index.html#focus">Programme</a>
+      <div class="has-dropdown">
+        <a href="#">Für Dich <span class="caret"></span></a>
+        <div class="dropdown-menu">
+          <a href="inneres-team.html">Dein inneres Team</a>
+          <a href="lebenszahl.html">Lebenszahlen</a>
+          <a href="mondphase.html">Mondphase</a>
+          <a href="#">Astrologie</a>
+          <a href="ebooks.html">eBooks</a>
+        </div>
+      </div>
+      <a href="index.html#footer">Kontakt</a>
+    </div>
+    <a href="index.html#footer" class="btn-book">Geh aufs Ganze</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" onclick="closeMobileMenu()">Home</a>
+
+  <div class="mm-parent" id="mm-parent-1">
+    Über mich <span class="caret"></span>
+  </div>
+  <div class="mm-sub" id="mm-sub-1">
+    <a href="index.html#approach" onclick="closeMobileMenu()">Mein Ansatz</a>
+    <a href="index.html#approach" onclick="closeMobileMenu()">Meine Geschichte</a>
+  </div>
+
+  <a href="index.html#focus" onclick="closeMobileMenu()">Programme</a>
+
+  <div class="mm-parent" id="mm-parent-2">
+    Für Dich <span class="caret"></span>
+  </div>
+  <div class="mm-sub" id="mm-sub-2">
+    <a href="inneres-team.html">Dein inneres Team</a>
+    <a href="lebenszahl.html">Lebenszahlen</a>
+          <a href="mondphase.html">Mondphase</a>
+    <a href="#">Astrologie</a>
+    <a href="ebooks.html">eBooks</a>
+  </div>
+
+  <a href="index.html#footer" onclick="closeMobileMenu()">Kontakt</a>
+</div>
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <span class="eyebrow">Bevor Du weiterklickst</span>
+    <h1>Ja. Es ist ein <em>Risiko</em>.</h1>
+    <p>Du hast etwas zu verlieren — aber das heißt nicht, dass Du verloren bist.</p>
+  </div>
+</section>
+
+<article class="article">
+  <div class="article-inner">
+
+  <p>Es ist ein Risiko, denn Du hast etwas zu verlieren — das, was Du Dir über Jahre aufgebaut hast: Dein Bild von Dir selbst, die Rollen, die Dir vertraut sind, die Version von Dir, mit der Du bisher irgendwie funktioniert hast.</p>
+
+  <p>Aber Du hast trotzdem geklickt. Wahrscheinlich, weil ein Teil von Dir bereits weiß: <em>Ich bin bereit dafür.</em></p>
+
+  <div class="pull-quote">„Aufs Ganze gehen heißt nicht, alles zu riskieren. Es heißt, endlich für Dich einzustehen."</div>
+
+  <p>Es geht hier nicht darum, alles über den Haufen zu werfen, was Du bisher aufgebaut hast. Es geht darum, ehrlich hinzuschauen, was davon Dich wirklich trägt — und was nur noch Gewohnheit ist, die sich sicher anfühlt, obwohl sie Dich längst nicht mehr weiterbringt.</p>
+
+  <h2>Wie wir zusammenarbeiten</h2>
+
+  <p>Integration ist kein einmaliges Gespräch und kein fertiges Programm, das über Dich drübergestülpt wird. Es ist ein Prozess, den wir gemeinsam gehen — Du und ich, über mehrere Monate hinweg, nicht über ein einzelnes Wochenende.</p>
+
+  <div class="approach-card mutig-static-card">
+  <h2>Schritt 1: Verstehen, was gerade steuert</h2>
+  <p>Bevor wir irgendetwas verändern, schauen wir gemeinsam hin: Welche Anteile sind gerade aktiv? Wovor schützen sie Dich? Was haben sie in der Vergangenheit gelernt, das heute nicht mehr passt? Ohne dieses Verständnis bleibt jede Veränderung Kosmetik.</p>
+  </div>
+
+  <div class="approach-card mutig-static-card">
+  <h2>Schritt 2: Verstand und Gefühl als Team</h2>
+  <p>Wir arbeiten nicht nur analytisch, und wir arbeiten nicht nur gefühlsbasiert. Beides zusammen, im Wechsel — weil beides zusammen der Punkt ist, an dem echte Veränderung entsteht, nicht Symptombekämpfung.</p>
+  </div>
+
+  <div class="approach-card mutig-static-card">
+  <h2>Schritt 3: Integration statt schnelle Lösung</h2>
+  <p>Es gibt keinen Trick, der einen jahrelang gewachsenen Schutzmechanismus in einer Sitzung auflöst. Was es gibt: einen Raum, in dem sich Anteile nach und nach zeigen dürfen, gesehen werden, und dadurch aufhören, gegeneinander zu arbeiten.</p>
+  </div>
+
+  <p>Warum das effektiv ist, im Unterschied zu vielen anderen Ansätzen: Wir setzen nicht am Verhalten an, das Du zeigst, sondern an dem System dahinter, das dieses Verhalten überhaupt erst hervorbringt. Das ist der Unterschied zwischen einer Veränderung, die hält, und einer, die beim nächsten Trigger wieder zusammenbricht.</p>
+
+  <div class="pull-quote">„Du musst nicht mutig sein, weil Du keine Angst hast. Du bist mutig, weil Du trotzdem hinschaust."</div>
+
+  <p>Falls Du bereit bist, herauszufinden, wie das für Dich konkret aussehen könnte:</p>
+
+  </div>
+</article>
+
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <span class="eyebrow">Bereit dafür?</span>
+    <h2 style="margin-top:16px;">Lass uns dort ansetzen, wo es wirklich zählt — an der Wurzel.</h2>
+    <p>Meine Coaching-Pakete begleiten Dich über mehrere Monate – wähle aus, welches am stimmigsten für Dich ist.</p>
+    <a href="index.html#footer" class="hero-cta">Zur Auswahl</a>
+  </div>
+</section>
+
+<footer>
+  <div class="socials">
+    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="2.5" y="6" width="19" height="12" rx="3.5"/><polygon points="10.5,9.5 10.5,14.5 15,12" fill="#e3cd97" stroke="none"/></svg></a>
+    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="#e3cd97"/></svg></a>
+    <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M14 4v10.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 4c.5 2.5 2 4 4.5 4.3"/></svg></a>
+    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="7" r="0.6" fill="#e3cd97" stroke="none"/><path d="M11.5 17v-4.5a2 2 0 0 1 4 0V17"/><line x1="11.5" y1="10" x2="11.5" y2="17"/></svg></a>
+  </div>
+  <div style="margin-bottom:10px;">© 2026 SU.MINDSYSTEMS</div>
+  <div style="display:flex; justify-content:center; gap:22px; flex-wrap:wrap;">
+    <a href="impressum.html" style="color:#6f6852;">Impressum</a>
+    <a href="datenschutz.html" style="color:#6f6852;">Datenschutzerklärung</a>
+    <a href="cookies.html" style="color:#6f6852;">Cookies</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.step').forEach(function(step){
+    step.addEventListener('click', function(){
+      document.querySelectorAll('.step').forEach(function(s){
+        if(s !== step) s.classList.remove('active');
+      });
+      step.classList.toggle('active');
+    });
+  });
+</script>
+
+
+<div id="cookie-banner" style="position:fixed; left:0; right:0; bottom:0; z-index:9999; background:#0b0a08; border-top:1px solid rgba(198,164,92,0.35); padding:22px 32px; display:none; box-shadow:0 -8px 30px rgba(0,0,0,0.35);">
+  <div style="max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+    <p style="margin:0; font-family:'Jost', sans-serif; font-weight:300; font-size:0.86rem; line-height:1.6; color:#cfc4a6; max-width:640px;">
+      Diese Website verwendet Cookies, um Dir die beste Nutzung zu ermöglichen. Mehr dazu in unserer <a href="cookies.html" style="color:#e3cd97; text-decoration:underline;">Cookie-Richtlinie</a>.
+    </p>
+    <div style="display:flex; gap:12px; flex-shrink:0; flex-wrap:wrap;">
+      <button id="cookie-essential-btn" style="padding:11px 20px; border-radius:6px; border:1px solid #c6a45c; background:transparent; color:#e3cd97; font-family:'Jost', sans-serif; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:background .25s ease, color .25s ease;">Nur notwendige</button>
+      <button id="cookie-accept-btn" style="padding:11px 20px; border-radius:6px; border:none; background:linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%); color:#201a0d; font-family:'Jost', sans-serif; font-weight:600; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    var consent = localStorage.getItem('sumindsystems_cookie_consent');
+    var banner = document.getElementById('cookie-banner');
+    if (!consent){
+      banner.style.display = 'block';
+    }
+    var essentialBtn = document.getElementById('cookie-essential-btn');
+    var acceptBtn = document.getElementById('cookie-accept-btn');
+    essentialBtn.addEventListener('mouseenter', function(){ essentialBtn.style.background = '#c6a45c'; essentialBtn.style.color = '#0b0a08'; });
+    essentialBtn.addEventListener('mouseleave', function(){ essentialBtn.style.background = 'transparent'; essentialBtn.style.color = '#e3cd97'; });
+    essentialBtn.addEventListener('click', function(){
+      localStorage.setItem('sumindsystems_cookie_consent', 'essential');
+      banner.style.display = 'none';
+    });
+    acceptBtn.addEventListener('click', function(){
+      localStorage.setItem('sumindsystems_cookie_consent', 'accepted');
+      banner.style.display = 'none';
+      // Nicht-notwendige Skripte (z. B. Analytics) erst HIER laden, nach Zustimmung.
+    });
+  })();
+</script>
+
+<script>
+  // ---------- Mobile hamburger menu ----------
+  var navToggle = document.getElementById('nav-toggle');
+  var mobileMenu = document.getElementById('mobile-menu');
+
+  navToggle.addEventListener('click', function(){
+    navToggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  function closeMobileMenu(){
+    navToggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
+  document.getElementById('mm-parent-1').addEventListener('click', function(){
+    this.classList.toggle('open');
+    document.getElementById('mm-sub-1').classList.toggle('open');
+  });
+  document.getElementById('mm-parent-2').addEventListener('click', function(){
+    this.classList.toggle('open');
+    document.getElementById('mm-sub-2').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
