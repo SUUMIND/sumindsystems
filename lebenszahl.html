@@ -118,11 +118,12 @@
     margin-bottom: 26px;
   }
   .result-block .rb-label{
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .result-block .rb-number{
     font-family: 'Cormorant Garamond', serif;
@@ -139,7 +140,40 @@
     color: #a8a08a;
     font-weight: 400;
   }
+  .result-block .rb-number .rb-master-tag{
+    font-family: 'Jost', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #201a0d;
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .result-block .rb-archetype{
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #a8863f;
+    margin-bottom: 16px;
+  }
   .result-block .rb-sub{ font-size: 0.86rem; color: #6f6852; margin-bottom: 20px; }
+  .rb-sub-def{
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #6f6852;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  .rb-kern{
+    font-size: 0.94rem;
+    line-height: 1.75;
+    color: #3a3527;
+    margin-bottom: 22px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(28,25,20,0.1);
+  }
   .rb-split{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .rb-col h4{
     font-family:'Jost', sans-serif;
@@ -150,7 +184,32 @@
   }
   .rb-col.licht h4{ color: #a8863f; }
   .rb-col.schatten h4{ color: #6f6852; }
+  .rb-col.liebe h4{ color: #b45c5c; }
+  .rb-col.geld h4{ color: #7a8f5c; }
   .rb-col p{ font-size: 0.9rem; line-height: 1.7; color: #443c28; }
+  .rb-alltag{
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(28,25,20,0.1);
+  }
+  .rb-alltag h4{
+    font-family:'Jost', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6f6852;
+    margin-bottom: 8px;
+  }
+  .rb-alltag p{ font-size: 0.9rem; line-height: 1.7; color: #443c28; }
+  .rb-mantra{
+    margin-top: 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #8f7145;
+    text-align:center;
+    padding: 16px 0;
+  }
 
   @media (max-width: 560px){
     .rb-split{ grid-template-columns: 1fr; }
@@ -417,7 +476,7 @@
   <div class="page-hero-inner">
     <span class="eyebrow">Für Dich</span>
     <h1>Deine Lebenszahl</h1>
-    <p>Gib hier Deinen Geburtstag ein. Du bekommst nicht nur Deine Lebenszahl, sondern findest auch heraus, was Dein Talent ist und wo Deine Bühne ist. Detailliert und komplex, sodass Du auch wirklich etwas damit anfangen kannst.</p>
+    <p>Gib hier Deinen Geburtstag ein. Du bekommst nicht nur Deine Lebenszahl, sondern findest auch heraus, was Dein Talent ist und wo Dein Wachstumsfeld ist. Detailliert und komplex, sodass Du auch wirklich etwas damit anfangen kannst.</p>
   </div>
 </section>
 
@@ -491,21 +550,133 @@
     return r.path[0] + '/' + r.result;
   }
 
-  var meanings = {
-    lebenszahl: {
-      1: { licht: 'Du gehst voran, wo andere zögern, und baust aus eigener Kraft, was noch keine Vorlage hat.', schatten: 'Aus Angst, abhängig zu wirken, lehnst Du Hilfe ab, bis Alleinsein zur Regel statt zur Wahl wird.' },
-      2: { licht: 'Du spürst, was zwischen Menschen wirklich gebraucht wird, und schaffst Verbindung, wo andere nur Konflikt sehen.', schatten: 'Aus Angst vor Trennung ordnest Du Dich unter, bis Dein eigenes Bedürfnis unsichtbar wird.' },
-      3: { licht: 'Du bringst aus, was andere nicht in Worte fassen können, und machst Schweres leichter, ohne es kleinzureden.', schatten: 'Aus Angst, ernst genommen zu werden, versteckst Du Dich hinter Witz und Oberfläche.' },
-      4: { licht: 'Du baust Fundamente, auf denen andere sich sicher fühlen können, mit Geduld statt Abkürzung.', schatten: 'Aus Angst vor Kontrollverlust hältst Du an Strukturen fest, die Dich längst einengen statt tragen.' },
-      5: { licht: 'Du bringst Bewegung und Freiheit dahin, wo alles erstarrt ist, und zeigst, dass Veränderung kein Verlust sein muss.', schatten: 'Aus Angst vor Festlegung springst Du weiter, bevor irgendetwas wirklich Wurzeln schlagen kann.' },
-      6: { licht: 'Du trägst Verantwortung für das große Ganze, mit einem Gespür für das, was Menschen und Systeme wirklich brauchen.', schatten: 'Aus Angst zu enttäuschen, übernimmst Du fremde Lasten, bis Du selbst darunter verschwindest.' },
-      7: { licht: 'Du gehst dorthin, wo andere nicht hinschauen wollen, und findest Wahrheit statt Trost.', schatten: 'Aus Angst vor Oberflächlichkeit ziehst Du Dich zurück, bis Einsamkeit sich wie Sicherheit anfühlt.' },
-      8: { licht: 'Du bringst Vision in greifbare Form und stehst zu dem, was Du Dir aufgebaut hast.', schatten: 'Aus Angst vor Bedeutungslosigkeit misst Du Dich nur noch an äußerem Erfolg.' },
-      9: { licht: 'Du siehst das größere Muster hinter dem Einzelnen und gibst zurück, ohne eine Gegenleistung zu erwarten.', schatten: 'Aus Angst, nicht genug zu geben, verlierst Du Dich selbst in der Sorge um alle anderen.' },
-      11: { licht: 'Du spürst, was andere noch nicht in Worte fassen können, und wirst zum Kanal für Klarheit in einem Moment, in dem sie fehlt.', schatten: 'Aus Angst vor der eigenen Intensität dämpfst Du Dich selbst, bis aus Sensibilität permanente Überforderung wird.' },
-      22: { licht: 'Du kannst aus einer großen Vision etwas bauen, das wirklich trägt, nicht nur für Dich, sondern für viele.', schatten: 'Aus Angst zu scheitern, hältst Du an der Vision fest, ohne je den ersten konkreten Schritt zu gehen.' },
-      33: { licht: 'Du trägst eine Form von Fürsorge, die heilt, ohne zu vereinnahmen, wenn Du sie wirklich lebst statt sie zu leisten.', schatten: 'Aus Angst, nicht genug zu lieben, opferst Du Dich für andere auf, bis von Dir selbst nichts mehr übrig bleibt.' }
+  var archetypes = {
+    1: 'Der Pionier & Wegbereiter',
+    2: 'Der Empath & Brückenbauer',
+    3: 'Der Kommunikator & Lebenskünstler',
+    4: 'Der Architekt & Bewahrer',
+    5: 'Der Freigeist & Entdecker',
+    6: 'Der Heiler & Mentor',
+    7: 'Der Wahrheitssucher & Philosoph',
+    8: 'Der Stratege & Leader',
+    9: 'Der Humanist & Vollender',
+    11: 'Der intuitive Visionär',
+    22: 'Der Meister-Architekt',
+    33: 'Der Meister-Heiler'
+  };
+
+  var lebenszahlDetails = {
+    1: {
+      kern: 'Du bist hier, um Individuation zu erleben – das bedeutet, Dich aus der Masse zu lösen, Deinen eigenen Standpunkt zu finden und Eigenständigkeit zu entwickeln. Es geht um Selbstbehauptung und den Mut, Dinge zu initiieren.',
+      licht: 'Du führst durch natürliche Autorität und Klarheit, nicht durch Zwang. Deine Entschlossenheit inspiriert andere. Du hast das tiefe Vertrauen, Entscheidungen allein zu treffen und voranzugehen, selbst wenn Dir noch niemand folgt.',
+      schatten: 'Wenn Dein innerer Antrieb blockiert ist, wandelt sich Dein Feuer in Druck. Du neigst dann zu extremem Egoismus, reagierst rechthaberisch oder kompensierst innere Unsicherheit durch Dominanz und Kontrolle.',
+      alltag: 'Du bist die Person, die in einem festgefahrenen Meeting die Initiative ergreift, eine völlig neue Richtung vorschlägt oder den mutigen Sprung in die Selbstständigkeit wagt, statt in einem System zu verharren, das Dich klein hält.',
+      mantra: 'Ich vertraue meinem Impuls. Durch mich entsteht Neues.',
+      liebe: 'Du brauchst viel Freiraum und Autonomie. Eine Beziehung funktioniert für Dich nur auf absoluter Augenhöhe – Du willst weder bemuttert werden, noch möchtest Du Deinen Partner retten. Wenn Du unbewusst bist, neigst Du dazu, in Beziehungen zu dominieren. In der Balance bist Du ein loyal ermutigender Partner, der den anderen in seiner eigenen Größe bestärkt.',
+      geld: 'Geld ist für Dich ein Nebenprodukt von Erfolg und Unabhängigkeit. Du hasst es, finanziell von anderen abhängig zu sein. Du bist absolut fähig, Risiken einzugehen und in Dich selbst oder Deine eigenen Projekte zu investieren. Pass auf, dass Du nicht aus reinem Ego-Antrieb unüberlegte finanzielle Sprünge machst.'
     },
+    2: {
+      kern: 'Dein zentrales Thema ist die Verbindung. Du besitzt eine hochsensible Wahrnehmung für zwischenmenschliche Dynamiken und strebst danach, Gegensätze zu vereinen und echte Harmonie herzustellen.',
+      licht: 'Du bist das emotionale Bindeglied in jeder Gruppe. Durch Deine diplomatische Art und Dein tiefes Zuhören schaffst Du Räume, in denen sich andere sicher fühlen. Du führst durch Sanftmut und Intuition.',
+      schatten: 'Aus Angst vor Ablehnung neigst Du zum „People-Pleasing". Du stellst Deine eigenen Bedürfnisse zurück, meidest notwendige Konflikte und verschmilzt so sehr mit anderen, dass Du Deine eigenen Grenzen verlierst.',
+      alltag: 'Du bist die Person, die intuitiv spürt, wenn es einem Kollegen nicht gut geht, und die einen schwelenden Konflikt im Team entschärft, ohne dass sich jemand angegriffen fühlt.',
+      mantra: 'In der wahren Verbindung bleibe ich mir selbst treu.',
+      liebe: 'Du bist für die tiefe, emotionale Verschmelzung gemacht. Romantik, Fürsorge und Seelenverwandtschaft sind Dein Antrieb. Die psychologische Falle: Du verlierst Dich schnell im anderen (Ko-Abhängigkeit) und ignorierst Warnsignale, nur um die Harmonie zu wahren. Deine Lernaufgabe ist es, Grenzen zu setzen, ohne Dich weniger liebend zu fühlen.',
+      geld: 'Materielle Sicherheit ist für Dich eng mit emotionaler Sicherheit verknüpft. Du bist kein gnadenloser Einzelkämpfer, sondern verdienst Dein Geld am besten in Kooperationen, Partnerschaften oder Netzwerken. Du teilst gerne, musst aber lernen, Deinen eigenen (auch monetären) Wert selbstbewusst einzufordern.'
+    },
+    3: {
+      kern: 'Bei Dir dreht sich alles um den authentischen Selbstausdruck. Du bist hier, um Deine innere Welt nach außen zu tragen – sei es durch Sprache, Kunst, Humor oder pure Lebensfreude.',
+      licht: 'Du besitzt ein unwiderstehliches Charisma und eine ansteckende Leichtigkeit. Du kannst komplexe oder schwere Themen durch Deine kommunikative Gabe aufhellen und Menschen mit Deiner Begeisterung mitreißen.',
+      schatten: 'Wenn Du Deine Tiefe nicht lebst, flüchtest Du in Oberflächlichkeit und Zerstreutheit. Du neigst zu dramatischen Übertreibungen oder versteckst Deine wahre Traurigkeit hinter einer dauerhaften „Clowns-Maske".',
+      alltag: 'Du bist die Person, die mit einem mitreißenden Pitch eine Idee verkauft, eine Party durch einen einzigen Witz rettet oder komplexe Gefühle in einem kreativen Projekt greifbar macht.',
+      mantra: 'Ich drücke meine Wahrheit mit Freude und Leichtigkeit aus.',
+      liebe: 'Routine ist der Tod Deiner Libido. Du brauchst geistige Stimulation, Humor und einen Partner, der Deine bunte Innenwelt feiert. Du bist leidenschaftlich und verspielt. Im Schatten neigst Du zu Drama oder flüchtest aus der Bindung, sobald der Beziehungsalltag zu ernst oder schwerfällig wird.',
+      geld: '„Geld fließt, Geld geht." Für Dich ist Geld reine Energie, die dazu da ist, schöne Erlebnisse, Ästhetik und Freude zu erschaffen. Du bist oft impulsiv bei Ausgaben. Du ziehst Fülle fast magisch an, wenn Du Deiner Kreativität folgst, solltest Dir aber beim Thema Sparen und Struktur Hilfe von außen holen.'
+    },
+    4: {
+      kern: 'Du bist das Fundament. Dein innerer Antrieb ist es, Struktur ins Chaos zu bringen und Dinge zu erschaffen, die dauerhaft Bestand haben. Pragmatismus und Verlässlichkeit sind Deine stärksten Werkzeuge.',
+      licht: 'Du setzt Visionen in die Realität um, weil Du die Ausdauer und das Organisationstalent hast, Schritt für Schritt vorzugehen. Du bist der Fels in der Brandung, auf den sich alle verlassen können.',
+      schatten: 'Dein Bedürfnis nach Sicherheit kann in Starrsinn und Perfektionismus umschlagen. Du wehrst Dich vehement gegen Veränderungen, verlierst Dich in Workaholismus und möchtest jeden Schritt mikromanagen.',
+      alltag: 'Du bist die Person, die den wirren Ideen der anderen einen klaren, machbaren Projektplan verpasst, Excel-Listen liebt und dafür sorgt, dass am Ende des Tages alles reibungslos funktioniert.',
+      mantra: 'Durch Struktur erschaffe ich Freiheit und Wachstum.',
+      liebe: 'Du drückst Liebe nicht durch kitschige Gedichte aus, sondern durch Taten – Du reparierst das Auto, organisierst den Umzug, bietest Schutz. Wer Dich als Partner hat, hat einen Fels in der Brandung. Deine Herausforderung: Du kannst stur und emotional distanziert wirken. Du musst lernen, Dich auch verletzlich zu zeigen.',
+      geld: 'Du bist der Inbegriff des soliden Vermögensaufbaus. Du magst keine leichtsinnigen Spekulationen, sondern setzt auf langfristige Anlagen, Immobilien oder sichere Sparpläne. Geld bedeutet für Dich Fundament. Die psychologische Falle: Du kannst geizig werden oder aus purer Existenzangst in einem Job bleiben, der Dich unglücklich macht.'
+    },
+    5: {
+      kern: 'Dein Thema ist die absolute Freiheit und die ständige Erweiterung Deiner Komfortzone. Du brauchst Abwechslung, um zu wachsen, und bist der geborene Katalysator für Wandel.',
+      licht: 'Du bist extrem anpassungsfähig, vielseitig und furchtlos gegenüber dem Unbekannten. Du durchbrichst alte Muster und zeigst anderen, dass das Leben ein Abenteuer ist, das gelebt werden will.',
+      schatten: 'Aus Angst, etwas zu verpassen oder eingeengt zu werden, wirst Du flatterhaft und impulsiv. Du flüchtest vor echter Bindung und brichst Projekte ab, kurz bevor sie Früchte tragen können.',
+      alltag: 'Du bist die Person, die spontan ihren Job kündigt, um eine Weltreise zu machen, oder die in einem festgefahrenen Unternehmen plötzlich einen radikal unkonventionellen Lösungsansatz präsentiert.',
+      mantra: 'Meine Freiheit liegt in meiner inneren Sicherheit.',
+      liebe: 'Ein Partner muss für Dich gleichzeitig bester Freund und Reisegefährte sein. Du leidest schnell unter Platzangst in festen Strukturen. In der Schattenseite leidest Du unter starker Bindungsangst und verwechselst tiefe Intimität mit Kontrollverlust. Wenn man Dir jedoch völlige Freiheit lässt, bleibst Du freiwillig und treu.',
+      geld: 'Geld ist für Dich ausschließlich ein Ticket zur Freiheit, kein Status-Symbol. Du bist bereit, stark schwankende Einkommen zu akzeptieren, wenn Du dafür selbstbestimmt leben kannst. Du investierst lieber in Erlebnisse als in Dinge. Achte darauf, finanzielle Verpflichtungen nicht einfach zu ignorieren, wenn sie Dir lästig werden.'
+    },
+    6: {
+      kern: 'Deine Psyche ist auf Fürsorge, Verantwortung und das Heilen von Wunden ausgerichtet. Du suchst nach tiefer Harmonie in Deinem Umfeld und möchtest, dass es allen gut geht.',
+      licht: 'Du strahlst eine enorme Herzenswärme aus und schaffst emotionale Geborgenheit. Du unterstützt andere dabei, ihr Potenzial zu entfalten, und trägst Verantwortung mit Leichtigkeit und Liebe.',
+      schatten: 'Du rutschst leicht in ein toxisches Helfer-Syndrom. Du opferst Dich selbst auf, erwartest heimlich Dankbarkeit und versuchst, das Leben der anderen durch übermäßige Fürsorge zu kontrollieren.',
+      alltag: 'Du bist die Person, zu der alle kommen, wenn sie Beziehungsrat brauchen, und die das Büro oder das Zuhause zu einem warmen, ästhetischen Ort macht, an dem man sich sofort willkommen fühlt.',
+      mantra: 'Ich darf empfangen. Ich helfe anderen, ohne mich selbst zu verlieren.',
+      liebe: 'Die Familie (ob biologisch oder selbst gewählt) ist Dein Heiligstes. Du sehnst Dich nach einem tiefen „Zuhause-Gefühl". Deine größte Stolperfalle ist das Retter-Syndrom: Du ziehst oft Partner an, die Probleme haben, weil Du unbewusst glaubst, Liebe durch Aufopferung verdienen zu müssen.',
+      geld: 'Du nutzt Geld, um es Deinen Liebsten schön zu machen und Geborgenheit zu erschaffen. Da Du oft bescheiden bist, fällt es Dir schwer, Preise für Deine Arbeit abzurufen. Sobald Du aber erkennst, dass Du mit mehr Geld auch mehr Gutes tun kannst, löst sich Deine Geldblockade.'
+    },
+    7: {
+      kern: 'Du bist der tiefgründige Denker. Es reicht Dir nicht, Dinge oberflächlich hinzunehmen; Du willst die Mechanik dahinter verstehen – sei es in der Wissenschaft, der Psychologie oder der Spiritualität.',
+      licht: 'Du verbindest rasiermesserscharfen Intellekt mit einer extrem starken Intuition. Wenn Du sprichst, haben Deine Worte Gewicht, weil sie aus echter Weisheit und tiefer Introspektion stammen.',
+      schatten: 'Du neigst zum Overthinking und zur Isolation. Wenn Du Dich unverstanden fühlst, ziehst Du Dich emotional völlig zurück, wirst zynisch, misstrauisch und verlierst die Bodenhaftung.',
+      alltag: 'Du bist die Person, die ein Thema monatelang bis ins kleinste Detail recherchiert, bevor sie sich eine Meinung bildet, und die in hitzigen Diskussionen mit einer einzigen, brillanten Frage den Kern des Problems trifft.',
+      mantra: 'Ich finde die Wahrheit in der Stille und teile sie mit der Welt.',
+      liebe: 'Du bist extrem wählerisch und oft sapiosexuell – Intelligenz zieht Dich magisch an. Du brauchst ungewöhnlich viel Alleinzeit, um Dich nicht energetisch ausgesaugt zu fühlen. Oberflächlicher Smalltalk in der Partnerschaft frustriert Dich. Du suchst die seltene, tiefgründige Seelenverbindung.',
+      geld: 'Die materielle Welt langweilt Dich oft, da Du in geistigen Sphären lebst. Geld ist für Dich ein Mittel zum Zweck: Es soll Dir die Ruhe und Unabhängigkeit kaufen, um ungestört Deinen Forschungen, Studien oder Hobbys nachzugehen. Du musst aufpassen, irdische Rechnungen nicht aus purer Weltflucht zu ignorieren.'
+    },
+    8: {
+      kern: 'Dein Thema ist die Meisterschaft der materiellen Welt – Macht, Finanzen, Autorität und Manifestation. Es geht darum, Deine innere Stärke auf ethische Weise im Außen sichtbar zu machen.',
+      licht: 'Du hast die unglaubliche Energie, große Visionen zu realisieren und materielle Fülle zu erschaffen. Du führst souverän, delegierst klug und nutzt Deinen Erfolg, um auch andere groß zu machen.',
+      schatten: 'Wenn Du in der Mangel-Energie bist, wird Erfolg zur Sucht. Du verlierst Dich in Rücksichtslosigkeit, bewertest Menschen nur noch nach ihrem Status und nutzt Macht zur reinen Selbstzweck-Befriedigung.',
+      alltag: 'Du bist die Person, die ein Startup zum Millionenunternehmen skaliert, harte Verhandlungen souverän führt oder in einer echten Krise sofort das Ruder übernimmt, wenn alle anderen in Panik verfallen.',
+      mantra: 'Ich nutze meine Macht für das höchste Wohl aller.',
+      liebe: 'Du suchst eine „Power-Couple"-Dynamik. Du brauchst jemanden an Deiner Seite, der genauso ehrgeizig und stark ist wie Du, sonst verlierst Du den Respekt. Die Gefahr: Du betrachtest die Beziehung manchmal als „Projekt", das gemanagt werden muss, oder versuchst, den Partner durch Status oder Geld zu dominieren.',
+      geld: 'Du bist ein natürlicher Magnet für Finanzen und Macht. Du kannst hervorragend mit großen Summen umgehen und hast ein Talent dafür, Geld zu vermehren. Deine psychologische Lernaufgabe ist es, Deinen eigenen Selbstwert nicht exklusiv über Deinen Kontostand oder Deinen beruflichen Titel zu definieren.'
+    },
+    9: {
+      kern: 'Die 9 steht für das Ende eines Zyklus und die Transformation. Du hast eine alte Seele, bist extrem weitsichtig und trägst das Ideal einer besseren Welt in Dir.',
+      licht: 'Du zeigst bedingungsloses Mitgefühl und eine tiefe Toleranz gegenüber menschlichen Fehlern. Du kannst loslassen, verzeihen und handelst aus einer Motivation heraus, die dem großen Ganzen dient.',
+      schatten: 'Du leidest an Weltschmerz. Weil Du die Fehler der Welt so klar siehst, verfällst Du in Resignation, Realitätsflucht oder Selbstmitleid. Du hältst an Dingen fest, die längst gehen sollten.',
+      alltag: 'Du bist die Person, die sich leidenschaftlich für soziale Projekte engagiert, eine toxische Beziehung mit Würde und Vergebung beendet und andere lehrt, das Ego hintenanzustellen.',
+      mantra: 'Ich lasse los, was war, und diene der Liebe.',
+      liebe: 'Du bist der Inbegriff des Romantikers und suchst die bedingungslose, absolute Liebe. Oft idealisierst Du Deinen Partner so sehr, dass die Realität zwangsläufig enttäuschen muss. Deine Aufgabe ist es, echte Menschen mit Fehlern zu lieben und toxische Bindungen loszulassen, statt in der Nostalgie der Vergangenheit zu hängen.',
+      geld: 'Du hast oft ein ambivalentes Verhältnis zu Geld. Finanzieller Fluss stellt sich bei Dir paradoxerweise dann ein, wenn Du das Geldverdienen an einen höheren Zweck koppelst. Wenn Deine Arbeit einem sozialen, heilenden oder globalen Zweck dient, kommt der materielle Erfolg ganz automatisch.'
+    },
+    11: {
+      kern: 'Als Meisterzahl schwingst Du auf der Frequenz der 2, aber in einer höheren Oktave. Du bist eine Art „Antenne" für spirituelle oder zukunftsweisende Informationen und verfügst über eine extreme Sensitivität.',
+      licht: 'Du inspirierst Menschen allein durch Deine Präsenz. Du kannst verborgene Potenziale in anderen erkennen und als Katalysator für tiefgreifende Erkenntnisse wirken. Deine Intuition ist Dein stärkster Kompass.',
+      schatten: 'Deine feinen Antennen führen schnell zu Reizüberflutung und nervöser Erschöpfung. Du fühlst Dich von der Welt missverstanden, ziehst Dich völlig in Tagträumereien zurück und leidest an diffusen Ängsten.',
+      alltag: 'Du bist die Person, die in einem Raum sofort die unausgesprochenen Spannungen wahrnimmt, und die scheinbar aus dem Nichts völlig neuartige, visionäre Ideen entwickelt, die ihrer Zeit voraus sind.',
+      mantra: 'Ich vertraue meiner Intuition und bin ein Kanal für Inspiration.',
+      liebe: 'Du spürst die unausgesprochenen Emotionen Deines Partners, noch bevor dieser sie selbst bemerkt. Das macht Dich zu einem extrem empathischen, aber auch leicht überforderbaren Partner. Du brauchst ein sehr ruhiges, harmonisches Umfeld, da Du Energien wie ein Schwamm aufsaugst.',
+      geld: 'Du manifestierst nicht durch harte, logische Strategien, sondern durch radikales Vertrauen in Deine Intuition. Wenn Du versuchst, in strengen, traditionellen Karriere-Mustern zu funktionieren, brennst Du aus. Dein Reichtum liegt in Deinen visionären Ideen – wenn Du diesen vertraust, folgen die Finanzen von selbst.'
+    },
+    22: {
+      kern: 'Die 22 potenziert die Macher-Qualitäten der 4. Du bist hier, um Träume in die Realität zu holen – aber nicht im kleinen Maßstab, sondern auf einer Ebene, die ganze Gesellschaften oder Systeme prägt.',
+      licht: 'Du kombinierst die höchsten spirituellen Visionen mit eiskalter, praktischer Umsetzungskraft. Du baust Strukturen, die Generationen überdauern und der Allgemeinheit dienen.',
+      schatten: 'Die schiere Größe Deines eigenen Potenzials macht Dir Angst. Aus Versagensangst sabotierst Du Dich selbst, flüchtest in völlige Passivität oder wirst, wenn Du Macht hast, zu einem rücksichtslosen Tyrannen.',
+      alltag: 'Du bist die Person, die nicht nur von Nachhaltigkeit spricht, sondern ein global agierendes Unternehmen gründet oder eine Organisation aufbaut, die Tausenden von Menschen strukturell hilft.',
+      mantra: 'Ich manifestiere meine höchsten Visionen in der materiellen Welt.',
+      liebe: 'Du bist extrem verlässlich, steckst aber oft so tief in Deinen weltverändernden Projekten, dass für die Liebe kaum Zeit bleibt. Du brauchst einen Partner, der Deine große Lebensmission versteht und unterstützt, ohne ständig Deine emotionale Präsenz einzufordern.',
+      geld: 'Du hast das Potenzial, enormes Vermögen aufzubauen – nicht um Dir Luxus zu kaufen, sondern um Strukturen, Unternehmen oder Stiftungen zu gründen, die Generationen überdauern. Du denkst nicht in Gehaltsschecks, Du denkst in Vermächtnis.'
+    },
+    33: {
+      kern: 'Die 33 hebt die fürsorgliche Energie der 6 auf eine universelle Ebene. Dein Weg ist der des bedingungslosen Dienstes an der Menschheit, getragen von tiefster, wertfreier Liebe.',
+      licht: 'Du bist eine tief heilende Präsenz für alle, die mit Dir in Berührung kommen. Du hebst das Bewusstsein anderer an, weil Du ohne Vorurteile liebst und den wahren Schmerz hinter dem Verhalten der Menschen siehst.',
+      schatten: 'Die Gefahr des Märtyrertums ist massiv. Du gibst Dich bis zur völligen emotionalen und physischen Selbstzerstörung für andere auf und fühlst Dich am Ende von der Welt im Stich gelassen.',
+      alltag: 'Du bist die Person, die für eine ganze Community als emotionaler Fels fungiert, Missstände mit reiner Liebe statt mit Wut transformiert und anderen zeigt, wie wahre Vergebung funktioniert.',
+      mantra: 'Meine bedingungslose Liebe heilt mich und die Welt.',
+      liebe: 'Deine Liebe ist universell und bedingungslos. Die immense psychologische Gefahr für Dich ist das Märtyrertum: Du opferst Deine eigenen Grenzen für toxische oder extrem bedürftige Partner völlig auf. Du musst dringend lernen, dass echte Heilung nur auf Augenhöhe stattfinden kann.',
+      geld: 'Für Dich ist Geld reine „Liebesenergie", die Du am liebsten sofort wieder verteilst, um Leid zu lindern. Du neigst dazu, materiell ausgenutzt zu werden. Lerne, Geld auch für Dich selbst anzunehmen – denn je genährter Du selbst bist, desto mehr Kraft hast Du, die Welt zu heilen.'
+    }
+  };
+
+  var meanings = {
     talent: {
       1: { licht: 'Dein Werkzeug ist Initiative — Du kannst anfangen, wo alle anderen noch warten.', schatten: 'Wird daraus Alleingang, weil Du niemandem zutraust, es genauso gut zu machen wie Du.' },
       2: { licht: 'Dein Werkzeug ist Feingefühl — Du merkst Stimmungen, bevor sie ausgesprochen werden.', schatten: 'Wird daraus Selbstaufgabe, weil Du lieber schweigst, als eine Disharmonie auszuhalten.' },
@@ -520,32 +691,60 @@
       22: { licht: 'Dein Werkzeug ist Baumeisterkraft — Du verbindest große Vision mit handfester Umsetzung.', schatten: 'Wird daraus Selbstüberforderung, weil der eigene Anspruch alles überschattet, was schon erreicht ist.' },
       33: { licht: 'Dein Werkzeug ist heilende Präsenz — allein Deine Anwesenheit verändert einen Raum.', schatten: 'Wird daraus Selbstverleugnung, weil Du Deine eigene Grenze für die Ruhe der anderen aufgibst.' }
     },
-    buehne: {
-      1: { licht: 'Deine Bühne ist der Anfang von etwas — neue Projekte, neue Wege, unbetretenes Terrain.', schatten: 'Läuft ins Leere, wenn Du nur startest, aber nie bei einer Sache bleibst, um sie zu vollenden.' },
-      2: { licht: 'Deine Bühne ist die Begegnung — enge Partnerschaften, Teams, Zweiergespräche.', schatten: 'Läuft ins Leere, wenn Du Dich nur über den anderen definierst, statt für Dich selbst zu stehen.' },
-      3: { licht: 'Deine Bühne ist die Öffentlichkeit — Sichtbarkeit, Ausdruck, kreative Räume.', schatten: 'Läuft ins Leere, wenn Sichtbarkeit zum Selbstzweck wird, statt Mittel für das, was Du zeigen willst.' },
-      4: { licht: 'Deine Bühne ist der Aufbau — Systeme, Prozesse, langfristige Projekte.', schatten: 'Läuft ins Leere, wenn der Aufbau selbst zum Gefängnis wird, aus dem Du Dich nicht mehr traust auszubrechen.' },
-      5: { licht: 'Deine Bühne ist die Veränderung — neue Umgebungen, Reisen, Umbrüche.', schatten: 'Läuft ins Leere, wenn Bewegung zur Flucht wird vor allem, was zu tief gehen könnte.' },
-      6: { licht: 'Deine Bühne ist die Gemeinschaft — Familie, Team, alles, was Fürsorge braucht.', schatten: 'Läuft ins Leere, wenn Du Dich in der Fürsorge für andere komplett verlierst.' },
-      7: { licht: 'Deine Bühne ist der Rückzug — Forschung, Reflexion, das Alleinsein mit einer Frage.', schatten: 'Läuft ins Leere, wenn Rückzug zur Isolation wird, aus der Du nicht mehr zurückfindest.' },
-      8: { licht: 'Deine Bühne ist die Wirkung nach außen — Business, Verantwortung, sichtbarer Erfolg.', schatten: 'Läuft ins Leere, wenn Erfolg zur einzigen Bestätigung wird, die Du noch annehmen kannst.' },
-      9: { licht: 'Deine Bühne ist das große Ganze — Sinnfragen, globale Themen, das, was über Dich hinausgeht.', schatten: 'Läuft ins Leere, wenn das Große so wichtig wird, dass das eigene Leben nebensächlich erscheint.' },
-      11: { licht: 'Deine Bühne ist die Schwelle zwischen den Welten — Spiritualität, Inspiration, das, was sich noch nicht erklären lässt.', schatten: 'Läuft ins Leere, wenn Du so sehr im Unsichtbaren lebst, dass der Boden unter den Füßen fehlt.' },
-      22: { licht: 'Deine Bühne ist das große Bauwerk — Institutionen, Systeme, die Generationen überdauern.', schatten: 'Läuft ins Leere, wenn der Maßstab so groß wird, dass jeder kleine Schritt bedeutungslos wirkt.' },
-      33: { licht: 'Deine Bühne ist die tiefe Heilung anderer — Lehre, Begleitung, bedingungslose Präsenz.', schatten: 'Läuft ins Leere, wenn die Heilung anderer wichtiger wird als die eigene.' }
+    wachstumsfeld: {
+      1: { licht: 'Dein Wachstumsfeld ist der Anfang von etwas — neue Projekte, neue Wege, unbetretenes Terrain.', schatten: 'Läuft ins Leere, wenn Du nur startest, aber nie bei einer Sache bleibst, um sie zu vollenden.' },
+      2: { licht: 'Dein Wachstumsfeld ist die Begegnung — enge Partnerschaften, Teams, Zweiergespräche.', schatten: 'Läuft ins Leere, wenn Du Dich nur über den anderen definierst, statt für Dich selbst zu stehen.' },
+      3: { licht: 'Dein Wachstumsfeld ist die Öffentlichkeit — Sichtbarkeit, Ausdruck, kreative Räume.', schatten: 'Läuft ins Leere, wenn Sichtbarkeit zum Selbstzweck wird, statt Mittel für das, was Du zeigen willst.' },
+      4: { licht: 'Dein Wachstumsfeld ist der Aufbau — Systeme, Prozesse, langfristige Projekte.', schatten: 'Läuft ins Leere, wenn der Aufbau selbst zum Gefängnis wird, aus dem Du Dich nicht mehr traust auszubrechen.' },
+      5: { licht: 'Dein Wachstumsfeld ist die Veränderung — neue Umgebungen, Reisen, Umbrüche.', schatten: 'Läuft ins Leere, wenn Bewegung zur Flucht wird vor allem, was zu tief gehen könnte.' },
+      6: { licht: 'Dein Wachstumsfeld ist die Gemeinschaft — Familie, Team, alles, was Fürsorge braucht.', schatten: 'Läuft ins Leere, wenn Du Dich in der Fürsorge für andere komplett verlierst.' },
+      7: { licht: 'Dein Wachstumsfeld ist der Rückzug — Forschung, Reflexion, das Alleinsein mit einer Frage.', schatten: 'Läuft ins Leere, wenn Rückzug zur Isolation wird, aus der Du nicht mehr zurückfindest.' },
+      8: { licht: 'Dein Wachstumsfeld ist die Wirkung nach außen — Business, Verantwortung, sichtbarer Erfolg.', schatten: 'Läuft ins Leere, wenn Erfolg zur einzigen Bestätigung wird, die Du noch annehmen kannst.' },
+      9: { licht: 'Dein Wachstumsfeld ist das große Ganze — Sinnfragen, globale Themen, das, was über Dich hinausgeht.', schatten: 'Läuft ins Leere, wenn das Große so wichtig wird, dass das eigene Leben nebensächlich erscheint.' },
+      11: { licht: 'Dein Wachstumsfeld ist die Schwelle zwischen den Welten — Spiritualität, Inspiration, das, was sich noch nicht erklären lässt.', schatten: 'Läuft ins Leere, wenn Du so sehr im Unsichtbaren lebst, dass der Boden unter den Füßen fehlt.' },
+      22: { licht: 'Dein Wachstumsfeld ist das große Bauwerk — Institutionen, Systeme, die Generationen überdauern.', schatten: 'Läuft ins Leere, wenn der Maßstab so groß wird, dass jeder kleine Schritt bedeutungslos wirkt.' },
+      33: { licht: 'Dein Wachstumsfeld ist die tiefe Heilung anderer — Lehre, Begleitung, bedingungslose Präsenz.', schatten: 'Läuft ins Leere, wenn die Heilung anderer wichtiger wird als die eigene.' }
     }
   };
 
-  function renderBlock(label, r, category){
+  function renderBlock(label, sub, r, category){
     var m = meanings[category][r.result];
+    var isMaster = (r.result === 11 || r.result === 22 || r.result === 33);
     var pathHtml = r.path.length > 1 ? '<span class="rb-path">(' + pathLabel(r) + ')</span>' : '';
+    var masterTag = isMaster ? '<span class="rb-master-tag">MEISTERZAHL</span>' : '';
     return '' +
       '<div class="result-block">' +
         '<div class="rb-label">' + label + '</div>' +
-        '<div class="rb-number">' + r.result + pathHtml + '</div>' +
+        '<div class="rb-number">' + r.result + pathHtml + masterTag + '</div>' +
+        '<div class="rb-archetype">' + archetypes[r.result] + '</div>' +
+        '<p class="rb-sub-def">' + sub + '</p>' +
         '<div class="rb-split">' +
-          '<div class="rb-col licht"><h4>Licht</h4><p>' + m.licht + '</p></div>' +
-          '<div class="rb-col schatten"><h4>Schatten</h4><p>' + m.schatten + '</p></div>' +
+          '<div class="rb-col licht"><h4>☀️ Bewusst gelebt (im Licht)</h4><p>' + m.licht + '</p></div>' +
+          '<div class="rb-col schatten"><h4>🌑 Unbewusst gelebt (im Schatten)</h4><p>' + m.schatten + '</p></div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderLebenszahlBlock(r){
+    var d = lebenszahlDetails[r.result];
+    var isMaster = (r.result === 11 || r.result === 22 || r.result === 33);
+    var pathHtml = r.path.length > 1 ? '<span class="rb-path">(' + pathLabel(r) + ')</span>' : '';
+    var masterTag = isMaster ? '<span class="rb-master-tag">MEISTERZAHL</span>' : '';
+    return '' +
+      '<div class="result-block">' +
+        '<div class="rb-label">🔮 Lebenszahl</div>' +
+        '<div class="rb-number">' + r.result + pathHtml + masterTag + '</div>' +
+        '<div class="rb-archetype">' + archetypes[r.result] + '</div>' +
+        '<p class="rb-kern">' + d.kern + '</p>' +
+        '<div class="rb-split">' +
+          '<div class="rb-col licht"><h4>☀️ In der Kraft (Bewusst gelebt)</h4><p>' + d.licht + '</p></div>' +
+          '<div class="rb-col schatten"><h4>🌑 In der Blockade (Unbewusst gelebt)</h4><p>' + d.schatten + '</p></div>' +
+        '</div>' +
+        '<div class="rb-alltag"><h4>📅 Im Alltag</h4><p>' + d.alltag + '</p></div>' +
+        '<div class="rb-mantra">„' + d.mantra + '"</div>' +
+        '<div class="rb-split" style="margin-top:24px;">' +
+          '<div class="rb-col liebe"><h4>❤️ Liebe &amp; Partnerschaft</h4><p>' + d.liebe + '</p></div>' +
+          '<div class="rb-col geld"><h4>💰 Geld &amp; Finanzen</h4><p>' + d.geld + '</p></div>' +
         '</div>' +
       '</div>';
   }
@@ -578,9 +777,9 @@
     var lifeReduced = reduceKeepMaster(lifeSum);
 
     var html = '';
-    html += renderBlock('Lebenszahl', lifeReduced, 'lebenszahl');
-    html += renderBlock('Talent — Dein Tag, WIE Du es lebst', dayReduced, 'talent');
-    html += renderBlock('Bühne — Dein Monat, WO es sich entfaltet', monthReduced, 'buehne');
+    html += renderLebenszahlBlock(lifeReduced);
+    html += renderBlock('🛠️ Talent — WIE Du Deinen Lebenszweck erfüllst', 'Die Fähigkeit, die Dir in diesem Leben mitgegeben wurde, um Deine Lebensaufgabe zu erfüllen.', dayReduced, 'talent');
+    html += renderBlock('🌱 Wachstumsfeld — WO Du am schnellsten wächst', 'Der Rahmen, innerhalb dessen Du Dich am stärksten weiterentwickelst.', monthReduced, 'wachstumsfeld');
 
     var resultsEl = document.getElementById('results');
     resultsEl.innerHTML = html;
