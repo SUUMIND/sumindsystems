@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lebenszahl-Rechner — SU.MINDSYSTEMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08;
+    --gold: #c6a45c;
+    --gold-soft: #e3cd97;
+    --cream: #f3ede1;
+    --ink: #1c1914;
+    --line: rgba(198,164,92,0.25);
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{ font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+  a{ color: inherit; text-decoration: none; }
+
+  .eyebrow{ font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
+
+  .logo{ display:flex; align-items:center; gap: 12px; }
+  .logo-mark{ width: 34px; height: 34px; flex-shrink:0; }
+  .logo-text .sm{ font-family:'Cormorant Garamond', serif; font-size: 1.02rem; letter-spacing:0.03em; color: var(--gold-soft); font-weight: 500; }
+  .logo-text .sm .bold-part{ font-weight: 700; }
+
+  header{ background: var(--black); border-bottom: 1px solid var(--line); }
+  nav{ max-width: 1240px; margin: 0 auto; display:flex; align-items:center; justify-content: space-between; padding: 18px 32px; }
+  .back-link{ font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #cfc4a6; display:flex; align-items:center; gap: 8px; transition: color .25s ease; }
+  .back-link:hover{ color: var(--gold-soft); }
+  .back-link .home-icon{ display:none; width: 20px; height:20px; flex-shrink:0; }
+  @media (max-width: 600px){
+    .back-link{ width: 38px; height: 38px; justify-content:center; border: 1px solid var(--line); border-radius: 50%; }
+    .back-link .home-icon{ display:block; }
+    .back-link .back-text{ display:none; }
+  }
+
+  .page-hero{
+    background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%);
+    color: var(--cream);
+    text-align:center;
+    padding: 90px 32px 70px;
+  }
+  .page-hero-inner{ max-width: 620px; margin:0 auto; }
+  .page-hero h1{ font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--cream); margin-top: 16px; }
+  .page-hero p{ margin-top: 18px; font-size: 0.96rem; line-height: 1.75; color: #b9ae94; }
+
+  /* ---------- Form ---------- */
+  .calc-wrap{ max-width: 560px; margin: 0 auto; padding: 50px 32px 40px; position:relative; z-index: 5; }
+  .calc-card{
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.16);
+    padding: 34px 32px;
+  }
+  .calc-fields{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .calc-fields label{
+    display:block;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6f6852;
+    margin-bottom: 6px;
+  }
+  .calc-fields select{
+    width: 100%;
+    padding: 12px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(28,25,20,0.18);
+    background: #fff;
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.92rem;
+  }
+  .calc-btn{
+    margin-top: 22px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    color: #201a0d;
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter .25s ease, transform .25s ease;
+  }
+  .calc-btn:hover{ filter: brightness(1.1); transform: translateY(-1px); }
+
+  /* ---------- Results ---------- */
+  .results{ max-width: 760px; margin: 0 auto; padding: 10px 32px 110px; display:none; }
+  .results.visible{ display:block; }
+
+  .result-block{
+    background: #fdfbf6;
+    border: 1px solid rgba(28,25,20,0.1);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 30px 32px;
+    margin-bottom: 26px;
+  }
+  .result-block .rb-label{
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .result-block .rb-number{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: var(--ink);
+    display:flex;
+    align-items:baseline;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+  .result-block .rb-number .rb-path{
+    font-size: 1.1rem;
+    color: #a8a08a;
+    font-weight: 400;
+  }
+  .result-block .rb-sub{ font-size: 0.86rem; color: #6f6852; margin-bottom: 20px; }
+  .rb-split{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .rb-col h4{
+    font-family:'Jost', sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .rb-col.licht h4{ color: #a8863f; }
+  .rb-col.schatten h4{ color: #6f6852; }
+  .rb-col p{ font-size: 0.9rem; line-height: 1.7; color: #443c28; }
+
+  @media (max-width: 560px){
+    .rb-split{ grid-template-columns: 1fr; }
+    .calc-fields{ grid-template-columns: 1fr; }
+  }
+
+  footer{ background: var(--black); color: #6f6852; text-align:center; padding: 40px 32px 30px; border-top: 1px solid var(--line); font-size: 0.76rem; }
+  footer a{ color: #6f6852; transition: color .2s ease; }
+  footer a:hover{ color: var(--gold-soft); }
+
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo" aria-label="SU.MINDSYSTEMS Startseite">
+      <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
+        <path d="M30 30 Q10 30 10 42 Q10 52 30 54 Q50 56 50 66 Q50 78 28 78 Q10 78 8 64" stroke="#c6a45c" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M58 78 L58 26 L74 54 L90 26 L90 78" stroke="#c6a45c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-text"><span class="sm"><span class="bold-part">SU.MIND</span>SYSTEMS</span></span>
+    </a>
+    <a href="index.html" class="back-link">
+      <svg class="home-icon" viewBox="0 0 24 24" fill="none" stroke="#e3cd97" stroke-width="1.6"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>
+      <span class="back-text">← Zurück zur Startseite</span>
+    </a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="eyebrow">Für Dich</span>
+    <h1>Deine Lebenszahl</h1>
+    <p>Gib hier Deinen Geburtstag ein. Du bekommst nicht nur Deine Lebenszahl, sondern findest auch heraus, was Dein Talent ist und wo Deine Bühne ist. Detailliert und komplex, sodass Du auch wirklich etwas damit anfangen kannst.</p>
+  </div>
+</section>
+
+<div class="calc-wrap">
+  <div class="calc-card">
+    <div class="calc-fields">
+      <div>
+        <label for="f-day">Tag</label>
+        <select id="f-day"></select>
+      </div>
+      <div>
+        <label for="f-month">Monat</label>
+        <select id="f-month"></select>
+      </div>
+      <div>
+        <label for="f-year">Jahr</label>
+        <select id="f-year"></select>
+      </div>
+    </div>
+    <button class="calc-btn" id="calc-btn">Berechnen</button>
+  </div>
+</div>
+
+<div class="results" id="results"></div>
+
+<footer>
+  <div style="margin-bottom:10px;">© 2026 su.mindsystems</div>
+  <div style="display:flex; justify-content:center; gap:22px; flex-wrap:wrap;">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutzerklärung</a>
+    <a href="cookies.html">Cookies</a>
+  </div>
+</footer>
+
+<script>
+  // Populate day/month/year selects
+  var daySelect = document.getElementById('f-day');
+  var monthSelect = document.getElementById('f-month');
+  var yearSelect = document.getElementById('f-year');
+
+  for (var d = 1; d <= 31; d++){
+    var opt = document.createElement('option');
+    opt.value = d; opt.textContent = d;
+    daySelect.appendChild(opt);
+  }
+  var monthNames = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  for (var m = 1; m <= 12; m++){
+    var optM = document.createElement('option');
+    optM.value = m; optM.textContent = monthNames[m-1];
+    monthSelect.appendChild(optM);
+  }
+  var currentYear = new Date().getFullYear();
+  for (var y = currentYear; y >= currentYear - 100; y--){
+    var optY = document.createElement('option');
+    optY.value = y; optY.textContent = y;
+    yearSelect.appendChild(optY);
+  }
+  daySelect.value = 15;
+  monthSelect.value = 6;
+  yearSelect.value = currentYear - 30;
+
+  // Sum digits of a number
+  function digitSum(n){
+    return String(Math.abs(n)).split('').reduce(function(a,b){ return a + parseInt(b,10); }, 0);
+  }
+
+  // Reduce a number to single digit, preserving master numbers 11/22/33.
+  // Returns { result: finalNumber, path: [stepsIncludingStart] }
+  function reduceKeepMaster(num){
+    var path = [num];
+    while (num > 9 && num !== 11 && num !== 22 && num !== 33){
+      num = digitSum(num);
+      path.push(num);
+    }
+    return { result: num, path: path };
+  }
+
+  function pathLabel(r){
+    // e.g. [29, 11] -> "29/11" ; [5] -> "5"
+    if (r.path.length <= 1) return String(r.result);
+    return r.path[0] + '/' + r.result;
+  }
+
+  var meanings = {
+    lebenszahl: {
+      1: { licht: 'Du gehst voran, wo andere zögern, und baust aus eigener Kraft, was noch keine Vorlage hat.', schatten: 'Aus Angst, abhängig zu wirken, lehnst Du Hilfe ab, bis Alleinsein zur Regel statt zur Wahl wird.' },
+      2: { licht: 'Du spürst, was zwischen Menschen wirklich gebraucht wird, und schaffst Verbindung, wo andere nur Konflikt sehen.', schatten: 'Aus Angst vor Trennung ordnest Du Dich unter, bis Dein eigenes Bedürfnis unsichtbar wird.' },
+      3: { licht: 'Du bringst aus, was andere nicht in Worte fassen können, und machst Schweres leichter, ohne es kleinzureden.', schatten: 'Aus Angst, ernst genommen zu werden, versteckst Du Dich hinter Witz und Oberfläche.' },
+      4: { licht: 'Du baust Fundamente, auf denen andere sich sicher fühlen können, mit Geduld statt Abkürzung.', schatten: 'Aus Angst vor Kontrollverlust hältst Du an Strukturen fest, die Dich längst einengen statt tragen.' },
+      5: { licht: 'Du bringst Bewegung und Freiheit dahin, wo alles erstarrt ist, und zeigst, dass Veränderung kein Verlust sein muss.', schatten: 'Aus Angst vor Festlegung springst Du weiter, bevor irgendetwas wirklich Wurzeln schlagen kann.' },
+      6: { licht: 'Du trägst Verantwortung für das große Ganze, mit einem Gespür für das, was Menschen und Systeme wirklich brauchen.', schatten: 'Aus Angst zu enttäuschen, übernimmst Du fremde Lasten, bis Du selbst darunter verschwindest.' },
+      7: { licht: 'Du gehst dorthin, wo andere nicht hinschauen wollen, und findest Wahrheit statt Trost.', schatten: 'Aus Angst vor Oberflächlichkeit ziehst Du Dich zurück, bis Einsamkeit sich wie Sicherheit anfühlt.' },
+      8: { licht: 'Du bringst Vision in greifbare Form und stehst zu dem, was Du Dir aufgebaut hast.', schatten: 'Aus Angst vor Bedeutungslosigkeit misst Du Dich nur noch an äußerem Erfolg.' },
+      9: { licht: 'Du siehst das größere Muster hinter dem Einzelnen und gibst zurück, ohne eine Gegenleistung zu erwarten.', schatten: 'Aus Angst, nicht genug zu geben, verlierst Du Dich selbst in der Sorge um alle anderen.' },
+      11: { licht: 'Du spürst, was andere noch nicht in Worte fassen können, und wirst zum Kanal für Klarheit in einem Moment, in dem sie fehlt.', schatten: 'Aus Angst vor der eigenen Intensität dämpfst Du Dich selbst, bis aus Sensibilität permanente Überforderung wird.' },
+      22: { licht: 'Du kannst aus einer großen Vision etwas bauen, das wirklich trägt, nicht nur für Dich, sondern für viele.', schatten: 'Aus Angst zu scheitern, hältst Du an der Vision fest, ohne je den ersten konkreten Schritt zu gehen.' },
+      33: { licht: 'Du trägst eine Form von Fürsorge, die heilt, ohne zu vereinnahmen, wenn Du sie wirklich lebst statt sie zu leisten.', schatten: 'Aus Angst, nicht genug zu lieben, opferst Du Dich für andere auf, bis von Dir selbst nichts mehr übrig bleibt.' }
+    },
+    talent: {
+      1: { licht: 'Dein Werkzeug ist Initiative — Du kannst anfangen, wo alle anderen noch warten.', schatten: 'Wird daraus Alleingang, weil Du niemandem zutraust, es genauso gut zu machen wie Du.' },
+      2: { licht: 'Dein Werkzeug ist Feingefühl — Du merkst Stimmungen, bevor sie ausgesprochen werden.', schatten: 'Wird daraus Selbstaufgabe, weil Du lieber schweigst, als eine Disharmonie auszuhalten.' },
+      3: { licht: 'Dein Werkzeug ist Ausdruck — Du findest Worte und Bilder, wo andere nur Sprachlosigkeit haben.', schatten: 'Wird daraus Zerstreuung, weil Du Dich in zu vielen Ideen gleichzeitig verlierst.' },
+      4: { licht: 'Dein Werkzeug ist Struktur — Du machst aus Chaos etwas Verlässliches.', schatten: 'Wird daraus Starrheit, weil Du lieber an einem Plan festhältst, als ihn loszulassen.' },
+      5: { licht: 'Dein Werkzeug ist Anpassungsfähigkeit — Du findest in jeder neuen Situation sofort Deinen Weg.', schatten: 'Wird daraus Ruhelosigkeit, weil Du nirgendwo lange genug bleibst, um wirklich anzukommen.' },
+      6: { licht: 'Dein Werkzeug ist Fürsorge — Du erkennst, was gebraucht wird, bevor es benannt wird.', schatten: 'Wird daraus Kontrolle, weil Du glaubst, nur Du wüsstest, was für andere richtig ist.' },
+      7: { licht: 'Dein Werkzeug ist Analyse — Du durchdringst, was an der Oberfläche bleibt, bis zum Kern.', schatten: 'Wird daraus Distanz, weil Du lieber denkst, als Dich wirklich zu zeigen.' },
+      8: { licht: 'Dein Werkzeug ist Umsetzungskraft — Du machst aus Ideen etwas, das wirklich funktioniert.', schatten: 'Wird daraus Machtstreben, weil Erfolg zum einzigen Maßstab wird, an dem Du Dich misst.' },
+      9: { licht: 'Dein Werkzeug ist Weitblick — Du siehst über das Einzelne hinaus das größere Bild.', schatten: 'Wird daraus Rückzug, weil Dir das Kleine, Konkrete zu unbedeutend erscheint.' },
+      11: { licht: 'Dein Werkzeug ist Intuition — Du erfasst Wahrheiten, bevor der Verstand sie einholen kann.', schatten: 'Wird daraus Reizüberflutung, weil Du nicht filtern kannst, was gerade wirklich Deins ist.' },
+      22: { licht: 'Dein Werkzeug ist Baumeisterkraft — Du verbindest große Vision mit handfester Umsetzung.', schatten: 'Wird daraus Selbstüberforderung, weil der eigene Anspruch alles überschattet, was schon erreicht ist.' },
+      33: { licht: 'Dein Werkzeug ist heilende Präsenz — allein Deine Anwesenheit verändert einen Raum.', schatten: 'Wird daraus Selbstverleugnung, weil Du Deine eigene Grenze für die Ruhe der anderen aufgibst.' }
+    },
+    buehne: {
+      1: { licht: 'Deine Bühne ist der Anfang von etwas — neue Projekte, neue Wege, unbetretenes Terrain.', schatten: 'Läuft ins Leere, wenn Du nur startest, aber nie bei einer Sache bleibst, um sie zu vollenden.' },
+      2: { licht: 'Deine Bühne ist die Begegnung — enge Partnerschaften, Teams, Zweiergespräche.', schatten: 'Läuft ins Leere, wenn Du Dich nur über den anderen definierst, statt für Dich selbst zu stehen.' },
+      3: { licht: 'Deine Bühne ist die Öffentlichkeit — Sichtbarkeit, Ausdruck, kreative Räume.', schatten: 'Läuft ins Leere, wenn Sichtbarkeit zum Selbstzweck wird, statt Mittel für das, was Du zeigen willst.' },
+      4: { licht: 'Deine Bühne ist der Aufbau — Systeme, Prozesse, langfristige Projekte.', schatten: 'Läuft ins Leere, wenn der Aufbau selbst zum Gefängnis wird, aus dem Du Dich nicht mehr traust auszubrechen.' },
+      5: { licht: 'Deine Bühne ist die Veränderung — neue Umgebungen, Reisen, Umbrüche.', schatten: 'Läuft ins Leere, wenn Bewegung zur Flucht wird vor allem, was zu tief gehen könnte.' },
+      6: { licht: 'Deine Bühne ist die Gemeinschaft — Familie, Team, alles, was Fürsorge braucht.', schatten: 'Läuft ins Leere, wenn Du Dich in der Fürsorge für andere komplett verlierst.' },
+      7: { licht: 'Deine Bühne ist der Rückzug — Forschung, Reflexion, das Alleinsein mit einer Frage.', schatten: 'Läuft ins Leere, wenn Rückzug zur Isolation wird, aus der Du nicht mehr zurückfindest.' },
+      8: { licht: 'Deine Bühne ist die Wirkung nach außen — Business, Verantwortung, sichtbarer Erfolg.', schatten: 'Läuft ins Leere, wenn Erfolg zur einzigen Bestätigung wird, die Du noch annehmen kannst.' },
+      9: { licht: 'Deine Bühne ist das große Ganze — Sinnfragen, globale Themen, das, was über Dich hinausgeht.', schatten: 'Läuft ins Leere, wenn das Große so wichtig wird, dass das eigene Leben nebensächlich erscheint.' },
+      11: { licht: 'Deine Bühne ist die Schwelle zwischen den Welten — Spiritualität, Inspiration, das, was sich noch nicht erklären lässt.', schatten: 'Läuft ins Leere, wenn Du so sehr im Unsichtbaren lebst, dass der Boden unter den Füßen fehlt.' },
+      22: { licht: 'Deine Bühne ist das große Bauwerk — Institutionen, Systeme, die Generationen überdauern.', schatten: 'Läuft ins Leere, wenn der Maßstab so groß wird, dass jeder kleine Schritt bedeutungslos wirkt.' },
+      33: { licht: 'Deine Bühne ist die tiefe Heilung anderer — Lehre, Begleitung, bedingungslose Präsenz.', schatten: 'Läuft ins Leere, wenn die Heilung anderer wichtiger wird als die eigene.' }
+    }
+  };
+
+  function renderBlock(label, r, category){
+    var m = meanings[category][r.result];
+    var pathHtml = r.path.length > 1 ? '<span class="rb-path">(' + pathLabel(r) + ')</span>' : '';
+    return '' +
+      '<div class="result-block">' +
+        '<div class="rb-label">' + label + '</div>' +
+        '<div class="rb-number">' + r.result + pathHtml + '</div>' +
+        '<div class="rb-split">' +
+          '<div class="rb-col licht"><h4>Licht</h4><p>' + m.licht + '</p></div>' +
+          '<div class="rb-col schatten"><h4>Schatten</h4><p>' + m.schatten + '</p></div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  document.getElementById('calc-btn').addEventListener('click', function(){
+    var day = parseInt(daySelect.value, 10);
+    var month = parseInt(monthSelect.value, 10);
+    var year = parseInt(yearSelect.value, 10);
+
+    var dayReduced = reduceKeepMaster(day);
+    var monthReduced = reduceKeepMaster(month);
+    var yearDigitSum = digitSum(year);
+    var yearReduced = reduceKeepMaster(yearDigitSum);
+
+    var lifeSum = digitSum(day) + digitSum(month) + digitSum(year);
+    var lifeReduced = reduceKeepMaster(lifeSum);
+
+    var html = '';
+    html += renderBlock('Lebenszahl', lifeReduced, 'lebenszahl');
+    html += renderBlock('Talent — Dein Tag, WIE Du es lebst', dayReduced, 'talent');
+    html += renderBlock('Bühne — Dein Monat, WO es sich entfaltet', monthReduced, 'buehne');
+
+    var resultsEl = document.getElementById('results');
+    resultsEl.innerHTML = html;
+    resultsEl.classList.add('visible');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+</body>
+</html>
