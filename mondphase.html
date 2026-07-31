@@ -239,19 +239,17 @@
     </div>
     <div class="calc-fields-time">
       <div>
-        <label for="f-hour">Stunde</label>
-        <input type="number" id="f-hour" inputmode="numeric" placeholder="z. B. 6" min="0" max="23" step="1">
+        <label for="f-time">Uhrzeit</label>
+        <input type="time" id="f-time" value="12:00">
       </div>
-      <div>
-        <label for="f-minute">Minute</label>
-        <input type="number" id="f-minute" inputmode="numeric" placeholder="z. B. 0" min="0" max="59" step="1">
-      </div>
-      <div>
+      <div style="grid-column: span 2;">
         <label for="f-country">Geburtsland</label>
-        <select id="f-country"></select>
+        <input type="text" id="f-country" list="country-datalist" placeholder="z. B. Deutschland" autocomplete="off">
+        <datalist id="country-datalist"></datalist>
       </div>
     </div>
-    <p class="calc-note">Kennst Du die genaue Uhrzeit nicht? Dann trage 12:00 ein — das Ergebnis ist dann eine gute Annäherung, kann aber an Tagen mit Phasenwechsel leicht abweichen.</p>
+    <p class="calc-note" style="margin-top:6px;">Einfach zu tippen anfangen — passende Länder werden Dir automatisch vorgeschlagen.</p>
+    <p class="calc-note" style="margin-top:10px;">Uhrzeit unbekannt? Lass „12:00" stehen — das Ergebnis ist dann eine gute Annäherung, kann an Tagen mit Phasenwechsel aber leicht abweichen.</p>
     <button class="calc-btn" id="calc-btn">Berechnen</button>
   </div>
 </div>
@@ -301,46 +299,175 @@
   // dst: 'eu' (last Sun March–last Sun October), 'us' (2nd Sun March–1st Sun
   // November since 2007, 1st Sun April–last Sun October 1987–2006),
   // 'au' (1st Sun October–1st Sun April, Southern Hemisphere), or null.
+  // Sorted by UTC offset, covering the full global range so no region is
+  // structurally left out — countries are grouped as examples per zone.
   var countries = [
-    { name: 'Deutschland / Österreich / Schweiz', offset: 1, dst: 'eu' },
+    // Europa
+    { name: 'Deutschland', offset: 1, dst: 'eu' },
+    { name: 'Österreich', offset: 1, dst: 'eu' },
+    { name: 'Schweiz', offset: 1, dst: 'eu' },
+    { name: 'Frankreich', offset: 1, dst: 'eu' },
+    { name: 'Spanien', offset: 1, dst: 'eu' },
+    { name: 'Italien', offset: 1, dst: 'eu' },
+    { name: 'Polen', offset: 1, dst: 'eu' },
+    { name: 'Niederlande', offset: 1, dst: 'eu' },
+    { name: 'Belgien', offset: 1, dst: 'eu' },
+    { name: 'Dänemark', offset: 1, dst: 'eu' },
+    { name: 'Norwegen', offset: 1, dst: 'eu' },
+    { name: 'Schweden', offset: 1, dst: 'eu' },
+    { name: 'Tschechien', offset: 1, dst: 'eu' },
+    { name: 'Slowakei', offset: 1, dst: 'eu' },
+    { name: 'Ungarn', offset: 1, dst: 'eu' },
+    { name: 'Kroatien', offset: 1, dst: 'eu' },
+    { name: 'Slowenien', offset: 1, dst: 'eu' },
+    { name: 'Serbien', offset: 1, dst: 'eu' },
+    { name: 'Bosnien und Herzegowina', offset: 1, dst: 'eu' },
+    { name: 'Albanien', offset: 1, dst: 'eu' },
+    { name: 'Nordmazedonien', offset: 1, dst: 'eu' },
+    { name: 'Montenegro', offset: 1, dst: 'eu' },
+    { name: 'Luxemburg', offset: 1, dst: 'eu' },
+    { name: 'Malta', offset: 1, dst: 'eu' },
     { name: 'Vereinigtes Königreich', offset: 0, dst: 'eu' },
-    { name: 'Frankreich / Spanien / Italien', offset: 1, dst: 'eu' },
-    { name: 'Griechenland / Finnland', offset: 2, dst: 'eu' },
+    { name: 'Irland', offset: 0, dst: 'eu' },
     { name: 'Portugal', offset: 0, dst: 'eu' },
+    { name: 'Island', offset: 0, dst: null },
+    { name: 'Griechenland', offset: 2, dst: 'eu' },
+    { name: 'Finnland', offset: 2, dst: 'eu' },
+    { name: 'Estland', offset: 2, dst: 'eu' },
+    { name: 'Lettland', offset: 2, dst: 'eu' },
+    { name: 'Litauen', offset: 2, dst: 'eu' },
+    { name: 'Bulgarien', offset: 2, dst: 'eu' },
+    { name: 'Rumänien', offset: 2, dst: 'eu' },
+    { name: 'Moldau', offset: 2, dst: 'eu' },
+    { name: 'Zypern', offset: 2, dst: 'eu' },
+    { name: 'Ukraine', offset: 2, dst: 'eu' },
+    { name: 'Weißrussland (Belarus)', offset: 3, dst: null },
     { name: 'Russland (Moskau)', offset: 3, dst: null },
-    { name: 'Thailand', offset: 7, dst: null },
-    { name: 'Indien', offset: 5.5, dst: null },
-    { name: 'China / Singapur', offset: 8, dst: null },
-    { name: 'Japan / Korea', offset: 9, dst: null },
-    { name: 'Indonesien (Jakarta)', offset: 7, dst: null },
-    { name: 'Australien (Sydney, Standardzeit)', offset: 10, dst: 'au' },
-    { name: 'USA Ostküste (New York, Standardzeit)', offset: -5, dst: 'us' },
-    { name: 'USA Westküste (Los Angeles, Standardzeit)', offset: -8, dst: 'us' },
-    { name: 'Brasilien (São Paulo)', offset: -3, dst: null },
-    { name: 'Mexiko (Mexiko-Stadt)', offset: -6, dst: null },
-    { name: 'Südafrika', offset: 2, dst: null },
+    { name: 'Türkei', offset: 3, dst: null },
+    // Afrika
+    { name: 'Marokko', offset: 1, dst: null },
+    { name: 'Algerien', offset: 1, dst: null },
+    { name: 'Tunesien', offset: 1, dst: null },
+    { name: 'Nigeria', offset: 1, dst: null },
     { name: 'Ägypten', offset: 2, dst: null },
+    { name: 'Südafrika', offset: 2, dst: null },
+    { name: 'Libyen', offset: 2, dst: null },
+    { name: 'Kenia', offset: 3, dst: null },
+    { name: 'Äthiopien', offset: 3, dst: null },
+    { name: 'Ghana', offset: 0, dst: null },
+    { name: 'Senegal', offset: 0, dst: null },
+    { name: 'Angola', offset: 1, dst: null },
+    { name: 'Sambia', offset: 2, dst: null },
+    { name: 'Simbabwe', offset: 2, dst: null },
+    { name: 'Tansania', offset: 3, dst: null },
+    { name: 'Uganda', offset: 3, dst: null },
+    // Naher Osten
+    { name: 'Israel', offset: 2, dst: 'eu' },
+    { name: 'Saudi-Arabien', offset: 3, dst: null },
+    { name: 'Irak', offset: 3, dst: null },
+    { name: 'Jordanien', offset: 2, dst: 'eu' },
+    { name: 'Libanon', offset: 2, dst: 'eu' },
     { name: 'Vereinigte Arabische Emirate', offset: 4, dst: null },
+    { name: 'Katar', offset: 3, dst: null },
+    { name: 'Kuwait', offset: 3, dst: null },
+    { name: 'Oman', offset: 4, dst: null },
+    { name: 'Iran', offset: 3.5, dst: null },
+    // Asien
+    { name: 'Georgien', offset: 4, dst: null },
+    { name: 'Armenien', offset: 4, dst: null },
+    { name: 'Aserbaidschan', offset: 4, dst: null },
+    { name: 'Kasachstan', offset: 5, dst: null },
+    { name: 'Pakistan', offset: 5, dst: null },
+    { name: 'Indien', offset: 5.5, dst: null },
+    { name: 'Sri Lanka', offset: 5.5, dst: null },
+    { name: 'Nepal', offset: 5.75, dst: null },
+    { name: 'Bangladesch', offset: 6, dst: null },
+    { name: 'Bhutan', offset: 6, dst: null },
+    { name: 'Myanmar', offset: 6.5, dst: null },
+    { name: 'Thailand', offset: 7, dst: null },
+    { name: 'Vietnam', offset: 7, dst: null },
+    { name: 'Kambodscha', offset: 7, dst: null },
+    { name: 'Laos', offset: 7, dst: null },
+    { name: 'Indonesien (Jakarta)', offset: 7, dst: null },
+    { name: 'China', offset: 8, dst: null },
+    { name: 'Singapur', offset: 8, dst: null },
+    { name: 'Malaysia', offset: 8, dst: null },
+    { name: 'Philippinen', offset: 8, dst: null },
+    { name: 'Taiwan', offset: 8, dst: null },
+    { name: 'Hongkong', offset: 8, dst: null },
+    { name: 'Mongolei', offset: 8, dst: null },
+    { name: 'Japan', offset: 9, dst: null },
+    { name: 'Südkorea', offset: 9, dst: null },
+    { name: 'Nordkorea', offset: 9, dst: null },
+    // Ozeanien
+    { name: 'Australien (Sydney, Melbourne)', offset: 10, dst: 'au' },
+    { name: 'Australien (Perth)', offset: 8, dst: null },
+    { name: 'Australien (Adelaide)', offset: 9.5, dst: 'au' },
+    { name: 'Neuseeland', offset: 12, dst: 'au' },
+    { name: 'Fidschi', offset: 12, dst: null },
+    { name: 'Papua-Neuguinea', offset: 10, dst: null },
+    { name: 'Tonga', offset: 13, dst: null },
+    { name: 'Samoa', offset: 13, dst: null },
+    // Nordamerika
+    { name: 'USA (New York, Ostküste)', offset: -5, dst: 'us' },
+    { name: 'USA (Chicago, Zentral)', offset: -6, dst: 'us' },
+    { name: 'USA (Denver, Bergzeit)', offset: -7, dst: 'us' },
+    { name: 'USA (Los Angeles, Westküste)', offset: -8, dst: 'us' },
+    { name: 'USA (Alaska)', offset: -9, dst: 'us' },
+    { name: 'USA (Hawaii)', offset: -10, dst: null },
+    { name: 'Kanada (Toronto)', offset: -5, dst: 'us' },
+    { name: 'Kanada (Vancouver)', offset: -8, dst: 'us' },
+    { name: 'Mexiko (Mexiko-Stadt)', offset: -6, dst: null },
+    { name: 'Kuba', offset: -5, dst: 'us' },
+    { name: 'Jamaika', offset: -5, dst: null },
+    { name: 'Dominikanische Republik', offset: -4, dst: null },
+    // Mittel-/Südamerika
+    { name: 'Guatemala', offset: -6, dst: null },
+    { name: 'Costa Rica', offset: -6, dst: null },
+    { name: 'Panama', offset: -5, dst: null },
+    { name: 'Kolumbien', offset: -5, dst: null },
+    { name: 'Venezuela', offset: -4, dst: null },
+    { name: 'Ecuador', offset: -5, dst: null },
+    { name: 'Peru', offset: -5, dst: null },
+    { name: 'Bolivien', offset: -4, dst: null },
+    { name: 'Brasilien (São Paulo)', offset: -3, dst: null },
+    { name: 'Argentinien', offset: -3, dst: null },
+    { name: 'Chile', offset: -4, dst: null },
+    { name: 'Uruguay', offset: -3, dst: null },
+    { name: 'Paraguay', offset: -4, dst: null },
+    // Sonstige
     { name: 'UTC / GMT (ohne Verschiebung)', offset: 0, dst: null }
   ];
-  var countrySelect = document.getElementById('f-country');
-  countries.forEach(function(c, i){
+  var countryInput = document.getElementById('f-country');
+  var countryDatalist = document.getElementById('country-datalist');
+  countries.forEach(function(c){
     var opt = document.createElement('option');
-    opt.value = i; opt.textContent = c.name;
-    countrySelect.appendChild(opt);
+    opt.value = c.name;
+    countryDatalist.appendChild(opt);
   });
-  countrySelect.value = 0;
+  countryInput.value = 'Deutschland';
+
+  // Case-insensitive lookup of a typed country name against the list
+  function findCountry(text){
+    var normalized = (text || '').trim().toLowerCase();
+    for (var i = 0; i < countries.length; i++){
+      if (countries[i].name.toLowerCase() === normalized) return countries[i];
+    }
+    // Fallback: allow partial match if the typed text is the start of a name
+    // (helps if someone submits before picking a suggestion from the list)
+    for (var j = 0; j < countries.length; j++){
+      if (countries[j].name.toLowerCase().indexOf(normalized) === 0 && normalized.length > 2) return countries[j];
+    }
+    return null;
+  }
 
   var dayInput = document.getElementById('f-day');
   var yearInput = document.getElementById('f-year');
-  var hourInput = document.getElementById('f-hour');
-  var minuteInput = document.getElementById('f-minute');
+  var timeInput = document.getElementById('f-time');
   var currentYear = new Date().getFullYear();
   dayInput.value = 15;
   monthSelect.value = 6;
   yearInput.value = currentYear - 30;
-  hourInput.value = 12;
-  minuteInput.value = 0;
 
   var weekdayNames = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
 
@@ -495,18 +622,25 @@
     var day = parseInt(dayInput.value, 10);
     var month = parseInt(monthSelect.value, 10);
     var year = parseInt(yearInput.value, 10);
-    var hour = parseInt(hourInput.value, 10);
-    var minute = parseInt(minuteInput.value, 10);
-    var country = countries[parseInt(countrySelect.value, 10)];
+    var timeVal = timeInput.value || '12:00';
+    var timeParts = timeVal.split(':');
+    var hour = parseInt(timeParts[0], 10);
+    var minute = parseInt(timeParts[1], 10);
+    var country = findCountry(countryInput.value);
+
+    if (!country){
+      countryInput.focus();
+      countryInput.style.borderColor = '#c0392b';
+      return;
+    }
+    countryInput.style.borderColor = '';
 
     if (!day || day < 1 || day > 31){ dayInput.focus(); dayInput.style.borderColor = '#c0392b'; return; }
     dayInput.style.borderColor = '';
     if (!year || year < 1900 || year > 2026){ yearInput.focus(); yearInput.style.borderColor = '#c0392b'; return; }
     yearInput.style.borderColor = '';
-    if (isNaN(hour) || hour < 0 || hour > 23){ hourInput.focus(); hourInput.style.borderColor = '#c0392b'; return; }
-    hourInput.style.borderColor = '';
-    if (isNaN(minute) || minute < 0 || minute > 59){ minuteInput.focus(); minuteInput.style.borderColor = '#c0392b'; return; }
-    minuteInput.style.borderColor = '';
+    if (isNaN(hour) || hour < 0 || hour > 23) hour = 12;
+    if (isNaN(minute) || minute < 0 || minute > 59) minute = 0;
 
     // Apply daylight saving time on top of the standard-time offset, if applicable
     var dstActive = isDstActive(country.dst, year, month, day);
