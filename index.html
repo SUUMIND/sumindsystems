@@ -180,7 +180,96 @@
     border-color: transparent;
     color: #201a0d;
   }
-  .nav-toggle{ display:none; }
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .nav-toggle span{
+    display:block;
+    width: 100%;
+    height: 2px;
+    background: var(--gold-soft);
+    border-radius: 2px;
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  .nav-toggle.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity: 0; }
+  .nav-toggle.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu{
+    display:none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--black);
+    z-index: 90;
+    padding: 90px 32px 40px;
+    overflow-y: auto;
+  }
+  .mobile-menu.open{ display:block; }
+  .mobile-menu a{
+    display:block;
+    padding: 16px 0;
+    font-size: 1.1rem;
+    font-family:'Cormorant Garamond', serif;
+    color: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+  .mobile-menu .mm-parent{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 16px 0;
+    font-size: 1.1rem;
+    font-family:'Cormorant Garamond', serif;
+    color: var(--cream);
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .mobile-menu .mm-parent .caret{
+    width: 8px; height:8px;
+    border-right: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    transform: rotate(45deg);
+    transition: transform .25s ease;
+  }
+  .mobile-menu .mm-parent.open .caret{ transform: rotate(225deg); }
+  .mobile-menu .mm-sub{
+    max-height: 0;
+    overflow:hidden;
+    transition: max-height .3s ease;
+  }
+  .mobile-menu .mm-sub.open{ max-height: 300px; }
+  .mobile-menu .mm-sub a{
+    padding-left: 18px;
+    font-size: 0.95rem;
+    color: #cfc4a6;
+    border-bottom: none;
+  }
+  .mobile-menu .mm-cta{
+    margin-top: 30px;
+    display:inline-block;
+    padding: 14px 30px;
+    border-radius: 6px;
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    color: #201a0d;
+    font-family:'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 760px){
+    .nav-toggle{ display:flex; }
+    .btn-book{ display:none; }
+  }
 
   /* ---------- Hero ---------- */
   .hero{
@@ -542,7 +631,7 @@
   @media (max-width: 760px){
     .nav-links{ display:none; }
     nav{ padding: 16px 20px; }
-    .hero{ padding-top: 100px; }
+    .hero{ padding-top: 100px; background-size: contain; }
     .focus, .approach, .cta-band{ padding-left: 20px; padding-right: 20px; }
   }
 
@@ -591,8 +680,37 @@
       <a href="#footer">Kontakt</a>
     </div>
     <a href="#footer" class="btn-book">Jetzt starten</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 </header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#" onclick="closeMobileMenu()">Home</a>
+
+  <div class="mm-parent" id="mm-parent-1">
+    Über mich <span class="caret"></span>
+  </div>
+  <div class="mm-sub" id="mm-sub-1">
+    <a href="#approach" onclick="closeMobileMenu()">Mein Ansatz</a>
+    <a href="#approach" onclick="closeMobileMenu()">Meine Geschichte</a>
+  </div>
+
+  <a href="#focus" onclick="closeMobileMenu()">Programme</a>
+
+  <div class="mm-parent" id="mm-parent-2">
+    Für Dich <span class="caret"></span>
+  </div>
+  <div class="mm-sub" id="mm-sub-2">
+    <a href="inneres-team.html">Dein inneres Team</a>
+    <a href="lebenszahl.html">Lebenszahlen</a>
+    <a href="#">Astrologie</a>
+    <a href="ebooks.html">eBooks</a>
+  </div>
+
+  <a href="#footer" onclick="closeMobileMenu()">Kontakt</a>
+</div>
 
 <section class="hero">
   <div class="stars"></div>
@@ -636,7 +754,7 @@
   <div class="approach-inner">
     <div>
       <span class="eyebrow">Mein Ansatz</span>
-      <h2>Klarer sehen, was <em style="font-style:italic; color:#a8863f;">steuert</em></h2>
+      <h2><em style="font-style:italic; color:#a8863f;">Klarer</em> sehen, was steuert</h2>
       <p style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:#a8863f; margin-bottom:22px;">Wo Verstand und Gefühl als Team arbeiten.</p>
       <p>Higher-Self, Manifestation, inneres Kind – das alles kennst Du wahrscheinlich schon, wenn Du Dich mit Persönlichkeitsentwicklung beschäftigt hast. Vielleicht hast Du etliche Ratgeber gelesen. Vielleicht warst Du sogar auf teuren Auslands-Retreats (inkl. Ayahuasca). Und dennoch: angekommen bist Du immer noch nicht.</p>
       <p>Die gute Nachricht: es ist wirklich easy zu verstehen, weshalb bisherige Ansätze nicht Life Changing waren, sobald Du alles, was im Dunkeln war, plötzlich im Lichte sehen kannst.</p>
@@ -759,6 +877,29 @@
     q.addEventListener('click', function(){
       q.closest('.faq-card').classList.toggle('open');
     });
+  });
+
+  // ---------- Mobile hamburger menu ----------
+  var navToggle = document.getElementById('nav-toggle');
+  var mobileMenu = document.getElementById('mobile-menu');
+
+  navToggle.addEventListener('click', function(){
+    navToggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  function closeMobileMenu(){
+    navToggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
+  document.getElementById('mm-parent-1').addEventListener('click', function(){
+    this.classList.toggle('open');
+    document.getElementById('mm-sub-1').classList.toggle('open');
+  });
+  document.getElementById('mm-parent-2').addEventListener('click', function(){
+    this.classList.toggle('open');
+    document.getElementById('mm-sub-2').classList.toggle('open');
   });
 </script>
 
