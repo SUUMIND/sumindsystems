@@ -79,12 +79,30 @@
     box-shadow: 0 16px 40px rgba(0,0,0,0.1);
     padding: 40px 34px;
   }
+  .q-header-row{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .back-arrow{
+    display:flex;
+    align-items:center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: #6f6852;
+    cursor: pointer;
+    visibility: hidden;
+    transition: color .2s ease;
+  }
+  .back-arrow.visible{ visibility: visible; }
+  .back-arrow:hover{ color: var(--gold); }
+  .back-arrow svg{ width: 16px; height:16px; }
   .q-count{
     font-size: 0.72rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 14px;
   }
   .q-text{
     font-family:'Cormorant Garamond', serif;
@@ -222,7 +240,7 @@
     cursor: pointer;
     transition: background .25s ease, color .25s ease;
   }
-  .pdf-btn:hover{ background: var(--gold); color: var(--black); }
+  .pdf-btn:hover{ background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%); color: #201a0d; border-color: transparent; }
 
   /* ---------- Percentage breakdown ---------- */
   .percent-section{ margin: 34px 0; }
@@ -330,7 +348,13 @@
   <div class="quiz-screen" id="quiz-screen">
     <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     <div class="quiz-card">
-      <div class="q-count" id="q-count">Frage 1 von 16</div>
+      <div class="q-header-row">
+        <div class="back-arrow" id="back-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"/></svg>
+          Zurück
+        </div>
+        <div class="q-count" id="q-count">Frage 1 von 16</div>
+      </div>
       <div class="q-text" id="q-text"></div>
       <div class="options" id="options"></div>
     </div>
@@ -564,7 +588,9 @@
   ];
 
   // ---------- Hidden scoring mechanism ----------
-  var scores = { perfektionist: 0, kritiker: 0, peoplepleaser: 0, stressige: 0, rebell: 0, goodvibe: 0 };
+  // answers[i] stores the selected part-key for question i, so navigating
+  // back and changing an answer never double-counts anything.
+  var answers = new Array(questions.length).fill(null);
   var currentQuestion = 0;
 
   var startScreen = document.getElementById('start-screen');
@@ -574,6 +600,7 @@
   var qText = document.getElementById('q-text');
   var optionsEl = document.getElementById('options');
   var progressFill = document.getElementById('progress-fill');
+  var backArrow = document.getElementById('back-arrow');
 
   document.getElementById('start-btn').addEventListener('click', function(){
     startScreen.classList.remove('visible');
@@ -581,22 +608,30 @@
     renderQuestion();
   });
 
+  backArrow.addEventListener('click', function(){
+    if (currentQuestion > 0){
+      currentQuestion--;
+      renderQuestion();
+    }
+  });
+
   function renderQuestion(){
     var q = questions[currentQuestion];
     qCount.textContent = 'Frage ' + (currentQuestion + 1) + ' von ' + questions.length;
     qText.textContent = q.text;
-    progressFill.style.width = ((currentQuestion) / questions.length * 100) + '%';
+    progressFill.style.width = (currentQuestion / questions.length * 100) + '%';
+    backArrow.classList.toggle('visible', currentQuestion > 0);
 
     optionsEl.innerHTML = '';
     q.options.forEach(function(opt){
       var btn = document.createElement('button');
       btn.className = 'option-btn';
       btn.textContent = opt.label;
+      if (answers[currentQuestion] === opt.key){ btn.classList.add('selected'); }
       btn.addEventListener('click', function(){
-        // hidden tally — increments the matched part's score, invisible to the user
-        scores[opt.key] = scores[opt.key] + 1;
+        answers[currentQuestion] = opt.key;
+        Array.prototype.forEach.call(optionsEl.children, function(b){ b.classList.remove('selected'); });
         btn.classList.add('selected');
-        Array.prototype.forEach.call(optionsEl.children, function(b){ b.disabled = true; });
         setTimeout(nextQuestion, 350);
       });
       optionsEl.appendChild(btn);
@@ -616,6 +651,10 @@
   function showResults(){
     quizScreen.classList.remove('visible');
 
+    // Tally the hidden scores from the recorded answers
+    var scores = { perfektionist: 0, kritiker: 0, peoplepleaser: 0, stressige: 0, rebell: 0, goodvibe: 0 };
+    answers.forEach(function(key){ if (key) scores[key] = scores[key] + 1; });
+
     // Determine ranking from the hidden score tally
     var ranked = Object.keys(scores).sort(function(a,b){ return scores[b] - scores[a]; });
     var top = ranked[0];
@@ -630,7 +669,6 @@
     html += '<h3>' + parts[top].name + '</h3>';
     html += '<p>' + parts[top].desc + '</p>';
     html += '<p class="shadow-line">' + parts[top].shadow + '</p>';
-    html += '<a href="ebooks.html#' + top + '" class="ebook-cta-btn">eBook zu „' + parts[top].name + '" entdecken</a>';
     html += '</div>';
 
     if (showSecond){
@@ -679,10 +717,10 @@
     html += '</div>';
 
     html += '<div class="results-cta">';
-    html += '<p>Wenn Du verstehen willst, was hinter diesem Anteil steckt und wie Integration konkret aussehen kann:</p>';
-    html += '<a href="index.html#footer" class="start-btn">Zu den Coaching-Paketen</a>';
+    html += '<p>Wenn Du verstehen willst, was hinter diesem Anteil steckt und wie Du ihn besser verstehen kannst:</p>';
+    html += '<a href="ebooks.html" class="pdf-btn" style="display:inline-block; text-decoration:none;">eBooks entdecken</a>';
+    html += '<div style="margin-top:14px;"><a href="index.html#footer" class="pdf-btn" style="display:inline-block; text-decoration:none;">Zu den Coaching-Paketen</a></div>';
     html += '<div style="margin-top:14px;"><button class="pdf-btn" id="pdf-btn">Ergebnis als PDF herunterladen</button></div>';
-    html += '<div style="margin-top:18px;"><button class="restart-btn" id="restart-btn" style="background:transparent; border:1px solid var(--gold); color:var(--ink);">Test wiederholen</button></div>';
     html += '</div>';
 
     resultsScreen.innerHTML = html;
@@ -691,16 +729,6 @@
 
     document.getElementById('pdf-btn').addEventListener('click', function(){
       generatePdf(top, second, showSecond, ranked, percentages);
-    });
-
-    document.getElementById('restart-btn').addEventListener('click', function(){
-      scores = { perfektionist: 0, kritiker: 0, peoplepleaser: 0, stressige: 0, rebell: 0, goodvibe: 0 };
-      currentQuestion = 0;
-      resultsScreen.classList.remove('visible');
-      resultsScreen.innerHTML = '';
-      quizScreen.classList.add('visible');
-      renderQuestion();
-      quizScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
