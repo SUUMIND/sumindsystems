@@ -3,18 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>eBooks — SU.MINDSYSTEMS</title>
+<title>Häufig gestellte Fragen — SU.MINDSYSTEMS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --black: #0b0a08; --gold: #c6a45c; --gold-soft: #e3cd97;
-    --cream: #f3ede1; --ink: #1c1914; --line: rgba(198,164,92,0.25);
+    --black: #0b0a08;
+    --black-2: #131110;
+    --gold: #c6a45c;
+    --gold-soft: #e3cd97;
+    --cream: #f3ede1;
+    --ink: #1c1914;
+    --line: rgba(198,164,92,0.25);
   }
   *{ box-sizing: border-box; margin:0; padding:0; }
   html{ scroll-behavior: smooth; }
-  body{ background: var(--cream); color: var(--ink); font-family: 'Jost', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
-  h1,h2,h3{ font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2{ font-family: 'Cormorant Garamond', serif; font-weight: 500; }
   a{ color: inherit; text-decoration: none; }
   .eyebrow{ font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
 
@@ -34,66 +45,39 @@
     .back-link .back-text{ display:none; }
   }
 
-  .page-hero{ background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%); color: var(--cream); text-align:center; padding: 90px 32px 70px; }
-  .page-hero-inner{ max-width: 620px; margin:0 auto; }
-  .page-hero h1{ font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--cream); margin-top: 16px; }
-  .page-hero p{ margin-top: 18px; font-size: 0.96rem; line-height: 1.75; color: #b9ae94; }
-
-  .ebook-grid{
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 70px 32px 110px;
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
-  }
-  .ebook-card{
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
-    overflow:hidden;
-    scroll-margin-top: 100px;
-    display:flex;
-    flex-direction:column;
-  }
-  .ebook-cover{
-    height: 190px;
-    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .ebook-cover span{
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #201a0d;
+  .page-hero{
+    background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%);
+    color: var(--cream);
     text-align:center;
-    padding: 0 20px;
+    padding: 90px 32px 80px;
   }
-  .ebook-body{ padding: 26px 24px 28px; display:flex; flex-direction:column; flex:1; }
-  .ebook-body h3{ font-size: 1.3rem; margin-bottom: 10px; color: var(--ink); }
-  .ebook-body p{ font-size: 0.88rem; line-height: 1.7; color: #55503f; margin-bottom: 20px; flex:1; }
-  .ebook-btn{
-    display:inline-block;
-    text-align:center;
-    padding: 12px 20px;
-    border-radius: 6px;
-    background: var(--black);
-    color: var(--gold-soft);
-    font-size: 0.76rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: background .25s ease;
-  }
-  .ebook-btn:hover{ background: #201d18; }
+  .page-hero-inner{ max-width: 640px; margin:0 auto; }
+  .page-hero h1{ font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--cream); margin-top: 18px; }
 
-  @media (max-width: 900px){ .ebook-grid{ grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 600px){ .ebook-grid{ grid-template-columns: 1fr; } }
+  .faq-wrap{ max-width: 760px; margin: 0 auto; padding: 90px 32px 110px; }
+
+  .faq-item{
+    border-top: 1px solid rgba(28,25,20,0.12);
+  }
+  .faq-item:last-child{ border-bottom: 1px solid rgba(28,25,20,0.12); }
+  .faq-item h2{
+    margin:0; padding: 22px 6px;
+    font-family:'Jost', sans-serif; font-weight: 500; font-size: 1rem;
+    color: var(--ink); cursor:pointer;
+    display:flex; align-items:center; justify-content: space-between; gap: 16px;
+  }
+  .faq-item .toggle-icon{ font-family:'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); flex-shrink:0; transition: transform .3s ease; }
+  .faq-item.open .toggle-icon{ transform: rotate(45deg); }
+  .faq-item .faq-body{ display:grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+  .faq-item.open .faq-body{ grid-template-rows: 1fr; }
+  .faq-item .faq-body-inner{ overflow:hidden; min-height:0; }
+  .faq-item.open .faq-body-inner{ padding: 0 6px 24px; }
+  .faq-item p{ font-size: 0.96rem; line-height: 1.8; color: #443c28; }
 
   footer{ background: var(--black); color: #6f6852; text-align:center; padding: 40px 32px 30px; border-top: 1px solid var(--line); font-size: 0.76rem; }
   footer a{ color: #6f6852; transition: color .2s ease; }
   footer a:hover{ color: var(--gold-soft); }
+
   :focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
 </style>
 </head>
@@ -117,66 +101,53 @@
 
 <section class="page-hero">
   <div class="page-hero-inner">
-    <span class="eyebrow">Für Dich</span>
-    <h1>eBooks zu Deinen Anteilen</h1>
-    <p>Zu jedem Anteil Deines Inneren Teams gibt es ein eigenes eBook — mit tieferem Verständnis, konkreten Übungen und dem Weg von der Schutzfunktion zur Integration.</p>
+    <span class="eyebrow">Fragen &amp; Antworten</span>
+    <h1>Häufig gestellte Fragen</h1>
   </div>
 </section>
 
-<div class="ebook-grid">
+<div class="faq-wrap">
 
-  <div class="ebook-card" id="perfektionist">
-    <div class="ebook-cover"><span>Der Perfektionist</span></div>
-    <div class="ebook-body">
-      <h3>Der Perfektionist</h3>
-      <p>Warum Kontrolle sich wie Sicherheit anfühlt — und wie Du lernst, „gut genug" wirklich zuzulassen.</p>
-      <a href="index.html#footer" class="ebook-btn">eBook erhalten</a>
-    </div>
+  <div class="faq-item">
+    <h2>Wie unterscheidet sich SU.MINDSYSTEMS von klassischem Coaching? <span class="toggle-icon">+</span></h2>
+    <div class="faq-body"><div class="faq-body-inner">
+      <p>Klassisches Coaching arbeitet oft rein verhaltensorientiert: neue Gewohnheiten, neue Strategien, neue Ziele. SU.MINDSYSTEMS setzt eine Ebene tiefer an, an der Wurzel des Selbstbildes, das den Wert, Beziehungen, Körper und Sichtbarkeit gleichermaßen steuert. Verstand und Gefühl arbeiten dabei als Team, nicht als Gegner.</p>
+    </div></div>
   </div>
 
-  <div class="ebook-card" id="kritiker">
-    <div class="ebook-cover"><span>Der Kritiker</span></div>
-    <div class="ebook-body">
-      <h3>Der Kritiker</h3>
-      <p>Wie die innere Stimme entstanden ist, die Dich abwertet, bevor es andere tun — und wie sie leiser wird.</p>
-      <a href="index.html#footer" class="ebook-btn">eBook erhalten</a>
-    </div>
+  <div class="faq-item">
+    <h2>Muss ich schon Erfahrung mit Persönlichkeitsentwicklung haben? <span class="toggle-icon">+</span></h2>
+    <div class="faq-body"><div class="faq-body-inner">
+      <p>Nein. Manche Klientinnen kommen mit jahrelanger Coaching- und Therapieerfahrung, andere zum ersten Mal überhaupt in Kontakt mit dieser Art von Arbeit. Beides ist ein guter Ausgangspunkt.</p>
+    </div></div>
   </div>
 
-  <div class="ebook-card" id="peoplepleaser">
-    <div class="ebook-cover"><span>Der People-Pleaser</span></div>
-    <div class="ebook-body">
-      <h3>Der People-Pleaser</h3>
-      <p>Warum Anpassung sich wie Liebe anfühlt — und wie Du eigene Bedürfnisse ohne Schuldgefühl äußerst.</p>
-      <a href="index.html#footer" class="ebook-btn">eBook erhalten</a>
-    </div>
+  <div class="faq-item">
+    <h2>Wie lange dauert ein Coaching-Paket? <span class="toggle-icon">+</span></h2>
+    <div class="faq-body"><div class="faq-body-inner">
+      <p>Integration ist kein einmaliger Aha-Moment, sondern ein Prozess. Die Pakete begleiten Dich deshalb über mehrere Monate hinweg, nicht über eine einzelne Session. Welches Paket am stimmigsten für Dich ist, klären wir im Erstgespräch gemeinsam.</p>
+    </div></div>
   </div>
 
-  <div class="ebook-card" id="stressige">
-    <div class="ebook-cover"><span>Die Stressige</span></div>
-    <div class="ebook-body">
-      <h3>Die Stressige</h3>
-      <p>Wenn Leistung zum Beweis des eigenen Werts wird — und wie Ruhe aufhört, sich wie Versagen anzufühlen.</p>
-      <a href="index.html#footer" class="ebook-btn">eBook erhalten</a>
-    </div>
+  <div class="faq-item">
+    <h2>Ersetzt das Coaching eine Psychotherapie? <span class="toggle-icon">+</span></h2>
+    <div class="faq-body"><div class="faq-body-inner">
+      <p>Nein. Coaching ist keine Psychotherapie und ersetzt keine ärztliche oder psychotherapeutische Behandlung. Bei akuten psychischen Erkrankungen wende Dich bitte an eine entsprechende Fachperson.</p>
+    </div></div>
   </div>
 
-  <div class="ebook-card" id="rebell">
-    <div class="ebook-cover"><span>Der Rebell / Die Trotzige</span></div>
-    <div class="ebook-body">
-      <h3>Der Rebell / Die Trotzige</h3>
-      <p>Warum Nähe manchmal wie Käfig wirkt — und wie Freiheit und Bindung kein Widerspruch sein müssen.</p>
-      <a href="index.html#footer" class="ebook-btn">eBook erhalten</a>
-    </div>
+  <div class="faq-item">
+    <h2>Finden die Sessions online oder vor Ort statt? <span class="toggle-icon">+</span></h2>
+    <div class="faq-body"><div class="faq-body-inner">
+      <p>Die Sessions finden online statt, sodass Du ortsunabhängig teilnehmen kannst. Details zu Ablauf und Technik besprechen wir vorab.</p>
+    </div></div>
   </div>
 
-  <div class="ebook-card" id="goodvibe">
-    <div class="ebook-cover"><span>Good-Vibe-Guy / Göttin</span></div>
-    <div class="ebook-body">
-      <h3>Good-Vibe-Guy / Good-Vibe-Göttin</h3>
-      <p>Wenn positives Denken zur Maske wird — und wie Du auch das Schwere fühlen darfst, ohne daran zu zerbrechen.</p>
-      <a href="index.html#footer" class="ebook-btn">eBook erhalten</a>
-    </div>
+  <div class="faq-item">
+    <h2>Wie kann ich starten? <span class="toggle-icon">+</span></h2>
+    <div class="faq-body"><div class="faq-body-inner">
+      <p>Über den Button „Zur Auswahl" findest Du die verfügbaren Coaching-Pakete. Nach Deiner Auswahl melde ich mich für ein kurzes Erstgespräch, um zu klären, ob und wie wir zusammenarbeiten.</p>
+    </div></div>
   </div>
 
 </div>
@@ -189,6 +160,14 @@
     <a href="cookies.html">Cookies</a>
   </div>
 </footer>
+
+<script>
+  document.querySelectorAll('.faq-item h2').forEach(function(header){
+    header.addEventListener('click', function(){
+      header.closest('.faq-item').classList.toggle('open');
+    });
+  });
+</script>
 
 
 <div id="cookie-banner" style="position:fixed; left:0; right:0; bottom:0; z-index:9999; background:#0b0a08; border-top:1px solid rgba(198,164,92,0.35); padding:22px 32px; display:none; box-shadow:0 -8px 30px rgba(0,0,0,0.35);">

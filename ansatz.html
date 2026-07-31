@@ -312,6 +312,7 @@
   <div class="article-hero-inner">
     <span class="eyebrow">Der Grund</span>
     <h1>Warum bisherige Ansätze nicht zum <em>Ergebnis</em> geführt haben</h1>
+    <p style="font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.2rem; color:var(--gold-soft); margin:18px 0 0;">Klarer sehen, was steuert.</p>
     <p>Alles, was Du bisher versucht hast, war nicht umsonst, sondern die Vorbereitung für deine Integration.</p>
   </div>
 </section>
@@ -464,7 +465,12 @@
     <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M14 4v10.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 4c.5 2.5 2 4 4.5 4.3"/></svg></a>
     <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="7" r="0.6" fill="#e3cd97" stroke="none"/><path d="M11.5 17v-4.5a2 2 0 0 1 4 0V17"/><line x1="11.5" y1="10" x2="11.5" y2="17"/></svg></a>
   </div>
-  © 2026 su.mindsystems — Verstand &amp; Gefühl vereint
+  <div style="margin-bottom:10px;">© 2026 su.mindsystems</div>
+  <div style="display:flex; justify-content:center; gap:22px; flex-wrap:wrap;">
+    <a href="impressum.html" style="color:#6f6852;">Impressum</a>
+    <a href="datenschutz.html" style="color:#6f6852;">Datenschutzerklärung</a>
+    <a href="cookies.html" style="color:#6f6852;">Cookies</a>
+  </div>
 </footer>
 
 <script>
@@ -483,6 +489,41 @@
       card.classList.toggle('open');
     });
   });
+</script>
+
+
+<div id="cookie-banner" style="position:fixed; left:0; right:0; bottom:0; z-index:9999; background:#0b0a08; border-top:1px solid rgba(198,164,92,0.35); padding:22px 32px; display:none; box-shadow:0 -8px 30px rgba(0,0,0,0.35);">
+  <div style="max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+    <p style="margin:0; font-family:'Jost', sans-serif; font-weight:300; font-size:0.86rem; line-height:1.6; color:#cfc4a6; max-width:640px;">
+      Diese Website verwendet Cookies, um Dir die beste Nutzung zu ermöglichen. Mehr dazu in unserer <a href="cookies.html" style="color:#e3cd97; text-decoration:underline;">Cookie-Richtlinie</a>.
+    </p>
+    <div style="display:flex; gap:12px; flex-shrink:0; flex-wrap:wrap;">
+      <button id="cookie-essential-btn" style="padding:11px 20px; border-radius:6px; border:1px solid #c6a45c; background:transparent; color:#e3cd97; font-family:'Jost', sans-serif; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:background .25s ease, color .25s ease;">Nur notwendige</button>
+      <button id="cookie-accept-btn" style="padding:11px 20px; border-radius:6px; border:none; background:linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%); color:#201a0d; font-family:'Jost', sans-serif; font-weight:600; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer;">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    var consent = localStorage.getItem('sumindsystems_cookie_consent');
+    var banner = document.getElementById('cookie-banner');
+    if (!consent){
+      banner.style.display = 'block';
+    }
+    var essentialBtn = document.getElementById('cookie-essential-btn');
+    var acceptBtn = document.getElementById('cookie-accept-btn');
+    essentialBtn.addEventListener('mouseenter', function(){ essentialBtn.style.background = '#c6a45c'; essentialBtn.style.color = '#0b0a08'; });
+    essentialBtn.addEventListener('mouseleave', function(){ essentialBtn.style.background = 'transparent'; essentialBtn.style.color = '#e3cd97'; });
+    essentialBtn.addEventListener('click', function(){
+      localStorage.setItem('sumindsystems_cookie_consent', 'essential');
+      banner.style.display = 'none';
+    });
+    acceptBtn.addEventListener('click', function(){
+      localStorage.setItem('sumindsystems_cookie_consent', 'accepted');
+      banner.style.display = 'none';
+      // Nicht-notwendige Skripte (z. B. Analytics) erst HIER laden, nach Zustimmung.
+    });
+  })();
 </script>
 
 </body>
