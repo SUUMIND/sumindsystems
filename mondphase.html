@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mondphase-Rechner — SU.MINDSYSTEMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08;
+    --gold: #c6a45c;
+    --gold-soft: #e3cd97;
+    --cream: #f3ede1;
+    --ink: #1c1914;
+    --line: rgba(198,164,92,0.25);
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{ font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+  a{ color: inherit; text-decoration: none; }
+  .eyebrow{ font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
+
+  .logo{ display:flex; align-items:center; gap: 12px; }
+  .logo-mark{ width: 34px; height: 34px; flex-shrink:0; }
+  .logo-text .sm{ font-family:'Cormorant Garamond', serif; font-size: 1.02rem; letter-spacing:0.03em; color: var(--gold-soft); font-weight: 500; }
+  .logo-text .sm .bold-part{ font-weight: 700; }
+
+  /* ---------- Nav (shared) ---------- */
+  header{ position: sticky; top:0; z-index: 50; background: rgba(11,10,8,0.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  nav{ max-width: 1240px; margin: 0 auto; display:flex; align-items:center; justify-content: space-between; padding: 18px 32px; }
+  .nav-links{ display:flex; align-items:center; gap: 40px; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #cfc4a6; }
+  .nav-links a{ position:relative; padding-bottom: 4px; transition: color .25s ease; }
+  .nav-links a:hover{ color: var(--gold-soft); }
+  .has-dropdown{ position: relative; }
+  .has-dropdown > a{ display:flex; align-items:center; gap: 6px; }
+  .has-dropdown .caret{ width: 8px; height:8px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg); margin-top: -3px; transition: transform .25s ease; }
+  .has-dropdown:hover .caret{ transform: rotate(225deg); margin-top: 3px; }
+  .dropdown-menu{ position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px); background: #131110; border: 1px solid var(--line); min-width: 200px; padding: 10px 0; opacity: 0; visibility: hidden; transition: opacity .25s ease, transform .25s ease, visibility .25s ease; z-index: 60; }
+  .has-dropdown:hover .dropdown-menu, .has-dropdown:focus-within .dropdown-menu{ opacity: 1; visibility: visible; transform: translateX(-50%) translateY(2px); }
+  .dropdown-menu a{ display:block; padding: 10px 22px; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: none; color: #cfc4a6; white-space: nowrap; }
+  .dropdown-menu a:hover{ color: var(--gold-soft); background: rgba(198,164,92,0.08); }
+  .btn-book{ border: 1px solid var(--gold); color: var(--gold-soft); font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 11px 22px; border-radius: 4px; transition: all .25s ease; white-space: nowrap; }
+  .btn-book:hover{ background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%); border-color: transparent; color: #201a0d; }
+  .nav-toggle{ display:none; flex-direction:column; justify-content:center; gap: 5px; width: 32px; height: 32px; background: transparent; border: none; cursor: pointer; padding: 0; }
+  .nav-toggle span{ display:block; width: 100%; height: 2px; background: var(--gold-soft); border-radius: 2px; transition: transform .3s ease, opacity .3s ease; }
+  .nav-toggle.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity: 0; }
+  .nav-toggle.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu{ display:none; position: fixed; top: 71px; left: 0; right: 0; bottom: 0; background: var(--black); z-index: 40; padding: 24px 32px 40px; overflow-y: auto; border-top: 1px solid var(--line); }
+  .mobile-menu.open{ display:block; }
+  .mobile-menu a{ display:block; padding: 16px 0; font-size: 1.1rem; font-family:'Cormorant Garamond', serif; color: var(--cream); border-bottom: 1px solid var(--line); }
+  .mobile-menu .mm-parent{ display:flex; align-items:center; justify-content:space-between; padding: 16px 0; font-size: 1.1rem; font-family:'Cormorant Garamond', serif; color: var(--cream); border-bottom: 1px solid var(--line); cursor: pointer; }
+  .mobile-menu .mm-parent .caret{ width: 8px; height:8px; border-right: 1px solid var(--gold); border-bottom: 1px solid var(--gold); transform: rotate(45deg); transition: transform .25s ease; }
+  .mobile-menu .mm-parent.open .caret{ transform: rotate(225deg); }
+  .mobile-menu .mm-sub{ max-height: 0; overflow:hidden; transition: max-height .3s ease; }
+  .mobile-menu .mm-sub.open{ max-height: 300px; }
+  .mobile-menu .mm-sub a{ padding-left: 18px; font-size: 0.95rem; color: #cfc4a6; border-bottom: none; }
+  @media (max-width: 760px){ .nav-toggle{ display:flex; } .btn-book{ display:none; } .nav-links{ display:none; } }
+
+  .page-hero{
+    background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%);
+    color: var(--cream);
+    text-align:center;
+    padding: 90px 32px 70px;
+  }
+  .page-hero-inner{ max-width: 640px; margin:0 auto; }
+  .page-hero h1{ font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--cream); margin-top: 16px; }
+  .page-hero p{ margin-top: 18px; font-size: 0.96rem; line-height: 1.75; color: #b9ae94; }
+
+  /* ---------- Form ---------- */
+  .calc-wrap{ max-width: 620px; margin: 0 auto; padding: 50px 32px 40px; position:relative; z-index: 5; }
+  .calc-card{ background: #fff; border-radius: 14px; box-shadow: 0 16px 40px rgba(0,0,0,0.16); padding: 34px 32px; }
+  .calc-fields{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .calc-fields-time{ display:grid; grid-template-columns: 1fr 1fr 2fr; gap: 12px; }
+  .calc-fields label{ display:block; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6f6852; margin-bottom: 6px; }
+  .calc-fields select, .calc-fields input{ width: 100%; padding: 12px 10px; border-radius: 6px; border: 1px solid rgba(28,25,20,0.18); background: #fff; color: var(--ink); font-family: 'Jost', sans-serif; font-size: 0.92rem; }
+  .calc-fields input:focus{ outline: 1.5px solid var(--gold); border-color: var(--gold); }
+  .calc-note{ font-size: 0.8rem; color: #6f6852; margin: 14px 0 4px; line-height: 1.6; }
+  .calc-btn{
+    margin-top: 20px; width: 100%; padding: 15px; border: none; border-radius: 6px;
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    color: #201a0d; font-family: 'Jost', sans-serif; font-weight: 600; font-size: 0.82rem;
+    letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
+    transition: filter .25s ease, transform .25s ease;
+  }
+  .calc-btn:hover{ filter: brightness(1.1); transform: translateY(-1px); }
+
+  /* ---------- Results ---------- */
+  .results{ max-width: 760px; margin: 0 auto; padding: 10px 32px 110px; display:none; }
+  .results.visible{ display:block; }
+
+  .moon-visual{
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    position: relative;
+    background: #1c1914;
+    box-shadow: 0 0 40px rgba(198,164,92,0.25);
+    overflow:hidden;
+  }
+  .moon-visual .lit{
+    position:absolute; top:0; bottom:0;
+    background: linear-gradient(150deg, #e4d6ba, #bd9c6c);
+  }
+
+  .result-block{
+    background: #fdfbf6;
+    border: 1px solid rgba(28,25,20,0.1);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 34px 32px;
+    margin-bottom: 26px;
+    text-align:center;
+  }
+  .result-block .rb-label{ font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .result-block .rb-phase{ font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .result-block .rb-archetype{ font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: #a8863f; margin-bottom: 8px; }
+  .result-block .rb-meta{ font-size: 0.86rem; color: #6f6852; margin-bottom: 4px; }
+
+  .info-block{
+    background: #fdfbf6;
+    border: 1px solid rgba(28,25,20,0.1);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 30px 32px;
+    margin-bottom: 22px;
+    text-align:left;
+  }
+  .info-block .rb-kern{ font-size: 0.94rem; line-height: 1.75; color: #3a3527; margin-bottom: 20px; }
+  .rb-split{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align:left; }
+  .rb-col h4{ font-family:'Jost', sans-serif; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .rb-col.licht h4{ color: #a8863f; }
+  .rb-col.schatten h4{ color: #6f6852; }
+  .rb-col p{ font-size: 0.9rem; line-height: 1.7; color: #443c28; }
+
+  @media (max-width: 560px){
+    .calc-fields{ grid-template-columns: 1fr 1fr 1fr; }
+    .calc-fields-time{ grid-template-columns: 1fr 1fr; }
+    .rb-split{ grid-template-columns: 1fr; }
+  }
+
+  footer{ background: var(--black); color: #6f6852; text-align:center; padding: 40px 32px 30px; border-top: 1px solid var(--line); font-size: 0.76rem; }
+  footer a{ color: #6f6852; transition: color .2s ease; }
+  footer a:hover{ color: var(--gold-soft); }
+
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo" aria-label="SU.MINDSYSTEMS Startseite">
+      <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
+        <path d="M30 30 Q10 30 10 42 Q10 52 30 54 Q50 56 50 66 Q50 78 28 78 Q10 78 8 64" stroke="#c6a45c" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M58 78 L58 26 L74 54 L90 26 L90 78" stroke="#c6a45c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-text"><span class="sm"><span class="bold-part">SU.MIND</span>SYSTEMS</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <div class="has-dropdown">
+        <a href="index.html#approach">Über mich <span class="caret"></span></a>
+        <div class="dropdown-menu">
+          <a href="index.html#approach">Mein Ansatz</a>
+          <a href="index.html#approach">Meine Geschichte</a>
+        </div>
+      </div>
+      <a href="index.html#focus">Programme</a>
+      <div class="has-dropdown">
+        <a href="#">Für Dich <span class="caret"></span></a>
+        <div class="dropdown-menu">
+          <a href="inneres-team.html">Dein inneres Team</a>
+          <a href="lebenszahl.html">Lebenszahlen</a>
+          <a href="mondphase.html">Mondphase</a>
+          <a href="#">Astrologie</a>
+          <a href="ebooks.html">eBooks</a>
+        </div>
+      </div>
+      <a href="index.html#footer">Kontakt</a>
+    </div>
+    <a href="index.html#footer" class="btn-book">Jetzt starten</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" onclick="closeMobileMenu()">Home</a>
+  <div class="mm-parent" id="mm-parent-1">Über mich <span class="caret"></span></div>
+  <div class="mm-sub" id="mm-sub-1">
+    <a href="index.html#approach" onclick="closeMobileMenu()">Mein Ansatz</a>
+    <a href="index.html#approach" onclick="closeMobileMenu()">Meine Geschichte</a>
+  </div>
+  <a href="index.html#focus" onclick="closeMobileMenu()">Programme</a>
+  <div class="mm-parent" id="mm-parent-2">Für Dich <span class="caret"></span></div>
+  <div class="mm-sub" id="mm-sub-2">
+    <a href="inneres-team.html">Dein inneres Team</a>
+    <a href="lebenszahl.html">Lebenszahlen</a>
+    <a href="mondphase.html">Mondphase</a>
+    <a href="#">Astrologie</a>
+    <a href="ebooks.html">eBooks</a>
+  </div>
+  <a href="index.html#footer" onclick="closeMobileMenu()">Kontakt</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="eyebrow">Für Dich</span>
+    <h1>Deine Geburtsmondphase</h1>
+    <p>Gib Deinen Geburtstag, die Uhrzeit und Dein Geburtsland ein. Uhrzeit und Land werden gebraucht, weil dieselbe Uhrzeit an unterschiedlichen Orten der Welt einem anderen Moment entspricht — und genau das kann über die Mondphase entscheiden.</p>
+  </div>
+</section>
+
+<div class="calc-wrap">
+  <div class="calc-card">
+    <div class="calc-fields">
+      <div>
+        <label for="f-day">Tag</label>
+        <input type="number" id="f-day" inputmode="numeric" placeholder="z. B. 15" min="1" max="31" step="1">
+      </div>
+      <div>
+        <label for="f-month">Monat</label>
+        <select id="f-month"></select>
+      </div>
+      <div>
+        <label for="f-year">Jahr</label>
+        <input type="number" id="f-year" inputmode="numeric" placeholder="z. B. 1994" min="1900" max="2026" step="1">
+      </div>
+    </div>
+    <div class="calc-fields-time">
+      <div>
+        <label for="f-hour">Stunde</label>
+        <input type="number" id="f-hour" inputmode="numeric" placeholder="z. B. 6" min="0" max="23" step="1">
+      </div>
+      <div>
+        <label for="f-minute">Minute</label>
+        <input type="number" id="f-minute" inputmode="numeric" placeholder="z. B. 0" min="0" max="59" step="1">
+      </div>
+      <div>
+        <label for="f-country">Geburtsland</label>
+        <select id="f-country"></select>
+      </div>
+    </div>
+    <p class="calc-note">Kennst Du die genaue Uhrzeit nicht? Dann trage 12:00 ein — das Ergebnis ist dann eine gute Annäherung, kann aber an Tagen mit Phasenwechsel leicht abweichen.</p>
+    <button class="calc-btn" id="calc-btn">Berechnen</button>
+  </div>
+</div>
+
+<div class="results" id="results"></div>
+
+<footer>
+  <div style="margin-bottom:10px;">© 2026 SU.MINDSYSTEMS</div>
+  <div style="display:flex; justify-content:center; gap:22px; flex-wrap:wrap;">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutzerklärung</a>
+    <a href="cookies.html">Cookies</a>
+  </div>
+</footer>
+
+<script>
+  // ---------- Mobile hamburger menu ----------
+  var navToggle = document.getElementById('nav-toggle');
+  var mobileMenu = document.getElementById('mobile-menu');
+  navToggle.addEventListener('click', function(){
+    navToggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobileMenu(){
+    navToggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+  document.getElementById('mm-parent-1').addEventListener('click', function(){
+    this.classList.toggle('open');
+    document.getElementById('mm-sub-1').classList.toggle('open');
+  });
+  document.getElementById('mm-parent-2').addEventListener('click', function(){
+    this.classList.toggle('open');
+    document.getElementById('mm-sub-2').classList.toggle('open');
+  });
+
+  // ---------- Populate month + country selects ----------
+  var monthSelect = document.getElementById('f-month');
+  var monthNames = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  for (var m = 1; m <= 12; m++){
+    var optM = document.createElement('option');
+    optM.value = m; optM.textContent = monthNames[m-1];
+    monthSelect.appendChild(optM);
+  }
+
+  // Standard-time UTC offsets (hours) plus DST rule type, where applicable.
+  // dst: 'eu' (last Sun March–last Sun October), 'us' (2nd Sun March–1st Sun
+  // November since 2007, 1st Sun April–last Sun October 1987–2006),
+  // 'au' (1st Sun October–1st Sun April, Southern Hemisphere), or null.
+  var countries = [
+    { name: 'Deutschland / Österreich / Schweiz', offset: 1, dst: 'eu' },
+    { name: 'Vereinigtes Königreich', offset: 0, dst: 'eu' },
+    { name: 'Frankreich / Spanien / Italien', offset: 1, dst: 'eu' },
+    { name: 'Griechenland / Finnland', offset: 2, dst: 'eu' },
+    { name: 'Portugal', offset: 0, dst: 'eu' },
+    { name: 'Russland (Moskau)', offset: 3, dst: null },
+    { name: 'Thailand', offset: 7, dst: null },
+    { name: 'Indien', offset: 5.5, dst: null },
+    { name: 'China / Singapur', offset: 8, dst: null },
+    { name: 'Japan / Korea', offset: 9, dst: null },
+    { name: 'Indonesien (Jakarta)', offset: 7, dst: null },
+    { name: 'Australien (Sydney, Standardzeit)', offset: 10, dst: 'au' },
+    { name: 'USA Ostküste (New York, Standardzeit)', offset: -5, dst: 'us' },
+    { name: 'USA Westküste (Los Angeles, Standardzeit)', offset: -8, dst: 'us' },
+    { name: 'Brasilien (São Paulo)', offset: -3, dst: null },
+    { name: 'Mexiko (Mexiko-Stadt)', offset: -6, dst: null },
+    { name: 'Südafrika', offset: 2, dst: null },
+    { name: 'Ägypten', offset: 2, dst: null },
+    { name: 'Vereinigte Arabische Emirate', offset: 4, dst: null },
+    { name: 'UTC / GMT (ohne Verschiebung)', offset: 0, dst: null }
+  ];
+  var countrySelect = document.getElementById('f-country');
+  countries.forEach(function(c, i){
+    var opt = document.createElement('option');
+    opt.value = i; opt.textContent = c.name;
+    countrySelect.appendChild(opt);
+  });
+  countrySelect.value = 0;
+
+  var dayInput = document.getElementById('f-day');
+  var yearInput = document.getElementById('f-year');
+  var hourInput = document.getElementById('f-hour');
+  var minuteInput = document.getElementById('f-minute');
+  var currentYear = new Date().getFullYear();
+  dayInput.value = 15;
+  monthSelect.value = 6;
+  yearInput.value = currentYear - 30;
+  hourInput.value = 12;
+  minuteInput.value = 0;
+
+  var weekdayNames = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+
+  // ---------- DST helpers ----------
+  function getNthWeekdayUTC(year, monthIndex, weekdayTarget, n){
+    var d = new Date(Date.UTC(year, monthIndex, 1));
+    var firstWeekday = d.getUTCDay();
+    var offsetDays = (weekdayTarget - firstWeekday + 7) % 7;
+    var day = 1 + offsetDays + (n - 1) * 7;
+    return new Date(Date.UTC(year, monthIndex, day));
+  }
+  function getLastWeekdayUTC(year, monthIndex, weekdayTarget){
+    var d = new Date(Date.UTC(year, monthIndex + 1, 0)); // last day of month
+    var lastWeekday = d.getUTCDay();
+    var diff = (lastWeekday - weekdayTarget + 7) % 7;
+    d.setUTCDate(d.getUTCDate() - diff);
+    return d;
+  }
+
+  // Returns true if DST is active for the given country rule on the given
+  // LOCAL calendar date (compared as a plain date, ignoring the exact
+  // transition hour — accurate except within a few hours of the switch).
+  function isDstActive(dstRule, year, month, day){
+    if (!dstRule) return false;
+    var checkDate = new Date(Date.UTC(year, month - 1, day));
+
+    if (dstRule === 'eu'){
+      var start = getLastWeekdayUTC(year, 2, 0);   // last Sunday of March
+      var end = getLastWeekdayUTC(year, 9, 0);     // last Sunday of October
+      return checkDate >= start && checkDate < end;
+    }
+    if (dstRule === 'us'){
+      var start, end;
+      if (year >= 2007){
+        start = getNthWeekdayUTC(year, 2, 0, 2);   // 2nd Sunday of March
+        end = getNthWeekdayUTC(year, 10, 0, 1);    // 1st Sunday of November
+      } else if (year >= 1987){
+        start = getNthWeekdayUTC(year, 3, 0, 1);   // 1st Sunday of April
+        end = getLastWeekdayUTC(year, 9, 0);       // last Sunday of October
+      } else {
+        return false; // pre-1987 US DST rules not modeled
+      }
+      return checkDate >= start && checkDate < end;
+    }
+    if (dstRule === 'au'){
+      // Southern Hemisphere: spans the turn of the year (Oct–Apr)
+      var octStart = getNthWeekdayUTC(year, 9, 0, 1);   // 1st Sunday of October
+      var aprEnd = getNthWeekdayUTC(year, 3, 0, 1);      // 1st Sunday of April (same year)
+      return checkDate >= octStart || checkDate < aprEnd;
+    }
+    return false;
+  }
+
+  var phases = [
+    {
+      key: 'neumond', name: 'Neumond', archetype: 'Der Beginner',
+      kern: 'Du bist hier, um bei null anzufangen — oft ohne Vorbild, ohne fertigen Plan, einfach aus einem inneren Impuls heraus.',
+      licht: 'Du hast eine seltene Fähigkeit, wirklich neu zu starten, ohne dass Dich die Leere davor lähmt.',
+      schatten: 'Du kannst impulsiv wirken, weil Du oft handelst, bevor ein klarer Plan überhaupt da ist.'
+    },
+    {
+      key: 'zunehmende-sichel', name: 'Zunehmende Sichel', archetype: 'Der Mutmacher',
+      kern: 'Du bist hier, um erste Widerstände zu überwinden und eine Idee trotz Gegenwind am Leben zu halten.',
+      licht: 'Du hast eine enorme Willenskraft, gegen anfänglichen Widerstand weiterzugehen, wenn andere schon aufgeben.',
+      schatten: 'Du kannst ungeduldig werden, wenn Fortschritt sich nicht sofort zeigt.'
+    },
+    {
+      key: 'erstes-viertel', name: 'Erstes Viertel', archetype: 'Der Entscheider',
+      kern: 'Du bist hier, um in Momenten der Spannung klare Entscheidungen zu treffen, statt auszuweichen.',
+      licht: 'Du handelst entschlossen, selbst wenn Druck von mehreren Seiten kommt.',
+      schatten: 'Du kannst zu schnell handeln, ohne alle Konsequenzen vorher zu bedenken.'
+    },
+    {
+      key: 'zunehmender-mond', name: 'Zunehmender Mond', archetype: 'Der Verfeinerer',
+      kern: 'Du bist hier, um Dinge so lange zu bearbeiten, bis sie wirklich stimmig sind — Feinschliff statt Schnellschuss.',
+      licht: 'Du hast einen Blick fürs Detail, der andere überzeugt und trägt.',
+      schatten: 'Du kannst im Perfektionismus hängen bleiben, bevor Du wirklich loslässt.'
+    },
+    {
+      key: 'vollmond', name: 'Vollmond', archetype: 'Der Sichtbare',
+      kern: 'Du bist hier, um Dinge sichtbar und bewusst zu machen, die vorher im Unklaren geblieben sind.',
+      licht: 'Du bringst Klarheit in Situationen, die vorher diffus und unausgesprochen waren.',
+      schatten: 'Du kannst überemotional reagieren, wenn zu viel gleichzeitig an die Oberfläche kommt.'
+    },
+    {
+      key: 'abnehmender-mond', name: 'Abnehmender Mond', archetype: 'Der Lehrer',
+      kern: 'Du bist hier, um weiterzugeben, was Du selbst durchlebt und verstanden hast.',
+      licht: 'Du teilst Wissen großzügig, mit echtem Interesse am Wachstum anderer.',
+      schatten: 'Du kannst Dich verzetteln, wenn Du versuchst, zu vielen Menschen gleichzeitig zu helfen.'
+    },
+    {
+      key: 'letztes-viertel', name: 'Letztes Viertel', archetype: 'Der Loslasser',
+      kern: 'Du bist hier, um bewusst zu beenden, was seine Zeit gehabt hat, statt es aus Gewohnheit festzuhalten.',
+      licht: 'Du kannst Dinge klar abschließen, ohne Dich dafür schuldig zu fühlen.',
+      schatten: 'Du kannst zu radikal loslassen, auch das, was eigentlich noch wertvoll wäre.'
+    },
+    {
+      key: 'abnehmende-sichel', name: 'Abnehmende Sichel', archetype: 'Der Reflektierende',
+      kern: 'Diese Phase ist die stillste und rätselhafteste im ganzen Zyklus. Sie erzählt von einem Ende, das noch nicht ganz da ist, und einem Anfang, der sich erst andeutet. Du bist hier, um loszulassen, bevor Du weißt, was danach kommt — und darauf zu vertrauen, dass sich gerade in der Stille etwas Neues vorbereitet, auch wenn Du es noch nicht sehen kannst.',
+      licht: 'Du kannst Dinge bewusst zur Ruhe kommen lassen, statt sie krampfhaft festzuhalten. In der Stille entsteht bei Dir echte innere Klärung — Du lässt los, was seine Zeit gehabt hat, und schaffst leise, aber wirkungsvoll Raum für das, was als Nächstes kommen will.',
+      schatten: 'Wird daraus Rückzug ohne Richtung, verlierst Du Dich im Warten, ohne wirklich loszulassen. Die Stille wird dann nicht zur Vorbereitung, sondern zur Flucht vor dem, was eigentlich enden sollte.'
+    }
+  ];
+
+  var phaseEnglishNames = {
+    'Neumond': 'New Moon',
+    'Zunehmende Sichel': 'Crescent Moon',
+    'Erstes Viertel': 'First Quarter',
+    'Zunehmender Mond': 'Gibbous Moon',
+    'Vollmond': 'Full Moon',
+    'Abnehmender Mond': 'Disseminating Moon',
+    'Letztes Viertel': 'Last Quarter',
+    'Abnehmende Sichel': 'Balsamic Moon'
+  };
+
+  var thaiWeekdays = {
+    0: { name: 'Sonntag', thaiName: 'Wan Athit', colorLight: '#f4a3ac', color: '#e63946', colorDark: '#a11a28', textColor: '#fff', ruler: 'Sonne', deity: 'Phra Athit', analysis: 'Führung, Vitalität und Selbstausdruck stehen im Vordergrund. Du bringst eine natürliche Präsenz mit, die schwer zu übersehen ist.' },
+    1: { name: 'Montag', thaiName: 'Wan Chan', colorLight: '#faf3c9', color: '#f2e394', colorDark: '#d4bc3a', textColor: '#3a2f0a', ruler: 'Mond', deity: 'Phra Chan', analysis: 'Emotionalität, Fürsorge und Intuition prägen diesen Tag. Du bist besonders sensibel für Stimmungen — Deine eigenen und die anderer.' },
+    2: { name: 'Dienstag', thaiName: 'Wan Angkarn', colorLight: '#fac4d9', color: '#f28fb1', colorDark: '#d1527a', textColor: '#3a1420', ruler: 'Mars', deity: 'Phra Angkarn', analysis: 'Energie, Mut und Durchsetzungskraft stehen im Zentrum. Du handelst, wo andere noch zögern.' },
+    3: { name: 'Mittwoch', thaiName: 'Wan Phut', colorLight: '#a3d4b5', color: '#57a773', colorDark: '#2f7249', textColor: '#fff', ruler: 'Merkur', deity: 'Phra Phut', analysis: 'Kommunikation, Anpassungsfähigkeit und analytisches Denken treten hervor. Du verbindest Menschen und Ideen, die sonst getrennt blieben.' },
+    4: { name: 'Donnerstag', thaiName: 'Wan Pruehat', colorLight: '#f9cf9f', color: '#f4a259', colorDark: '#c97a2c', textColor: '#3a2410', ruler: 'Jupiter', deity: 'Phra Pruehatsabodi', analysis: 'Weisheit, Wachstum und Großzügigkeit prägen diesen Tag. Du denkst gerne über das Einzelne hinaus, in Richtung des größeren Bildes.' },
+    5: { name: 'Freitag', thaiName: 'Wan Suk', colorLight: '#a8d4ef', color: '#5eaadb', colorDark: '#2f7aab', textColor: '#fff', ruler: 'Venus', deity: 'Phra Suk', analysis: 'Harmonie, Ästhetik und Beziehungsfähigkeit stehen im Vordergrund. Du suchst Schönheit und echte Verbindung, nicht nur Oberfläche.' },
+    6: { name: 'Samstag', thaiName: 'Wan Sao', colorLight: '#c9a8d6', color: '#9d6fb0', colorDark: '#6b4278', textColor: '#fff', ruler: 'Saturn', deity: 'Phra Sao', analysis: 'Disziplin, Struktur und Ausdauer prägen diesen Tag. Du trägst Verantwortung, auch wenn es Dir schwerfällt, sie abzugeben.' }
+  };
+
+  function getMoonPhase(utcDate){
+    // Reference new moon: 2000-01-06 18:14 UTC
+    var refNewMoon = Date.UTC(2000, 0, 6, 18, 14, 0);
+    var synodicMonth = 29.530588853; // days
+    var msPerDay = 86400000;
+
+    var diffDays = (utcDate.getTime() - refNewMoon) / msPerDay;
+    var phaseFraction = diffDays / synodicMonth;
+    phaseFraction = phaseFraction - Math.floor(phaseFraction); // 0..1
+
+    var illumination = (1 - Math.cos(2 * Math.PI * phaseFraction)) / 2 * 100;
+
+    var idx;
+    if (phaseFraction < 0.0625 || phaseFraction >= 0.9375) idx = 0;      // Neumond
+    else if (phaseFraction < 0.1875) idx = 1;                            // Zunehmende Sichel
+    else if (phaseFraction < 0.3125) idx = 2;                            // Erstes Viertel
+    else if (phaseFraction < 0.4375) idx = 3;                            // Zunehmender Mond
+    else if (phaseFraction < 0.5625) idx = 4;                            // Vollmond
+    else if (phaseFraction < 0.6875) idx = 5;                            // Abnehmender Mond
+    else if (phaseFraction < 0.8125) idx = 6;                            // Letztes Viertel
+    else idx = 7;                                                       // Abnehmende Sichel
+
+    return { phase: phases[idx], illumination: Math.round(illumination), fraction: phaseFraction };
+  }
+
+  document.getElementById('calc-btn').addEventListener('click', function(){
+    var day = parseInt(dayInput.value, 10);
+    var month = parseInt(monthSelect.value, 10);
+    var year = parseInt(yearInput.value, 10);
+    var hour = parseInt(hourInput.value, 10);
+    var minute = parseInt(minuteInput.value, 10);
+    var country = countries[parseInt(countrySelect.value, 10)];
+
+    if (!day || day < 1 || day > 31){ dayInput.focus(); dayInput.style.borderColor = '#c0392b'; return; }
+    dayInput.style.borderColor = '';
+    if (!year || year < 1900 || year > 2026){ yearInput.focus(); yearInput.style.borderColor = '#c0392b'; return; }
+    yearInput.style.borderColor = '';
+    if (isNaN(hour) || hour < 0 || hour > 23){ hourInput.focus(); hourInput.style.borderColor = '#c0392b'; return; }
+    hourInput.style.borderColor = '';
+    if (isNaN(minute) || minute < 0 || minute > 59){ minuteInput.focus(); minuteInput.style.borderColor = '#c0392b'; return; }
+    minuteInput.style.borderColor = '';
+
+    // Apply daylight saving time on top of the standard-time offset, if applicable
+    var dstActive = isDstActive(country.dst, year, month, day);
+    var offset = country.offset + (dstActive ? 1 : 0);
+
+    // Local calendar weekday: based on the entered local date, not UTC
+    var localWeekdayDate = new Date(Date.UTC(year, month - 1, day));
+    var weekdayIdx = localWeekdayDate.getUTCDay();
+    var weekday = weekdayNames[weekdayIdx];
+
+    // Convert local birth time to the true UTC instant using the (DST-adjusted) offset
+    var utcMillis = Date.UTC(year, month - 1, day, hour, minute, 0) - (offset * 3600000);
+    var utcDate = new Date(utcMillis);
+
+    var result = getMoonPhase(utcDate);
+    var p = result.phase;
+
+    // Lit width follows the actual illumination % — 0 at New Moon (fully dark),
+    // ~130px at Full Moon (fully lit). For the two named "exact" phases we
+    // snap to a clean 0 / full circle, since the raw math near the bucket
+    // edges (e.g. 96% instead of 100%) left a thin, misleading dark sliver.
+    var litWidth = Math.round((result.illumination / 100) * 130);
+    if (p.key === 'neumond') litWidth = 0;
+    if (p.key === 'vollmond') litWidth = 130;
+    var isWaxing = result.fraction < 0.5;
+    var moonVisualHtml = '<div class="moon-visual"><div class="lit" style="width:' + litWidth + 'px; ' +
+      (isWaxing ? 'right:0;' : 'left:0;') +
+      'border-radius: 50%;"></div></div>';
+
+    var html = '';
+    html += moonVisualHtml;
+    html += '<div class="result-block">';
+    html += '<div class="rb-label">🌙 Deine Geburtsmondphase</div>';
+    html += '<div class="rb-phase">' + p.name + '</div>';
+    html += '<div class="rb-archetype">' + p.archetype + ' <span style="opacity:0.6; font-style:normal; font-size:0.85rem;">(' + phaseEnglishNames[p.name] + ')</span></div>';
+    html += '<div class="rb-meta">Beleuchtungsgrad: ca. ' + result.illumination + '%</div>';
+    html += '<div class="rb-meta">' + (dstActive ? 'Sommerzeit war zu diesem Zeitpunkt aktiv (Zeitzone +1 Std. berücksichtigt)' : 'Winter-/Standardzeit galt zu diesem Zeitpunkt') + '</div>';
+    html += '</div>';
+
+    html += '<div class="info-block">';
+    html += '<p class="rb-kern">' + p.kern + '</p>';
+    html += '<div class="rb-split">';
+    html += '<div class="rb-col licht"><h4>☀️ Bewusst gelebt (im Licht)</h4><p>' + p.licht + '</p></div>';
+    html += '<div class="rb-col schatten"><h4>🌑 Unbewusst gelebt (im Schatten)</h4><p>' + p.schatten + '</p></div>';
+    html += '</div>';
+    html += '</div>';
+
+    var tw = thaiWeekdays[weekdayIdx];
+    html += '<div class="result-block" style="background: linear-gradient(150deg, ' + tw.colorLight + ' 0%, ' + tw.color + ' 55%, ' + tw.colorDark + ' 100%); border-left: none; color: ' + tw.textColor + ';">';
+    html += '<div class="rb-label" style="color:' + tw.textColor + '; opacity:0.75;">🇹🇭 Dein Geburts-Wochentag nach Thai-Tradition</div>';
+    html += '<div class="rb-phase" style="color:' + tw.textColor + ';">' + weekday + '</div>';
+    html += '<div class="rb-archetype" style="color:' + tw.textColor + '; opacity:0.9;">' + tw.thaiName + ' — beherrscht von ' + tw.ruler + ' (' + tw.deity + ')</div>';
+    html += '</div>';
+    html += '<div class="info-block">';
+    html += '<p class="rb-kern" style="margin-bottom:0;">' + tw.analysis + '</p>';
+    html += '</div>';
+
+    html += '<p style="font-size:0.78rem; color:#a8a08a; text-align:center; line-height:1.6;">Hinweis: Sommerzeit wird für gängige Zeitzonen (u. a. EU, USA, Australien) nach den seit den 1990er- bzw. 2000er-Jahren gültigen Regeln berücksichtigt. Bei sehr alten Geburtsdaten oder Ländern mit häufig geänderten Regelungen (z. B. Russland, Brasilien, Mexiko, Ägypten) kann die historische Regelung abweichen. An Tagen genau am Übergang zur nächsten Mondphase kann das Ergebnis daher leicht abweichen.</p>';
+
+    var resultsEl = document.getElementById('results');
+    resultsEl.innerHTML = html;
+    resultsEl.classList.add('visible');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+</body>
+</html>
