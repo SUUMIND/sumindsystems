@@ -468,16 +468,22 @@
     transform: translateY(-6px);
     box-shadow: 0 16px 38px rgba(90,68,30,0.24), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -12px 20px -12px rgba(90,68,30,0.3);
   }
+  .focus-card-header{
+    display:flex;
+    align-items:center;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
   .focus-icon{
     width: 48px; height:48px;
+    flex-shrink:0;
     display:flex; align-items:center; justify-content:center;
-    margin-bottom: 22px;
   }
   .focus-icon svg{ width: 30px; height:30px; stroke: #201a0d; }
   .focus-card h3{
     font-size: 1.4rem;
     color: #201a0d;
-    margin-bottom: 12px;
+    margin-bottom: 0;
     font-weight: 700;
   }
   .focus-card p{
@@ -926,24 +932,30 @@
 
   <div class="focus-grid">
     <div class="focus-card">
-      <div class="focus-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15,9 11,11 9,15 13,13" fill="#0b0a08" stroke="#0b0a08"/><circle cx="12" cy="12" r="1" fill="#0b0a08" stroke="none"/></svg>
+      <div class="focus-card-header">
+        <div class="focus-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15,9 11,11 9,15 13,13" fill="#0b0a08" stroke="#0b0a08"/><circle cx="12" cy="12" r="1" fill="#0b0a08" stroke="none"/></svg>
+        </div>
+        <h3>Selbstbild</h3>
       </div>
-      <h3>Selbstbild</h3>
       <p>Dein Selbstbild ist nicht eindimensional. Es hängt davon ab, mit wem Du Dich vergleichst und in welchem Kontext Du Dich gerade befindest — zusammengesetzt aus vielen Anteilen, reflektiert und neu strukturiert, statt einfach hingenommen.</p>
     </div>
     <div class="focus-card">
-      <div class="focus-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5c-4-2.4-8-5.6-8-9.8a4.3 4.3 0 0 1 8-2.1 4.3 4.3 0 0 1 8 2.1c0 4.2-4 7.4-8 9.8Z"/></svg>
+      <div class="focus-card-header">
+        <div class="focus-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5c-4-2.4-8-5.6-8-9.8a4.3 4.3 0 0 1 8-2.1 4.3 4.3 0 0 1 8 2.1c0 4.2-4 7.4-8 9.8Z"/></svg>
+        </div>
+        <h3>Beziehungen</h3>
       </div>
-      <h3>Beziehungen</h3>
       <p>Egal ob die Beziehung zu Dir selbst, zu Deinem Partner, zu Freunden, zur Chefin oder vom Führungspersonal zu den Mitarbeitern: In allem stecken dieselben Muster, nur mit unterschiedlichen Hürden je nach Kontext.</p>
     </div>
     <div class="focus-card">
-      <div class="focus-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v7"/><path d="M12 10c-3 0-5 2-5 5v6M12 10c3 0 5 2 5 5v6"/><path d="M12 3c-1.5 1-2.5 2.6-2.5 4.5S10.5 11 12 12c1.5-1 2.5-2.6 2.5-4.5S13.5 4 12 3Z" fill="#0b0a08" stroke="#0b0a08"/></svg>
+      <div class="focus-card-header">
+        <div class="focus-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v7"/><path d="M12 10c-3 0-5 2-5 5v6M12 10c3 0 5 2 5 5v6"/><path d="M12 3c-1.5 1-2.5 2.6-2.5 4.5S10.5 11 12 12c1.5-1 2.5-2.6 2.5-4.5S13.5 4 12 3Z" fill="#0b0a08" stroke="#0b0a08"/></svg>
+        </div>
+        <h3>Identität</h3>
       </div>
-      <h3>Identität</h3>
       <p>Identität lässt sich formen — aber nicht mit Gewalt, sondern im Alignment mit dem eigenen inneren Kern. Erst wenn Schattenarbeit geleistet wurde, kann sie im vollen Licht strahlen, statt nur die Anteile zu zeigen, die erwünscht oder angepasst sind.</p>
     </div>
   </div>
