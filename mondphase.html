@@ -28,7 +28,7 @@
   a{ color: inherit; text-decoration: none; }
   .eyebrow{ font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
 
-  .logo{ display:flex; align-items:center; gap: 12px; }
+  .logo{ display:flex; align-items:center; gap: 6px; }
   .logo-mark{ width: 34px; height: 34px; flex-shrink:0; }
   .logo-text .sm{ font-family:'Cormorant Garamond', serif; font-size: 1.02rem; letter-spacing:0.03em; color: var(--gold-soft); font-weight: 500; }
   .logo-text .sm .bold-part{ font-weight: 700; }
@@ -81,7 +81,23 @@
   .calc-fields{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
   .calc-fields-time{ display:grid; grid-template-columns: 1fr 1fr 2fr; gap: 12px; }
   .calc-fields label{ display:block; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6f6852; margin-bottom: 6px; }
-  .calc-fields select, .calc-fields input{ width: 100%; padding: 12px 10px; border-radius: 6px; border: 1px solid rgba(28,25,20,0.18); background: #fff; color: var(--ink); font-family: 'Jost', sans-serif; font-size: 0.92rem; }
+  .calc-fields select, .calc-fields input,
+  .calc-fields-time select, .calc-fields-time input{
+    width: 100%;
+    height: 46px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(28,25,20,0.18);
+    background: #fff;
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.92rem;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  /* Restore a small native dropdown/time indicator without breaking the fixed height */
+  .calc-fields-time input[type="time"]{ -webkit-appearance: auto; appearance: auto; padding: 0 8px; }
   .calc-fields input:focus{ outline: 1.5px solid var(--gold); border-color: var(--gold); }
   .calc-note{ font-size: 0.8rem; color: #6f6852; margin: 14px 0 4px; line-height: 1.6; }
   .calc-btn{
@@ -159,10 +175,7 @@
 <header>
   <nav>
     <a href="index.html" class="logo" aria-label="SU.MINDSYSTEMS Startseite">
-      <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
-        <path d="M30 30 Q10 30 10 42 Q10 52 30 54 Q50 56 50 66 Q50 78 28 78 Q10 78 8 64" stroke="#c6a45c" stroke-width="6" stroke-linecap="round" fill="none"/>
-        <path d="M58 78 L58 26 L74 54 L90 26 L90 78" stroke="#c6a45c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
-      </svg>
+      <img src="https://raw.githubusercontent.com/SUUMIND/sumindsystems/refs/heads/main/loggo%20gold.jpeg" class="logo-mark" alt="SU.MINDSYSTEMS Logo" style="object-fit:contain; border-radius:4px;">
       <span class="logo-text"><span class="sm"><span class="bold-part">SU.MIND</span>SYSTEMS</span></span>
     </a>
     <div class="nav-links">
@@ -187,7 +200,7 @@
       </div>
       <a href="index.html#footer">Kontakt</a>
     </div>
-    <a href="index.html#footer" class="btn-book">Jetzt starten</a>
+    <a href="index.html#footer" class="btn-book">Geh aufs Ganze</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen">
       <span></span><span></span><span></span>
     </button>
