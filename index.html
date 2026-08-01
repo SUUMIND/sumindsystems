@@ -407,23 +407,23 @@
     text-align:left;
   }
   .relate-card{
-    background: #fff;
+    background: rgba(255,255,255,0.72);
     border-radius: 12px;
-    padding: 32px 28px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-    border-left: 3px solid var(--gold);
+    padding: 34px 28px;
+    border-left: 3px solid #55524c;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
   }
   .relate-card h3{
-    font-family: 'Jost', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     color: var(--ink);
     margin-bottom: 12px;
   }
   .relate-card p{
     font-size: 0.9rem;
     line-height: 1.7;
-    color: #55503f;
+    color: #443c28;
   }
   @media (max-width: 760px){
     .relate-grid{ grid-template-columns: 1fr; }
@@ -452,25 +452,28 @@
     gap: 26px;
   }
   .focus-card{
-    background: linear-gradient(150deg, rgba(228,214,186,0.82) 0%, rgba(189,156,108,0.82) 55%, rgba(143,113,69,0.82) 100%);
+    background:
+      linear-gradient(125deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.15) 12%, rgba(255,255,255,0) 26%),
+      radial-gradient(circle at 25% 15%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 45%),
+      linear-gradient(150deg, rgba(228,214,186,0.75) 0%, rgba(189,156,108,0.75) 55%, rgba(143,113,69,0.75) 100%);
     color: var(--ink);
     padding: 42px 30px 36px;
     text-align:left;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.45);
     border-radius: 14px;
     transition: transform .35s ease, box-shadow .35s ease;
-    box-shadow: 0 6px 20px rgba(90,68,30,0.18);
+    box-shadow: 0 10px 30px rgba(90,68,30,0.18), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -12px 20px -12px rgba(90,68,30,0.25);
   }
   .focus-card:hover{
     transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(90,68,30,0.26);
+    box-shadow: 0 16px 38px rgba(90,68,30,0.24), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -12px 20px -12px rgba(90,68,30,0.3);
   }
   .focus-icon{
     width: 48px; height:48px;
     display:flex; align-items:center; justify-content:center;
     margin-bottom: 22px;
   }
-  .focus-icon svg{ width: 30px; height:30px; stroke: #16140f; }
+  .focus-icon svg{ width: 30px; height:30px; stroke: #201a0d; }
   .focus-card h3{
     font-size: 1.4rem;
     color: #201a0d;
@@ -480,7 +483,7 @@
   .focus-card p{
     font-size: 0.9rem;
     line-height: 1.7;
-    color: #2e2412;
+    color: #3a2c14;
     font-weight: 400;
   }
 
