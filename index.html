@@ -535,6 +535,98 @@
     display: block;
   }
 
+  /* ---------- Testimonials ---------- */
+  .testimonials{
+    background: var(--cream);
+    padding: 30px 32px 100px;
+    text-align:center;
+  }
+  .testimonials h2{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .testimonials .testi-sub{
+    font-size: 0.94rem;
+    color: #6f6852;
+    max-width: 480px;
+    margin: 0 auto 50px;
+  }
+  .testi-row{
+    max-width: 1080px;
+    margin: 0 auto;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    gap: 20px;
+  }
+  .testi-arrow{
+    flex-shrink:0;
+    width: 42px; height:42px;
+    border-radius: 50%;
+    border: 1px solid rgba(28,25,20,0.15);
+    background: #fff;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    margin-top: 110px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .testi-arrow:hover{ border-color: var(--gold); transform: scale(1.06); }
+  .testi-arrow svg{ width: 16px; height:16px; stroke: var(--ink); }
+  .testi-track{
+    display:flex;
+    gap: 24px;
+    flex: 1;
+    padding-top: 40px;
+  }
+  .testi-card{
+    flex: 1 1 0;
+    min-width: 0;
+    position: relative;
+    padding: 60px 24px 32px;
+    border-radius: 16px;
+    text-align:center;
+    background: linear-gradient(180deg, #d9b876 0%, #e9d3a1 35%, rgba(233,211,161,0) 100%);
+  }
+  .testi-avatar{
+    position:absolute;
+    top: -38px; left:50%;
+    transform: translateX(-50%);
+    width: 78px; height:78px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    overflow:hidden;
+    background: linear-gradient(150deg, #e4d6ba, #bd9c6c);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .testi-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .testi-avatar .avatar-fallback{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #4a3a1c;
+  }
+  .testi-quote{
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: #2a2416;
+    margin-bottom: 18px;
+    min-height: 100px;
+  }
+  .testi-stars{ color: #a8863f; letter-spacing: 3px; margin-bottom: 10px; font-size: 0.95rem; }
+  .testi-name{ font-weight: 600; color: var(--ink); font-size: 0.94rem; }
+
+  @media (max-width: 860px){
+    .testi-row{ gap: 8px; }
+    .testi-arrow{ width: 34px; height:34px; margin-top: 55px; }
+    .testi-track{ gap: 14px; }
+  }
+  @media (max-width: 640px){
+    .testi-card:nth-child(2), .testi-card:nth-child(3){ display:none; }
+  }
+
   /* ---------- CTA banner ---------- */
   .cta-band{
     background: var(--black);
@@ -869,6 +961,21 @@
   </div>
 </section>
 
+<section class="testimonials">
+  <h2>Was Klientinnen sagen</h2>
+  <p class="testi-sub">Echte Stimmen von Menschen, die den Weg bereits gegangen sind.</p>
+
+  <div class="testi-row">
+    <div class="testi-arrow" id="testi-prev" aria-label="Vorherige Stimmen">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div class="testi-track" id="testi-track"></div>
+    <div class="testi-arrow" id="testi-next" aria-label="Nächste Stimmen">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
+  </div>
+</section>
+
 <section class="cta-band">
   <div class="cta-band-inner">
     <span class="eyebrow">Beginnen</span>
@@ -979,6 +1086,55 @@
     q.addEventListener('click', function(){
       q.closest('.faq-card').classList.toggle('open');
     });
+  });
+
+  // ---------- Testimonials carousel ----------
+  // Zum Austauschen: image auf den echten Bildpfad setzen, z. B.
+  // 'images/testimonial-sarah.jpg' (Bild vorher ins Repo hochladen).
+  // Fehlt ein Bild oder lädt es nicht, erscheinen automatisch die Initialen.
+  var testimonials = [
+    { name: 'Sarah L.', quote: '„Die Arbeit bei su.mindsystems hat mein Leben wirklich verändert. Ich habe endlich verstanden, welche Anteile in mir gesteuert haben, die ich vorher nie hinterfragt habe."', stars: 5, image: 'images/testimonial-1.jpg' },
+    { name: 'Julia M.', quote: '„Zum ersten Mal habe ich das Gefühl, dass Verstand und Gefühl bei mir wirklich zusammenarbeiten, statt sich ständig zu bekämpfen."', stars: 5, image: 'images/testimonial-2.jpg' },
+    { name: 'Jana K.', quote: '„Eine transformative Reise, die mir gezeigt hat, wie viel Kraft in Integration statt in ständiger Optimierung steckt."', stars: 5, image: 'images/testimonial-3.jpg' },
+    { name: 'Nina R.', quote: '„Ich habe schon so viel probiert. Das hier war das Erste, das wirklich an der Wurzel angesetzt hat, nicht nur am Symptom."', stars: 5, image: 'images/testimonial-4.jpg' },
+    { name: 'Laura T.', quote: '„Ich fühle mich zum ersten Mal seit Langem ganz — nicht mehr zerrissen zwischen dem, was ich zeigen soll, und dem, was ich wirklich bin."', stars: 5, image: 'images/testimonial-5.jpg' },
+    { name: 'Mira S.', quote: '„Klar, ehrlich, ohne Spiri-Bubble-Floskeln. Genau das, was ich gebraucht habe, um wirklich etwas zu verändern."', stars: 5, image: 'images/testimonial-6.jpg' }
+  ];
+
+  var testiIndex = 0;
+  var testiTrack = document.getElementById('testi-track');
+
+  function initials(name){
+    return name.split(' ').map(function(p){ return p.charAt(0); }).join('').toUpperCase();
+  }
+
+  function renderTestimonials(){
+    var html = '';
+    for (var i = 0; i < 3; i++){
+      var t = testimonials[(testiIndex + i) % testimonials.length];
+      var stars = '★'.repeat(t.stars) + '☆'.repeat(5 - t.stars);
+      html += '' +
+        '<div class="testi-card">' +
+          '<div class="testi-avatar">' +
+            '<img src="' + t.image + '" alt="' + t.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+            '<span class="avatar-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">' + initials(t.name) + '</span>' +
+          '</div>' +
+          '<div class="testi-quote">' + t.quote + '</div>' +
+          '<div class="testi-stars">' + stars + '</div>' +
+          '<div class="testi-name">' + t.name + '</div>' +
+        '</div>';
+    }
+    testiTrack.innerHTML = html;
+  }
+  renderTestimonials();
+
+  document.getElementById('testi-prev').addEventListener('click', function(){
+    testiIndex = (testiIndex - 1 + testimonials.length) % testimonials.length;
+    renderTestimonials();
+  });
+  document.getElementById('testi-next').addEventListener('click', function(){
+    testiIndex = (testiIndex + 1) % testimonials.length;
+    renderTestimonials();
   });
 
   // ---------- Mobile hamburger menu ----------
