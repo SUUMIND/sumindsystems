@@ -554,35 +554,36 @@
     margin: 0 auto 50px;
   }
   .testi-row{
-    max-width: 1080px;
+    max-width: 100%;
     margin: 0 auto;
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    gap: 20px;
+    overflow: hidden;
+    position: relative;
   }
-  .testi-arrow{
-    flex-shrink:0;
-    width: 42px; height:42px;
-    border-radius: 50%;
-    border: 1px solid rgba(28,25,20,0.15);
-    background: #fff;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer;
-    margin-top: 110px;
-    transition: border-color .2s ease, transform .2s ease;
+  .testi-row::before, .testi-row::after{
+    content:"";
+    position:absolute;
+    top:0; bottom:0;
+    width: 80px;
+    z-index: 2;
+    pointer-events:none;
   }
-  .testi-arrow:hover{ border-color: var(--gold); transform: scale(1.06); }
-  .testi-arrow svg{ width: 16px; height:16px; stroke: var(--ink); }
+  .testi-row::before{ left:0; background: linear-gradient(90deg, var(--cream), rgba(243,237,225,0)); }
+  .testi-row::after{ right:0; background: linear-gradient(270deg, var(--cream), rgba(243,237,225,0)); }
   .testi-track{
     display:flex;
     gap: 24px;
-    flex: 1;
     padding-top: 40px;
+    width: max-content;
+    animation: testiScroll 32s linear infinite;
+  }
+  .testi-row:hover .testi-track{ animation-play-state: paused; }
+  @keyframes testiScroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
   }
   .testi-card{
-    flex: 1 1 0;
-    min-width: 0;
+    flex: 0 0 320px;
+    width: 320px;
     position: relative;
     padding: 60px 24px 32px;
     border-radius: 16px;
@@ -619,12 +620,8 @@
   .testi-name{ font-weight: 600; color: var(--ink); font-size: 0.94rem; }
 
   @media (max-width: 860px){
-    .testi-row{ gap: 8px; }
-    .testi-arrow{ width: 34px; height:34px; margin-top: 55px; }
     .testi-track{ gap: 14px; }
-  }
-  @media (max-width: 640px){
-    .testi-card:nth-child(2), .testi-card:nth-child(3){ display:none; }
+    .testi-card{ flex-basis: 260px; width: 260px; }
   }
 
   /* ---------- CTA banner ---------- */
@@ -966,13 +963,7 @@
   <p class="testi-sub">Echte Stimmen von Menschen, die den Weg bereits gegangen sind.</p>
 
   <div class="testi-row">
-    <div class="testi-arrow" id="testi-prev" aria-label="Vorherige Stimmen">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-    </div>
     <div class="testi-track" id="testi-track"></div>
-    <div class="testi-arrow" id="testi-next" aria-label="Nächste Stimmen">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </div>
   </div>
 </section>
 
@@ -1101,41 +1092,35 @@
     { name: 'Mira S.', quote: '„Klar, ehrlich, ohne Spiri-Bubble-Floskeln. Genau das, was ich gebraucht habe, um wirklich etwas zu verändern."', stars: 5, image: 'images/testimonial-6.jpg' }
   ];
 
-  var testiIndex = 0;
   var testiTrack = document.getElementById('testi-track');
 
   function initials(name){
     return name.split(' ').map(function(p){ return p.charAt(0); }).join('').toUpperCase();
   }
 
+  function testiCardHtml(t){
+    var stars = '★'.repeat(t.stars) + '☆'.repeat(5 - t.stars);
+    return '' +
+      '<div class="testi-card">' +
+        '<div class="testi-avatar">' +
+          '<img src="' + t.image + '" alt="' + t.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+          '<span class="avatar-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">' + initials(t.name) + '</span>' +
+        '</div>' +
+        '<div class="testi-quote">' + t.quote + '</div>' +
+        '<div class="testi-stars">' + stars + '</div>' +
+        '<div class="testi-name">' + t.name + '</div>' +
+      '</div>';
+  }
+
   function renderTestimonials(){
-    var html = '';
-    for (var i = 0; i < 3; i++){
-      var t = testimonials[(testiIndex + i) % testimonials.length];
-      var stars = '★'.repeat(t.stars) + '☆'.repeat(5 - t.stars);
-      html += '' +
-        '<div class="testi-card">' +
-          '<div class="testi-avatar">' +
-            '<img src="' + t.image + '" alt="' + t.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
-            '<span class="avatar-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">' + initials(t.name) + '</span>' +
-          '</div>' +
-          '<div class="testi-quote">' + t.quote + '</div>' +
-          '<div class="testi-stars">' + stars + '</div>' +
-          '<div class="testi-name">' + t.name + '</div>' +
-        '</div>';
-    }
-    testiTrack.innerHTML = html;
+    // The full list is rendered twice back-to-back. The track then animates
+    // exactly -50% to the left (see @keyframes testiScroll) — since the
+    // second half is an identical copy of the first, the loop point is
+    // invisible and the strip appears to scroll infinitely.
+    var singleSet = testimonials.map(testiCardHtml).join('');
+    testiTrack.innerHTML = singleSet + singleSet;
   }
   renderTestimonials();
-
-  document.getElementById('testi-prev').addEventListener('click', function(){
-    testiIndex = (testiIndex - 1 + testimonials.length) % testimonials.length;
-    renderTestimonials();
-  });
-  document.getElementById('testi-next').addEventListener('click', function(){
-    testiIndex = (testiIndex + 1) % testimonials.length;
-    renderTestimonials();
-  });
 
   // ---------- Mobile hamburger menu ----------
   var navToggle = document.getElementById('nav-toggle');
