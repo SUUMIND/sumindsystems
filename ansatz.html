@@ -226,6 +226,92 @@
   .step-text h3{ font-size: 1.15rem; margin-bottom: 6px; color: var(--ink); }
   .step-text p{ font-size: 0.92rem; color: #55503f; margin-bottom: 0; }
 
+  /* ---------- Pie chart ---------- */
+  .pie-wrap{
+    display:grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    align-items:center;
+    margin: 40px 0;
+  }
+  .pie-chart-container{
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+  }
+  #pie-svg{ width:100%; height:100%; overflow: visible; }
+  .pie-slice{
+    cursor: pointer;
+    transition: transform .25s ease, filter .25s ease;
+    transform-origin: 150px 150px;
+    stroke: #fff;
+    stroke-width: 2;
+  }
+  .pie-slice:hover, .pie-slice.active{
+    transform: scale(1.045);
+    filter: brightness(1.08);
+  }
+  .pie-center-label{
+    position:absolute;
+    top:50%; left:50%;
+    transform: translate(-50%, -50%);
+    width: 70px; height:70px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    pointer-events:none;
+    overflow: hidden;
+  }
+  .pie-center-label img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pie-center-label .pie-center-fallback{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    width:100%; height:100%;
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #201a0d;
+  }
+  .pie-slice-label{
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    fill: #2a2416;
+    text-anchor: middle;
+    pointer-events:none;
+  }
+  .pie-info{
+    background: linear-gradient(150deg, #f0e2c4 0%, #f7ecd6 35%, rgba(247,236,214,0) 100%);
+    border-radius: 16px;
+    padding: 32px 30px;
+    min-height: 140px;
+    transition: background .3s ease;
+  }
+  .pie-info h3{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .pie-info p{ font-size: 0.92rem; line-height: 1.75; color: #2a2416; margin-bottom: 0; }
+
+  @media (max-width: 700px){
+    .pie-wrap{ grid-template-columns: 1fr; }
+    .pie-chart-container{ width: 240px; height:240px; }
+  }
+
   /* ---------- CTA ---------- */
   .cta-band{
     background: var(--black);
@@ -499,13 +585,14 @@
         <div class="dropdown-menu">
           <a href="inneres-team.html">Dein inneres Team</a>
           <a href="lebenszahl.html">Lebenszahlen</a>
+          <a href="mondphase.html">Mondphase</a>
           <a href="#">Astrologie</a>
           <a href="ebooks.html">eBooks</a>
         </div>
       </div>
       <a href="index.html#footer">Kontakt</a>
     </div>
-    <a href="index.html#footer" class="btn-book">Jetzt starten</a>
+    <a href="index.html#footer" class="btn-book">Geh aufs Ganze</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen">
       <span></span><span></span><span></span>
     </button>
@@ -531,6 +618,7 @@
   <div class="mm-sub" id="mm-sub-2">
     <a href="inneres-team.html">Dein inneres Team</a>
     <a href="lebenszahl.html">Lebenszahlen</a>
+          <a href="mondphase.html">Mondphase</a>
     <a href="#">Astrologie</a>
     <a href="ebooks.html">eBooks</a>
   </div>
@@ -634,45 +722,21 @@
 
   <div class="pull-quote">„Der Verstand ist weder schuld noch böse. Er wurde nur nie als Verbündeter gesehen."</div>
 
-  <h2>Was stattdessen wirklich passieren muss</h2>
+  <h2>Was stattdessen wirklich hilft</h2>
 
-  <p>Integration heißt nicht: mehr fühlen. Und auch nicht: mehr verstehen. Es heißt, dass beide Systeme wieder <strong>dasselbe Ziel verfolgen</strong> – Dein Verstand als analytisches Werkzeug, Dein Gefühl als Signalgeber, gemeinsam statt gegeneinander.</p>
+  <p>Ganz werden bedeutet: Jeden Teil in Dir mit würdigendem Blick zu begegnen. Loszulassen von dem, was Du meinst „leisten" oder „sein" zu müssen. Verstehen, was in Dir überhaupt den innerlichen Kampf aufrechterhält, und verstehen, dass Du nichts verlierst, wenn Du jeden Teil „zulässt".</p>
 
-  <div class="step-list">
-    <div class="step">
-      <span class="step-num">01</span>
-      <div class="step-text">
-        <h3>Bewusstmachen</h3>
-        <p>Das wichtigste Werkzeug überhaupt: erst wenn ein Muster bewusst wird, kann es überhaupt bearbeitet werden – vorher steuert es Dich unbemerkt weiter.</p>
+  <div class="pie-wrap">
+    <div class="pie-chart-container">
+      <svg viewBox="0 0 300 300" id="pie-svg"></svg>
+      <div class="pie-center-label">
+        <img src="images/pie-center.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <span class="pie-center-fallback" style="display:none;">SM</span>
       </div>
     </div>
-    <div class="step">
-      <span class="step-num">02</span>
-      <div class="step-text">
-        <h3>Das System erkennen, nicht nur das Symptom</h3>
-        <p>Nicht "ich bin nicht genug", sondern das konkrete System dahinter – wo genau Dein Selbstbild Deine Entscheidungen steuert.</p>
-      </div>
-    </div>
-    <div class="step">
-      <span class="step-num">03</span>
-      <div class="step-text">
-        <h3>Den Verstand als Werkzeug einsetzen, nicht ausschalten</h3>
-        <p>Analyse und Struktur helfen, das Muster zu benennen – nicht als Widerstand gegen Veränderung, sondern als Landkarte dafür.</p>
-      </div>
-    </div>
-    <div class="step">
-      <span class="step-num">04</span>
-      <div class="step-text">
-        <h3>Das Gefühl einbeziehen, ohne es zu glorifizieren</h3>
-        <p>Emotion ist Information, kein Ziel für sich. Sie zeigt, wo das Muster sitzt – nicht, wie tief Du "fühlen" kannst.</p>
-      </div>
-    </div>
-    <div class="step">
-      <span class="step-num">05</span>
-      <div class="step-text">
-        <h3>Beides zusammenführen, bis es hält</h3>
-        <p>Integration ist kein einmaliger Aha-Moment. Sie ist ein Prozess, der über mehrere Sessions stabil wird – nicht über ein Wochenende.</p>
-      </div>
+    <div class="pie-info" id="pie-info">
+      <h3 id="pie-info-title">Wähle ein Stück</h3>
+      <p id="pie-info-text">Fahr über die Segmente oder tippe sie an, um mehr über jeden Baustein der Integration zu erfahren.</p>
     </div>
   </div>
 
@@ -791,6 +855,140 @@
   document.getElementById('mm-parent-2').addEventListener('click', function(){
     this.classList.toggle('open');
     document.getElementById('mm-sub-2').classList.toggle('open');
+  });
+
+  // ---------- Integration pie chart ----------
+  var pieData = [
+    {
+      key: 'bewusstsein', shortLabel: 'Bewusstsein', label: 'Bewusstsein', color: '#f2e6c8',
+      text: 'Das wichtigste Werkzeug überhaupt: Erst wenn ein Muster bewusst wird, kann es überhaupt bearbeitet werden — vorher steuert es Dich unbemerkt weiter.'
+    },
+    {
+      key: 'kern', shortLabel: 'Dein Kern', label: 'Deinen Kern erkennen', color: '#e4d1a0',
+      text: 'Nicht „ich bin nicht genug", sondern das konkrete System dahinter — wo genau Dein Selbstbild Deine Entscheidungen steuert.'
+    },
+    {
+      key: 'verstand', shortLabel: 'Verstand', label: 'Verstand als Tool', color: '#d3b878',
+      text: 'Analyse und Struktur helfen, das Muster zu benennen — nicht als Widerstand gegen Veränderung, sondern als Landkarte dafür.'
+    },
+    {
+      key: 'gefuehl', shortLabel: 'Gefühl', label: 'Gefühl als Kompass', color: '#c19f57',
+      text: 'Emotion ist Information, kein Ziel für sich. Sie zeigt, wo das Muster sitzt — nicht, wie tief Du „fühlen" kannst.'
+    },
+    {
+      key: 'zusammen', shortLabel: 'Zusammenführen', label: 'Zusammenführen', color: '#a9813d',
+      text: 'Die stärkste Version von Dir entsteht nicht durch mehr Kontrolle oder mehr Gefühl, sondern wenn beide endlich als Team arbeiten — dauerhaft, nicht nur für einen Moment.'
+    }
+  ];
+
+  function polarToCartesian(cx, cy, r, angleDeg){
+    var angleRad = (angleDeg - 90) * Math.PI / 180;
+    return { x: cx + r * Math.cos(angleRad), y: cy + r * Math.sin(angleRad) };
+  }
+
+  function describeSlice(cx, cy, r, startAngle, endAngle){
+    var start = polarToCartesian(cx, cy, r, endAngle);
+    var end = polarToCartesian(cx, cy, r, startAngle);
+    var largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+    return ['M', cx, cy, 'L', start.x, start.y, 'A', r, r, 0, largeArcFlag, 0, end.x, end.y, 'Z'].join(' ');
+  }
+
+  var pieSvg = document.getElementById('pie-svg');
+  var sliceAngle = 360 / pieData.length;
+  var svgNS = 'http://www.w3.org/2000/svg';
+
+  function setSliceLabelText(textEl, labelStr, labelPos){
+    while (textEl.firstChild) textEl.removeChild(textEl.firstChild);
+    var words = labelStr.split(' ');
+    textEl.setAttribute('y', labelPos.y - (words.length > 1 ? 5 : 0));
+    words.forEach(function(w, wi){
+      var tspan = document.createElementNS(svgNS, 'tspan');
+      tspan.setAttribute('x', labelPos.x);
+      tspan.setAttribute('dy', wi === 0 ? 0 : 13);
+      tspan.textContent = w;
+      textEl.appendChild(tspan);
+    });
+  }
+
+  pieData.forEach(function(d, i){
+    var startAngle = i * sliceAngle;
+    var endAngle = startAngle + sliceAngle;
+    var path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', describeSlice(150, 150, 140, startAngle, endAngle));
+    path.setAttribute('fill', d.color);
+    path.setAttribute('class', 'pie-slice');
+    path.setAttribute('data-key', d.key);
+    pieSvg.appendChild(path);
+
+    var midAngle = startAngle + sliceAngle / 2;
+    var labelPos = polarToCartesian(150, 150, 95, midAngle);
+    var text = document.createElementNS(svgNS, 'text');
+    text.setAttribute('class', 'pie-slice-label');
+    text.setAttribute('x', labelPos.x);
+    text.setAttribute('data-key', d.key);
+    setSliceLabelText(text, d.shortLabel, labelPos);
+    pieSvg.appendChild(text);
+  });
+
+  var pieInfoTitle = document.getElementById('pie-info-title');
+  var pieInfoText = document.getElementById('pie-info-text');
+  var pieInfoBox = document.getElementById('pie-info');
+
+  function getSliceLabelEl(key){
+    return pieSvg.querySelector('.pie-slice-label[data-key="' + key + '"]');
+  }
+  function getLabelPos(key){
+    var idx = pieData.map(function(d){ return d.key; }).indexOf(key);
+    var startAngle = idx * sliceAngle;
+    var midAngle = startAngle + sliceAngle / 2;
+    return polarToCartesian(150, 150, 95, midAngle);
+  }
+
+  function expandSliceLabel(key){
+    var d = pieData.filter(function(item){ return item.key === key; })[0];
+    var textEl = getSliceLabelEl(key);
+    if (!d || !textEl) return;
+    setSliceLabelText(textEl, d.label, getLabelPos(key));
+  }
+  function collapseSliceLabel(key){
+    var d = pieData.filter(function(item){ return item.key === key; })[0];
+    var textEl = getSliceLabelEl(key);
+    if (!d || !textEl) return;
+    setSliceLabelText(textEl, d.shortLabel, getLabelPos(key));
+  }
+
+  function activatePieSlice(key){
+    var d = pieData.filter(function(item){ return item.key === key; })[0];
+    if (!d) return;
+    pieInfoTitle.textContent = d.label;
+    pieInfoText.textContent = d.text;
+    document.querySelectorAll('.pie-slice').forEach(function(s){
+      s.classList.toggle('active', s.getAttribute('data-key') === key);
+    });
+  }
+
+  var lastExpandedKey = null;
+
+  document.querySelectorAll('.pie-slice').forEach(function(slice){
+    slice.addEventListener('click', function(){
+      var key = slice.getAttribute('data-key');
+      activatePieSlice(key);
+      if (lastExpandedKey && lastExpandedKey !== key) collapseSliceLabel(lastExpandedKey);
+      expandSliceLabel(key);
+      lastExpandedKey = key;
+    });
+    slice.addEventListener('mouseenter', function(){
+      var key = slice.getAttribute('data-key');
+      activatePieSlice(key);
+      if (lastExpandedKey && lastExpandedKey !== key) collapseSliceLabel(lastExpandedKey);
+      expandSliceLabel(key);
+      lastExpandedKey = key;
+    });
+    slice.addEventListener('mouseleave', function(){
+      var key = slice.getAttribute('data-key');
+      collapseSliceLabel(key);
+      if (lastExpandedKey === key) lastExpandedKey = null;
+    });
   });
 </script>
 
