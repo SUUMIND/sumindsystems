@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookies — SU.MINDSYSTEMS</title>
+<title>Programme — SU.MINDSYSTEMS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -12,8 +12,9 @@
     --cream: #f3ede1; --ink: #1c1914; --line: rgba(198,164,92,0.25);
   }
   *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
   body{ background: var(--cream); color: var(--ink); font-family: 'Jost', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
-  h1,h2{ font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+  h1,h2,h3{ font-family: 'Cormorant Garamond', serif; font-weight: 500; }
   a{ color: inherit; text-decoration: none; }
   .eyebrow{ font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
 
@@ -33,35 +34,149 @@
     .back-link .back-text{ display:none; }
   }
 
-  .page-hero{ background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%); color: var(--cream); text-align:center; padding: 80px 32px 64px; }
-  .page-hero h1{ font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--cream); margin-top: 14px; }
+  .page-hero{ background: radial-gradient(ellipse at 50% -10%, #1a1712 0%, var(--black) 60%); color: var(--cream); text-align:center; padding: 90px 32px 70px; }
+  .page-hero-inner{ max-width: 620px; margin:0 auto; }
+  .page-hero h1{ font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--cream); margin-top: 16px; }
+  .page-hero p{ margin-top: 18px; font-size: 0.96rem; line-height: 1.75; color: #b9ae94; }
 
-  .legal-wrap{ max-width: 720px; margin: 0 auto; padding: 80px 32px 110px; }
-  .legal-wrap h2{ font-size: 1.35rem; margin: 40px 0 14px; color: var(--ink); }
-  .legal-wrap h2:first-child{ margin-top:0; }
-  .legal-wrap p{ font-size: 0.96rem; line-height: 1.85; color: #443c28; margin-bottom: 14px; }
-  .placeholder-note{
-    background: #fdfbf6; border: 1px solid rgba(28,25,20,0.1); border-left: 3px solid var(--gold);
-    padding: 18px 22px; font-size: 0.86rem; color: #6f6852; margin-bottom: 40px;
+  .tier-grid{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 70px 32px 110px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    align-items:stretch;
   }
+  .tier-card{
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    scroll-margin-top: 100px;
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .tier-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+  }
+  .tier-card.premium{
+    box-shadow: 0 16px 40px rgba(90,68,30,0.22);
+    border: 1px solid rgba(198,164,92,0.4);
+  }
+  .tier-card.premium:hover{
+    box-shadow: 0 22px 46px rgba(90,68,30,0.3);
+  }
+  .tier-tag{
+    position:absolute;
+    top:8px; right:8px;
+    background: var(--black);
+    color: var(--gold-soft);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    z-index:2;
+  }
+  .tier-cover{
+    height: 150px;
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 20px;
+  }
+  .tier-card.premium .tier-cover{
+    background: linear-gradient(150deg, #2a2416 0%, #0b0a08 100%);
+  }
+  .tier-cover .tier-eyebrow{
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #4a3a1c;
+    margin-bottom: 8px;
+  }
+  .tier-card.premium .tier-cover .tier-eyebrow{ color: var(--gold-soft); }
+  .tier-cover .tier-price{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: #201a0d;
+  }
+  .tier-card.premium .tier-cover .tier-price{ color: var(--cream); }
+  .tier-cover .tier-price small{ font-size: 0.9rem; font-weight: 400; }
+  .tier-body{ padding: 26px 24px 28px; display:flex; flex-direction:column; flex:1; }
+  .tier-checklist{
+    list-style:none;
+    margin: 0 0 20px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(28,25,20,0.08);
+    border-bottom: 1px solid rgba(28,25,20,0.08);
+  }
+  .tier-checklist li{
+    display:flex;
+    align-items:flex-start;
+    gap: 10px;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: #443c28;
+    margin-bottom: 12px;
+  }
+  .tier-checklist li:last-child{ margin-bottom: 0; }
+  .check-icon{
+    flex-shrink:0;
+    width: 26px; height:26px;
+    border-radius: 50%;
+    background: #4a9d6f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top: 1px;
+    box-shadow: 0 2px 6px rgba(74,157,111,0.35);
+  }
+  .tier-checklist li svg{
+    width: 15px; height:15px;
+    stroke: #fff;
+  }
+  .tier-card.premium .check-icon{
+    background: #4a9d6f;
+  }
+  .tier-card.premium .tier-checklist li svg{ stroke: #fff; }
+  .tier-body h3{ font-size: 1.3rem; margin-bottom: 10px; color: var(--ink); }
+  .tier-body p{ font-size: 0.88rem; line-height: 1.7; color: #55503f; margin-bottom: 20px; flex:1; }
+  .tier-body .tier-note{ font-size: 0.78rem; color: #8c8268; font-style: italic; margin-bottom: 18px; }
+  .tier-btn{
+    display:inline-block;
+    text-align:center;
+    padding: 13px 20px;
+    border-radius: 6px;
+    background: var(--black);
+    color: var(--gold-soft);
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background .25s ease, filter .25s ease;
+  }
+  .tier-btn:hover{ background: #201d18; }
+  .tier-card.premium .tier-btn{
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    color: #201a0d;
+    font-weight: 600;
+  }
+  .tier-card.premium .tier-btn:hover{ filter: brightness(1.08); }
 
-  table{ width:100%; border-collapse: collapse; margin: 18px 0 30px; font-size: 0.88rem; }
-  th, td{ text-align:left; padding: 10px 12px; border-bottom: 1px solid rgba(28,25,20,0.1); color:#443c28; }
-  th{ color: #6f6852; font-weight: 500; letter-spacing:0.04em; text-transform: uppercase; font-size: 0.72rem; }
+  @media (max-width: 900px){ .tier-grid{ grid-template-columns: 1fr; max-width: 480px; } }
 
   footer{ background: var(--black); color: #6f6852; text-align:center; padding: 40px 32px 30px; border-top: 1px solid var(--line); font-size: 0.76rem; }
   footer a{ color: #6f6852; transition: color .2s ease; }
   footer a:hover{ color: var(--gold-soft); }
-
   :focus-visible{ outline: 2px solid var(--gold); outline-offset: 3px; }
-
-  @media (max-width: 560px){
-    table, thead, tbody, th, td, tr{ display:block; }
-    thead{ display:none; }
-    tr{ border-bottom: 1px solid rgba(28,25,20,0.15); padding: 10px 0; }
-    td{ border:none; padding: 4px 0; }
-    td::before{ content: attr(data-label); display:block; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:#6f6852; }
-  }
   /* ---------- Nav ---------- */
   header{
     position: sticky;
@@ -333,44 +448,84 @@
   <a href="index.html#footer" onclick="closeMobileMenu()">Kontakt</a>
 </div>
 <section class="page-hero">
-  <span class="eyebrow">Rechtliches</span>
-  <h1>Cookies</h1>
+  <div class="page-hero-inner">
+    <span class="eyebrow">Für Dich</span>
+    <h1>Finde Deinen Weg zur Integration</h1>
+    <p>Egal ob Du erstmal nur reinschnuppern willst, in Eigenregie arbeiten möchtest, oder Dir eine persönliche Begleitung wünschst — hier findest Du den passenden Einstieg.</p>
+  </div>
 </section>
 
-<div class="legal-wrap">
+<div class="tier-grid">
 
-  <h2>Was sind Cookies?</h2>
-  <p>Cookies sind kleine Textdateien, die auf Deinem Endgerät gespeichert werden, wenn Du unsere Website besuchst. Sie helfen unter anderem dabei, die Website funktionsfähig zu halten und Deine Präferenzen zu speichern.</p>
+  <div class="tier-card" id="orientierung">
+    <div class="tier-cover">
+      <span class="tier-eyebrow">Zum Reinschnuppern</span>
+      <div class="tier-price">14,99<small> €</small></div>
+    </div>
+    <div class="tier-body">
+      <h3>Der Orientierungs-Kurs</h3>
+      <p>Für alle, die noch nicht sicher sind: Ist das überhaupt was für mich? Kompakte Einordnung, was hinter dem Ansatz steckt, ohne dass Du Dich gleich langfristig bindest. Selbst wenn's nicht Dein Weg ist, hast Du mit diesem Kurs mehr über Dich gelernt als in jedem Motivationsseminar.</p>
+      <ul class="tier-checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Der Rahmen: Wie wir arbeiten — Verstand &amp; Gefühl als Team statt Gegner</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Eine Einführung in die Teilearbeit — damit hast Du den Wert von 14,99 € mehr als 1x wieder reingeholt</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Warum diese Methode wirklich wirkt, statt nur kurzfristig den Zustand zu shiften</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Ein Beispiel-Thema zur Veranschaulichung</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Einblick: Wie läuft ein echtes Coaching konkret ab?</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Die Gewissheit, ob das gerade das Richtige für Dich ist</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>15% Rabattgutschein fürs Workbook im E-Book Shop</li>
+      </ul>
+      <p class="tier-note">Wird bei späterer Eigenregie- oder Coaching-Buchung voll angerechnet. Keine doppelte Zahlung.</p>
+      <a href="index.html#footer" class="tier-btn">Jetzt reinschauen</a>
+    </div>
+  </div>
 
-  <h2>Welche Speicherung verwenden wir aktuell?</h2>
-  <table>
-    <thead>
-      <tr><th>Kategorie</th><th>Zweck</th><th>Speicherdauer</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td data-label="Kategorie">Technisch notwendig</td>
-        <td data-label="Zweck">Speichert Deine Cookie-Entscheidung (Local Storage), damit der Consent-Banner nicht bei jedem Besuch erneut erscheint</td>
-        <td data-label="Speicherdauer">Dauerhaft, bis Du Deinen Browser-Speicher selbst löschst</td>
-      </tr>
-      <tr>
-        <td data-label="Kategorie">Statistik / Analyse</td>
-        <td data-label="Zweck">Derzeit nicht im Einsatz</td>
-        <td data-label="Speicherdauer">—</td>
-      </tr>
-      <tr>
-        <td data-label="Kategorie">Marketing</td>
-        <td data-label="Zweck">Derzeit nicht im Einsatz</td>
-        <td data-label="Speicherdauer">—</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="tier-card" id="eigenregie">
+    <div class="tier-tag">Meistgewählt</div>
+    <div class="tier-cover">
+      <span class="tier-eyebrow">In Eigenregie</span>
+      <div class="tier-price">179,99<small> €</small></div>
+    </div>
+    <div class="tier-body">
+      <h3>Der Selbstständige Weg</h3>
+      <p>Für alle, die mit der Methode arbeiten wollen, aber (noch) keine 1:1-Begleitung buchen können oder wollen. Das volle Wissen, ausführlich aufbereitet — in Deinem eigenen Tempo.</p>
+      <ul class="tier-checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Alles aus dem Orientierungs-Kurs</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Workbook zum Vertiefen und Durcharbeiten (Wert: 16,99 € — auch separat bei den eBooks erhältlich)</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Anleitung, wie Du es bei Dir selbst und/oder mit Freunden anwenden kannst</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Einführung in die Tiefenpsychologie (Schattenarbeit) nach C. G. Jung</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Die vollständige Methode, wissenschaftlich und praxisfundiert, Schritt für Schritt zum Selbst-Anwenden</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Mehrere Beispielthemen statt nur eins (Beziehungen, Trigger, Geld usw)</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Konkrete Übungen zum eigenständigen Durcharbeiten</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Begleitende Meditationen zur Vertiefung</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Zeitlich unbegrenzter Zugriff</li>
+      </ul>
+      <p class="tier-note">Einmalig zahlen, dauerhaft nutzen.</p>
+      <a href="index.html#footer" class="tier-btn">Kurs entdecken</a>
+    </div>
+  </div>
 
-  <h2>Einwilligung</h2>
-  <p>Beim ersten Besuch dieser Website erscheint ein Cookie-Banner mit den Optionen „Alle akzeptieren" und „Nur notwendige". Da wir aktuell ausschließlich technisch notwendige Speicherung einsetzen, unterscheiden sich beide Optionen inhaltlich noch nicht — die Auswahl wird aber bereits jetzt korrekt gespeichert und respektiert. Sobald zusätzliche, nicht notwendige Tools (z. B. Analyse- oder Marketing-Dienste) hinzukommen, werden diese ausschließlich nach Deiner ausdrücklichen Zustimmung geladen.</p>
-
-  <h2>Wie kannst Du Deine Auswahl ändern?</h2>
-  <p>Du kannst die gespeicherte Cookie-Entscheidung jederzeit über Deine Browsereinstellungen löschen (Local Storage der Domain). Der Consent-Banner erscheint dann bei Deinem nächsten Besuch erneut.</p>
+  <div class="tier-card premium" id="coaching">
+    <div class="tier-cover">
+      <span class="tier-eyebrow">Die begleitete Reise</span>
+      <div class="tier-price">Auf Anfrage</div>
+    </div>
+    <div class="tier-body">
+      <h3>1:1 Coaching</h3>
+      <p>Für alle, die den Weg nicht allein gehen wollen. Persönliche Begleitung über mehrere Monate, individuell auf Dich abgestimmt — mit echter Zeit, Aufmerksamkeit und Erfahrung an Deiner Seite.</p>
+      <ul class="tier-checklist">
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Alles aus dem Selbstständigen Weg</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Maximal 4 Klientinnen auf einmal</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Persönliche Begleitung über mehrere Monate hinweg</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Individuell auf Deine konkrete Situation abgestimmt</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Jemand, der Dich spiegelt und Deine blinden Flecken sieht</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Energetisches Halten während den Sitzungen</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Selbststudium als Vertiefung</li>
+        <li><span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Echte Tiefenarbeit an Deinen ganz eigenen Anteilen</li>
+      </ul>
+      <p class="tier-note">Unverbindliches Erstgespräch inklusive.</p>
+      <a href="index.html#footer" class="tier-btn">Zum Erstgespräch</a>
+    </div>
+  </div>
 
 </div>
 

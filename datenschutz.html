@@ -139,6 +139,14 @@
     white-space: nowrap;
   }
   .dropdown-menu a:hover{ color: var(--gold-soft); background: rgba(198,164,92,0.08); }
+  .dropdown-label{
+    display:block;
+    padding: 10px 22px 4px;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8f8468;
+  }
   .btn-book{
     border: 1px solid var(--gold);
     color: var(--gold-soft);
@@ -256,7 +264,14 @@
           <a href="index.html#approach">Meine Geschichte</a>
         </div>
       </div>
-      <a href="index.html#focus">Programme</a>
+      <div class="has-dropdown">
+        <a href="kurse.html">Programme <span class="caret"></span></a>
+        <div class="dropdown-menu">
+          <a href="kurse.html">Deine Möglichkeiten</a>
+          <a href="kurse.html#coaching">1:1 Coaching</a>
+          <a href="ebooks.html">eBooks</a>
+        </div>
+      </div>
       <div class="has-dropdown">
         <a href="#">Für Dich <span class="caret"></span></a>
         <div class="dropdown-menu">
@@ -264,7 +279,6 @@
           <a href="lebenszahl.html">Lebenszahlen</a>
           <a href="mondphase.html">Mondphase</a>
           <a href="#">Astrologie</a>
-          <a href="ebooks.html">eBooks</a>
         </div>
       </div>
       <a href="index.html#footer">Kontakt</a>
@@ -287,7 +301,14 @@
     <a href="index.html#approach" onclick="closeMobileMenu()">Meine Geschichte</a>
   </div>
 
-  <a href="index.html#focus" onclick="closeMobileMenu()">Programme</a>
+  <div class="mm-parent" id="mm-parent-3">
+    Programme <span class="caret"></span>
+  </div>
+  <div class="mm-sub" id="mm-sub-3">
+    <a href="kurse.html" onclick="closeMobileMenu()">Deine Möglichkeiten</a>
+    <a href="kurse.html#coaching" onclick="closeMobileMenu()">1:1 Coaching</a>
+    <a href="ebooks.html" onclick="closeMobileMenu()">eBooks</a>
+  </div>
 
   <div class="mm-parent" id="mm-parent-2">
     Für Dich <span class="caret"></span>
@@ -297,7 +318,6 @@
     <a href="lebenszahl.html">Lebenszahlen</a>
           <a href="mondphase.html">Mondphase</a>
     <a href="#">Astrologie</a>
-    <a href="ebooks.html">eBooks</a>
   </div>
 
   <a href="index.html#footer" onclick="closeMobileMenu()">Kontakt</a>
@@ -402,6 +422,10 @@
   document.getElementById('mm-parent-2').addEventListener('click', function(){
     this.classList.toggle('open');
     document.getElementById('mm-sub-2').classList.toggle('open');
+  });
+  document.getElementById('mm-parent-3').addEventListener('click', function(){
+    this.classList.toggle('open');
+    document.getElementById('mm-sub-3').classList.toggle('open');
   });
 </script>
 
