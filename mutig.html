@@ -97,6 +97,44 @@
     padding: 90px 32px 100px;
   }
   .article-hero-inner{ max-width: 720px; margin:0 auto; }
+
+  .video-section{
+    background: var(--cream);
+    padding: 70px 32px 100px;
+    text-align:center;
+  }
+  .video-placeholder{
+    max-width: 780px;
+    margin: 0 auto 40px;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(150deg, #1c1914 0%, #0b0a08 100%);
+    border-radius: 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  }
+  .video-placeholder .play-icon{
+    width: 74px; height:74px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(198,164,92,0.5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .video-placeholder .play-icon svg{ width: 26px; height:26px; fill: var(--gold-soft); margin-left: 4px; }
+  .video-placeholder .video-label{
+    position:absolute;
+    bottom: 20px; left:50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8c8268;
+  }
   .article-hero .eyebrow{ display:block; margin-bottom: 20px; }
   .article-hero h1{
     font-size: clamp(1.9rem, 4vw, 2.9rem);
@@ -250,16 +288,17 @@
   .cta-band p{ color: #a79c82; font-size: 0.94rem; line-height: 1.7; margin-bottom: 30px; }
   .hero-cta{
     display:inline-block;
-    background: var(--gold);
-    color: var(--black);
+    background: linear-gradient(150deg, #e4d6ba 0%, #bd9c6c 55%, #8f7145 100%);
+    color: #201a0d;
     font-size: 0.78rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
+    font-weight: 600;
     padding: 15px 34px;
     border-radius: 4px;
-    transition: transform .3s ease, background .3s ease;
+    transition: transform .3s ease, filter .3s ease;
   }
-  .hero-cta:hover{ background: var(--gold-soft); transform: translateY(-2px); }
+  .hero-cta:hover{ filter: brightness(1.15); transform: translateY(-2px); }
 
   footer{
     background: var(--black);
@@ -522,7 +561,7 @@
       </div>
       <a href="index.html#footer">Kontakt</a>
     </div>
-    <a href="index.html#footer" class="btn-book">Geh aufs Ganze</a>
+    <a href="kurse.html" class="btn-book">Geh aufs Ganze</a>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen">
       <span></span><span></span><span></span>
     </button>
@@ -569,51 +608,14 @@
   </div>
 </section>
 
-<article class="article">
-  <div class="article-inner">
-
-  <p>Es ist ein Risiko, denn Du hast etwas zu verlieren — das, was Du Dir über Jahre aufgebaut hast: Dein Bild von Dir selbst, die Rollen, die Dir vertraut sind, die Version von Dir, mit der Du bisher irgendwie funktioniert hast.</p>
-
-  <p>Aber Du bist jetzt trotzdem hier. Vielleicht, weil ein Teil von Dir bereits weiß: <em>Ich bin bereit dafür.</em></p>
-
-  <div class="pull-quote">„Aufs Ganze gehen heißt nicht, alles zu riskieren. Es heißt, endlich für Dich einzustehen."</div>
-
-  <p>Es geht hier nicht darum, alles über den Haufen zu werfen, was Du bisher aufgebaut hast. Es geht darum, ehrlich hinzuschauen, was davon Dich wirklich trägt — und was nur noch Gewohnheit ist, die sich sicher anfühlt, obwohl sie Dich längst nicht mehr weiterbringt.</p>
-
-  <h2>Wie wir zusammenarbeiten</h2>
-
-  <p>Integration ist kein einmaliges Gespräch und kein fertiges Programm, das über Dich drübergestülpt wird. Es ist ein Prozess, den wir gemeinsam gehen — Du und ich, über mehrere Monate hinweg, nicht über ein einzelnes Wochenende.</p>
-
-  <div class="approach-card mutig-static-card">
-  <h2>Schritt 1: Verstehen, was gerade steuert</h2>
-  <p>Bevor wir irgendetwas verändern, schauen wir gemeinsam hin: Welche Anteile sind gerade aktiv? Wovor schützen sie Dich? Was haben sie in der Vergangenheit gelernt, das heute nicht mehr passt? Ohne dieses Verständnis bleibt jede Veränderung Kosmetik.</p>
+<section class="video-section">
+  <div class="video-placeholder">
+    <div class="play-icon">
+      <svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+    </div>
+    <span class="video-label">Video folgt in Kürze</span>
   </div>
-
-  <div class="approach-card mutig-static-card">
-  <h2>Schritt 2: Verstand und Gefühl als Team</h2>
-  <p>Wir arbeiten nicht nur analytisch, und wir arbeiten nicht nur gefühlsbasiert. Beides zusammen, im Wechsel — weil beides zusammen der Punkt ist, an dem echte Veränderung entsteht, nicht Symptombekämpfung.</p>
-  </div>
-
-  <div class="approach-card mutig-static-card">
-  <h2>Schritt 3: Integration statt schnelle Lösung</h2>
-  <p>Es gibt keinen Trick, der einen jahrelang gewachsenen Schutzmechanismus in einer Sitzung auflöst. Was es gibt: einen Raum, in dem sich Anteile nach und nach zeigen dürfen, gesehen werden, und dadurch aufhören, gegeneinander zu arbeiten.</p>
-  </div>
-
-  <p>Warum das effektiv ist, im Unterschied zu vielen anderen Ansätzen: Wir setzen nicht am Verhalten an, das Du zeigst, sondern an dem System dahinter, das dieses Verhalten überhaupt erst hervorbringt. Das ist der Unterschied zwischen einer Veränderung, die hält, und einer, die beim nächsten Trigger wieder zusammenbricht.</p>
-
-  <div class="pull-quote">„Du musst nicht mutig sein, weil Du keine Angst hast. Du bist mutig, weil Du trotzdem hinschaust."</div>
-
-  <p>Falls Du bereit bist, herauszufinden, wie das für Dich konkret aussehen könnte:</p>
-
-  </div>
-</article>
-
-<section class="cta-band">
-  <div class="cta-band-inner">
-    <span class="eyebrow">Bereit für Deinen Shift?</span>
-    <h2 style="margin-top:16px;">Lass uns dort ansetzen, wo Du wirklich stehst.</h2>
-    <a href="kurse.html" class="btn-book" style="margin-top:20px; display:inline-block;">Zur Auswahl</a>
-  </div>
+  <a href="kurse.html" class="hero-cta">Zur Auswahl</a>
 </section>
 
 <footer>

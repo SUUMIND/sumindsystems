@@ -437,6 +437,63 @@
     .relate-grid{ grid-template-columns: 1fr; }
   }
 
+  /* ---------- Identity shift section ---------- */
+  .identity-shift{
+    background: var(--black);
+    padding: 90px 32px 100px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .identity-shift::before{
+    content:"";
+    position:absolute;
+    top:-20%; left:50%;
+    transform: translateX(-50%);
+    width: 700px; height:700px;
+    background: radial-gradient(circle, rgba(198,164,92,0.12) 0%, rgba(198,164,92,0) 70%);
+    pointer-events:none;
+  }
+  .identity-shift-inner{ position:relative; max-width: 620px; margin:0 auto; }
+  .identity-shift .eyebrow{ color: var(--gold); }
+  .identity-shift h2{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+    color: var(--cream);
+    margin: 16px 0 44px;
+    line-height: 1.35;
+  }
+  .identity-shift h2 em{ color: var(--gold-soft); font-style: italic; }
+  .identity-list{
+    list-style:none;
+    text-align:left;
+    margin: 0 0 46px;
+  }
+  .identity-list li{
+    display:flex;
+    align-items:flex-start;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(198,164,92,0.15);
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: #ede4d0;
+  }
+  .identity-list li:last-child{ border-bottom:none; }
+  .identity-list .check-icon{
+    flex-shrink:0;
+    width: 26px; height:26px;
+    border-radius: 50%;
+    background: #4a9d6f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top: 3px;
+    box-shadow: 0 2px 6px rgba(74,157,111,0.35);
+  }
+  .identity-list li svg{ width: 15px; height:15px; stroke: #fff; }
+  .identity-shift .hero-cta{ display:inline-block; }
+
   .focus{
     background: var(--cream);
     padding: 84px 32px 96px;
@@ -921,8 +978,8 @@
   <div class="hero-inner">
     <span class="eyebrow">Su.mindsystems</span>
     <h1>Kein Higher Self.<br>Sondern ein <em>Ganzes</em>.</h1>
-    <p>Dein Higher Self ist ein Anteil, der Dich gut fühlen lässt. Er ist aber nicht da, um Dein Fundament zu bauen. Er kann keine Entscheidungen für Dich treffen und BOOM, plötzlich fühlst Du Dich nicht mehr so „High". Das integrierte, <em>ganze</em> Selbst hingegen bringt Dich verlässlich voran, weil es aus Deiner wahren, inneren Stärke kommt.</p>
-    <a href="mutig.html" class="hero-cta">Geh aufs Ganze</a>
+    <p>Was, wenn Du nicht mehr höher, schneller oder besser werden musst, um Dein Traumleben zu leben? Was, wenn Du einfach nur Du selbst sein darfst, und DAS die <em>echte</em> Challenge ist?</p>
+    <a href="mutig.html" class="hero-cta">Erzähl mir mehr</a>
   </div>
 </section>
 
@@ -945,6 +1002,40 @@
       <h3>Du suchst permanent nach Optimierung.</h3>
       <p>Du hast vielleicht gar nicht das Gefühl, dass etwas nicht in Ordnung ist. Trotzdem glaubst Du fest daran, dass alles besser wäre, wenn Du nur noch dies oder jenes optimierst. Dabei geht es meist nicht darum, wie es Dir wirklich geht, oder was Du aus Herzen willst, sondern wie das Ergebnis sein „soll". Bei fehlendem Erfolg fühlst Du Dich wie ein Versager.</p>
     </div>
+  </div>
+</section>
+
+<section class="identity-shift">
+  <div class="identity-shift-inner">
+    <span class="eyebrow">Stell Dir vor</span>
+    <h2>Was, wenn das Dein <em>Standard</em> wäre?</h2>
+    <ul class="identity-list">
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du bleibst von innen reguliert, weil Du weißt: Du bist kein schlechter Mensch, nur weil Du mehr auf Dein Wohlergehen achtest als das der anderen.
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du fühlst Dich permanent von innen aufgeladen, weil Du gelernt hast, Deinen wahren Kern zu leben, unabhängig davon, was andere denken.
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du musst nicht mehr nachdenken, wie Du Dich „richtig" verhalten musst, weil Du Deine Richtung kennst.
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du zeigst Dich in Beziehungen so, wie Du wirklich bist und bleibst trotzdem verbunden.
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du hast keine Angst mehr, Deine wahre Größe zu zeigen, weshalb Fülle und Wohlstand die logische Schlussfolgerung sind.
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du beherrschst die Kunst der Selbstführung, weshalb sich Erfolg wie von selbst in Dein Leben fügt, während andere noch am Kämpfen sind.
+      </li>
+    </ul>
+    <a href="kurse.html" class="hero-cta" style="margin-top:12px;">Ich will das</a>
   </div>
 </section>
 
