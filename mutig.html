@@ -100,7 +100,7 @@
 
   .video-section{
     background: var(--cream);
-    padding: 70px 32px 100px;
+    padding: 70px 32px 10px;
     text-align:center;
   }
   .video-placeholder{
@@ -135,6 +135,46 @@
     text-transform: uppercase;
     color: #8c8268;
   }
+
+  .fit-check{
+    max-width: 780px;
+    margin: 60px auto 40px;
+    background: linear-gradient(150deg, #f0e2c4 0%, #f7ecd6 55%, #e9d3a1 100%);
+    border: 1px solid rgba(198,164,92,0.3);
+    border-radius: 14px;
+    padding: 36px 34px;
+    text-align:left;
+  }
+  .fit-check h3{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin-bottom: 22px;
+    text-align:center;
+  }
+  .fit-check ul{ list-style:none; }
+  .fit-check li{
+    display:flex;
+    align-items:flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: #443c28;
+  }
+  .fit-check .check-icon{
+    flex-shrink:0;
+    width: 24px; height:24px;
+    border-radius: 50%;
+    background: #4a9d6f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top: 1px;
+    box-shadow: 0 2px 6px rgba(74,157,111,0.3);
+  }
+  .fit-check li svg{ width: 14px; height:14px; stroke: #fff; }
+
   .article-hero .eyebrow{ display:block; margin-bottom: 20px; }
   .article-hero h1{
     font-size: clamp(1.9rem, 4vw, 2.9rem);
@@ -153,7 +193,19 @@
   /* ---------- Article body ---------- */
   .article{
     background: var(--cream);
-    padding: 90px 32px 110px;
+    padding: 20px 32px 110px;
+  }
+  .text-placeholder{
+    max-width: 780px;
+    margin: 0 auto;
+    text-align:center;
+    padding: 50px 40px;
+    border: 1.5px dashed rgba(28,25,20,0.15);
+    border-radius: 14px;
+    color: #8c8268;
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
   .article-inner{
     max-width: 720px;
@@ -616,23 +668,36 @@
     <span class="video-label">Video folgt in Kürze</span>
   </div>
   <a href="kurse.html" class="hero-cta">Zur Auswahl</a>
+
+  <div class="fit-check">
+    <h3>Das hier ist richtig für Dich, wenn ...</h3>
+    <ul>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du bereit bist, Dich selbst ehrlich zu reflektieren (auch bei unbequemen Themen).
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du eine gewisse Struktur schätzt.
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du Geduld mitbringst, oder bereit bist, sie Dir zu erarbeiten.
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Dir wirkliches Verstehen wichtiger ist, als bestätigt zu bekommen, wie großartig Du schon bist.
+      </li>
+      <li>
+        <span class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Du merkst, dass gängige Methoden à la „Du musst es nur stark genug wollen" Dir die letzte Kraft rauben. Du willst Deine Erschöpfung nicht mehr länger ausblenden und trotzdem vorankommen.
+      </li>
+    </ul>
+  </div>
 </section>
 
 <article class="article">
-  <div class="article-inner">
-
-  <h2>Higher Self</h2>
-  <p>Dein Higher Self ist ein Anteil, der Dich gut fühlen lässt. Er ist aber nicht da, um Dein Fundament zu bauen. Er kann keine Entscheidungen für Dich treffen — und plötzlich fühlst Du Dich nicht mehr so „high". Weil ein Gefühl allein nichts trägt, wenn der Rest von Dir nicht mitgenommen wird.</p>
-
-  <h2>Manifestation</h2>
-  <p>Ob Manifestation „funktioniert", bleibt oft reiner Zufall — nicht, weil das Prinzip falsch wäre, sondern weil in Dir mehrere Anteile gleichzeitig wirken, die sich manchmal widersprechen. Ein Anteil wünscht sich etwas. Ein anderer sabotiert es unbewusst, weil er darin ein Risiko sieht. Solange diese Anteile nicht miteinander sprechen, bleibt Manifestation ein Glücksspiel.</p>
-
-  <h2>Inneres Kind</h2>
-  <p>Die Arbeit mit dem inneren Kind berührt oft genau den wunden Punkt — aber sie übergeht dabei häufig die Anteile, die dieses Kind seit Jahren beschützen. Wird nur der verletzte Teil angesprochen, ohne seine Beschützer miteinzubeziehen, kehrt das alte Muster meist zurück, sobald es wieder eng wird.</p>
-
-  <p>Was stattdessen wirklich trägt: nicht ein einzelner Anteil, sondern das ganze Team — im Gespräch miteinander, statt gegeneinander.</p>
-
-  </div>
+  <div class="text-placeholder">Text folgt in Kürze</div>
 </article>
 
 <footer>
